@@ -1,0 +1,38 @@
+        body {
+            background-color: whitesmoke;
+            text-align: justify;
+            margin-left: 10px;
+            margin-right: 10px;
+            font-size: large;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        h5 {
+            text-align: unset;
+            margin-left: 80%;
+        }
+
+        p {
+            text-indent: -10px;
+            line-height: 1.8;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 10;
+            right: 90;
+            color: rgb(245, 51, 51)
+        }
+
+        a {
+            text-decoration-line: none;
+            color: #f00;
+        }
+
+        #article {
+            padding-left: 20%;
+        }
