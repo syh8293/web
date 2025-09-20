@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>생일 축하</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff6f91;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ff9671;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>강혜진 영주 엄마 🎂 63번 째 생일 축하해 🎉</h1>
+  <button onclick="startCelebration()">▶ 생일축하 노래 & 폭죽</button>
+
+  <!-- Happy Birthday 음악 -->
+  <audio id="birthdaySong"
+    src="https://pixabay.com/ko/music/search/genre/%ED%8A%B9%EB%B3%84%ED%95%9C%20%EB%82%A0/.mp3"></audio>
+
+  <!-- 폭죽을 위한 캔버스 -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- confetti 라이브러리 (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script>
+    function startCelebration() {
+      // 음악 재생
+      const song = document.getElementById("birthdaySong");
+      song.play();
+
+      // 폭죽 효과
+      const duration = 5 * 1000; // 5초간 폭죽
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+  </script>
+</body>
+</html>
