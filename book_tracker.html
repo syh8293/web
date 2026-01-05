@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 독서 만 페이지 챌린지</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .total-stats {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input[name="title"] { grid-column: span 2; }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: #27ae60; }
+
+        .log-list {
+            width: 100%;
+        }
+
+        .log-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .log-info span { display: block; font-size: 12px; color: #666; }
+        .log-info strong { font-size: 16px; color: #333; }
+        .page-count { font-weight: bold; color: var(--primary-color); font-size: 1.2rem; }
+        
+        .delete-btn {
+            background: #ff7675;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 2026 독서 챌린지</h1>
+        <div class="total-stats">
+            <div style="font-size: 0.9rem; opacity: 0.9;">현재까지 누적</div>
+            <div style="font-size: 2rem; font-weight: 800;"><span id="total-pages">0</span> / 10,000 P</div>
+        </div>
+    </header>
+
+    <div class="input-section">
+        <div class="input-group">
+            <input type="text" id="book-title" placeholder="책 제목을 입력하세요" name="title">
+            <input type="date" id="read-date">
+            <input type="number" id="start-page" placeholder="시작 페이지">
+            <input type="number" id="end-page" placeholder="종료 페이지">
+        </div>
+        <button onclick="addLog()">기록하기</button>
+    </div>
+
+    <div id="log-container" class="log-list">
+        </div>
+</div>
+
+<script>
+    let logs = JSON.parse(localStorage.getItem('readingLogs')) || [];
+
+    // 오늘 날짜 기본 설정
+    document.getElementById('read-date').valueAsDate = new Date();
+
+    function updateDisplay() {
+        const container = document.getElementById('log-container');
+        const totalDisplay = document.getElementById('total-pages');
+        container.innerHTML = '';
+        
+        let total = 0;
+
+        logs.forEach((log, index) => {
+            const readAmount = log.endPage - log.startPage;
+            total += readAmount;
+
+            const div = document.createElement('div');
+            div.className = 'log-item';
+            div.innerHTML = `
+                <div class="log-info">
+                    <span>${log.date}</span>
+                    <strong>${log.title}</strong>
+                    <span>${log.startPage}p ~ ${log.endPage}p</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="page-count">+${readAmount}P</span>
+                    <button class="delete-btn" onclick="deleteLog(${index})">삭제</button>
+                </div>
+            `;
+            container.prepend(div);
+        });
+
+        totalDisplay.innerText = total.toLocaleString();
+        localStorage.setItem('readingLogs', JSON.stringify(logs));
+    }
+
+    function addLog() {
+        const title = document.getElementById('book-title').value;
+        const date = document.getElementById('read-date').value;
+        const startPage = parseInt(document.getElementById('start-page').value);
+        const endPage = parseInt(document.getElementById('end-page').value);
+
+        if (!title || !date || isNaN(startPage) || isNaN(endPage)) {
+            alert('모든 항목을 올바르게 입력해주세요!');
+            return;
+        }
+
+        if (endPage < startPage) {
+            alert('종료 페이지가 시작 페이지보다 작을 수 없습니다.');
+            return;
+        }
+
+        const newLog = { title, date, startPage, endPage };
+        logs.push(newLog);
+        
+        // 입력 칸 초기화 (제목은 유지, 페이지는 마지막 종료 페이지를 다음 시작 페이지로)
+        document.getElementById('start-page').value = endPage;
+        document.getElementById('end-page').value = '';
+        
+        updateDisplay();
+    }
+
+    function deleteLog(index) {
+        if(confirm('이 기록을 삭제하시겠습니까?')) {
+            logs.splice(index, 1);
+            updateDisplay();
+        }
+    }
+
+    // 초기 화면 로드
+    updateDisplay();
+</script>
+
+</body>
+</html>
