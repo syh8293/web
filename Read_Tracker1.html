@@ -1,57 +1,99 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
   <title>책 만쪽 읽기 기록</title>
   <style>
+    :root {
+      --primary-color: #2f6fed;
+      --bg-color: #f7f7f5;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f7f7f5;
+      background: var(--bg-color);
       color: #222;
       max-width: 480px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+
+    /* 상단 고정 영역 */
+    .header-container {
+      padding: 24px 24px 10px 24px;
+      background: var(--bg-color);
+      z-index: 10;
+    }
+
     h1 {
       font-size: 1.4rem;
-      margin-bottom: 0.5rem;
+      margin: 0;
     }
+
     .sub {
       font-size: 0.9rem;
       color: #666;
-      margin-bottom: 1.5rem;
+      margin-bottom: 12px;
     }
+
+    /* 입력창 고정 */
+    .input-section {
+      padding: 0 24px 16px 24px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* 스크롤 가능 영역 */
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+    }
+
     .card {
       background: white;
       border-radius: 12px;
       padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       margin-bottom: 16px;
     }
+
     label {
       display: block;
       font-size: 0.85rem;
       margin-bottom: 4px;
+      font-weight: bold;
     }
-    input, textarea {
+
+    input,
+    textarea {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-bottom: 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 0.95rem;
+      box-sizing: border-box;
     }
+
     button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border: none;
       border-radius: 8px;
-      background: #2f6fed;
+      background: var(--primary-color);
       color: white;
       font-size: 1rem;
       cursor: pointer;
+      font-weight: bold;
     }
+
+    /* 프로그레스 바 */
     .progress {
       height: 12px;
       background: #e5e5e5;
@@ -59,212 +101,255 @@
       overflow: hidden;
       margin-top: 8px;
     }
+
     .bar {
       height: 100%;
-      background: #2f6fed;
+      background: var(--primary-color);
       width: 0%;
+      transition: width 0.3s;
     }
+
     .small {
       font-size: 0.85rem;
       color: #555;
       margin-top: 6px;
     }
-  </style>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#2f6fed" />
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
+
+    /* 기록 리스트 스타일 */
+    .history-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-  </script>
+
+    .history-item:active {
+      background: #ececec;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-date {
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+    }
+
+    .history-info {
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>책 만쪽 읽기</h1>
-  <div class="sub">숫자로 남기는 조용한 독서의 기록</div>
 
-  <div class="card">
-    <label>오늘 날짜</label>
-    <input type="date" id="date" />
-
-    <label>책 제목</label>
-    <input type="text" id="title" placeholder="선택 사항" />
-
-    <label><input type="checkbox" id="bookChanged" /> 책이 바뀌었습니다</label>
-
-    <label>책 전체 페이지 (선택)</label>
-    <input type="number" id="totalPages" placeholder="모를 경우 비워두세요" />
-
-    <label>오늘 읽기 시작한 페이지</label>
-    <input type="number" id="startPage" />
-
-    <label>오늘 읽기 종료한 페이지</label>
-    <input type="number" id="endPage" />
-
-    <label>메모</label>
-    <textarea id="memo" rows="2" placeholder="짧은 생각"></textarea>
-
-    <button onclick="saveEntry()">기록하기</button>
+  <div class="header-container">
+    <h1>책 만쪽 읽기</h1>
+    <div class="sub">숫자로 남기는 조용한 독서의 기록</div>
   </div>
 
-  <div class="card">
-    <div id="total">누적 페이지: 0 / 10,000</div>
-    <div class="progress">
-      <div class="bar" id="bar"></div>
+  <div class="input-section">
+    <div class="card">
+      <div
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label>오늘 날짜</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label>책 제목</label>
+          <input type="text" id="title"
+            placeholder="읽고 있는 책" />
+        </div>
+      </div>
+
+      <div
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label>시작 페이지</label>
+          <input type="number" id="startPage" />
+        </div>
+        <div>
+          <label>종료 페이지</label>
+          <input type="number" id="endPage" />
+        </div>
+      </div>
+
+      <label>메모</label>
+      <textarea id="memo" rows="1"
+        placeholder="짧은 생각"></textarea>
+
+      <button onclick="saveEntry()">기록하기</button>
+
+      <div style="display:none;">
+        <input type="number" id="totalPages" />
+        <input type="checkbox" id="bookChanged" />
+      </div>
     </div>
-    <div class="small" id="message"></div>
-    <div class="small" id="autoMessage"></div>
-    <div class="small" id="completeMessage"></div>
   </div>
 
-  <div class="card" style="max-height:300px; overflow-y:auto;">
-    <h2 style="font-size:1rem; margin-bottom:8px;">날짜별 기록</h2>
-    <ul id="entryList" style="padding-left:16px; font-size:0.9rem;"></ul>
-  </div>
+  <div class="scroll-content">
+    <div class="card">
+      <div id="total" style="font-weight: bold;">
+        누적 페이지: 0 / 10,000</div>
+      <div class="progress">
+        <div class="bar" id="bar"></div>
+      </div>
+      <div class="small" id="message"></div>
+      <div id="completeMessage"
+        style="color: #d93025; font-size: 0.85rem; margin-top:5px;">
+      </div>
+    </div>
 
-  <div class="card">
-    <h2 style="font-size:1rem; margin-bottom:8px;">완독한 책</h2>
-    <ul id="completedList" style="padding-left:16px; font-size:0.9rem;"></ul>
-  </div>
+    <div class="card">
+      <h2
+        style="font-size:1rem; margin-bottom:12px;">
+        최근 읽기 기록 <span
+          style="font-weight:normal; font-size:0.7rem; color:#888;">(터치하여
+          불러오기)</span></h2>
+      <div id="historyList"></div>
+    </div>
+
+    <div class="card">
+      <h2
+        style="font-size:1rem; margin-bottom:8px;">
+        완독한 책</h2>
+      <ul id="completedList"
+        style="padding-left:16px; font-size:0.9rem;">
+      </ul>
+    </div>
   </div>
 
   <script>
     const TARGET = 10000;
 
+    // 초기화: 오늘 날짜 설정
+    document.getElementById('date').value =
+      new Date().toISOString().substring(0, 10);
+
     function loadEntries() {
-      return JSON.parse(localStorage.getItem('readingEntries') || '[]');
+      return JSON.parse(localStorage.getItem(
+        'readingEntries') || '[]');
     }
 
     function saveEntries(entries) {
-      localStorage.setItem('readingEntries', JSON.stringify(entries));
+      localStorage.setItem('readingEntries', JSON
+        .stringify(entries));
     }
 
     function saveEntry() {
-      const start = Number(document.getElementById('startPage').value);
-      const end = Number(document.getElementById('endPage').value);
+      const date = document.getElementById('date')
+        .value;
+      const title = document.getElementById(
+        'title').value;
+      const start = Number(document
+        .getElementById('startPage').value);
+      const end = Number(document.getElementById(
+        'endPage').value);
+      const memo = document.getElementById('memo')
+        .value;
 
-      const totalPages = Number(document.getElementById('totalPages').value);
+      if (!date || start === "" || end === "") {
+        alert("날짜와 페이지를 입력해주세요.");
+        return;
+      }
 
       const entry = {
-        date: document.getElementById('date').value,
-        title: document.getElementById('title').value,
+        date,
+        title,
         startPage: start,
         endPage: end,
-        totalPages: totalPages || null,
         pages: Math.max(0, end - start + 1),
-        memo: document.getElementById('memo').value
+        memo: memo
       };
 
-      if (!entry.date || !entry.startPage || !entry.endPage) return;
+      let entries = loadEntries();
 
-      const entries = loadEntries();
+      // 같은 날짜의 기록이 있다면 덮어씌울지 확인하거나 중복 방지 (여기서는 추가)
       entries.push(entry);
       saveEntries(entries);
 
-      const auto = !document.getElementById('bookChanged').checked;
+      // 수정 사항 반영:
+      // 1. 제목 유지 (수정 안 함)
+      // 2. 종료 페이지 유지 (수정 안 함)
+      // 3. 다음 읽기를 위해 시작 페이지만 셋팅 (옵션)
+      document.getElementById('startPage').value =
+        end + 1;
 
-      if (auto) {
-        document.getElementById('startPage').value = end + 1;
-        document.getElementById('autoMessage').innerText = '어제의 끝에서 다시 시작합니다.';
-      } else {
-        document.getElementById('startPage').value = '';
-        document.getElementById('autoMessage').innerText = '';
-      }
-
-      document.getElementById('bookChanged').checked = false;
-
-      // 다음 읽기를 위해 시작 페이지를 자동으로 설정
-      document.getElementById('startPage').value = end + 1;
-
-      updateProgress();
-
-      if (entry.totalPages && end >= entry.totalPages) {
-        document.getElementById('completeMessage').innerText = '★ 한 권을 끝까지 읽었습니다.';
-      } else {
-        document.getElementById('completeMessage').innerText = '';
-      }
+      updateUI();
+      alert("기록되었습니다.");
     }
 
-    function updateProgress() {
+    // 특정 기록 불러오기
+    function viewEntry(index) {
       const entries = loadEntries();
-      const total = entries.reduce((sum, e) => sum + (e.pages || 0), 0);
-      const percent = Math.min((total / TARGET) * 100, 100);
+      const entry = entries[index];
+      if (!entry) return;
 
-      document.getElementById('total').innerText = `누적 페이지: ${total} / ${TARGET}`;
-      document.getElementById('bar').style.width = percent + '%';
+      document.getElementById('date').value =
+        entry.date;
+      document.getElementById('title').value =
+        entry.title || "";
+      document.getElementById('startPage').value =
+        entry.startPage;
+      document.getElementById('endPage').value =
+        entry.endPage;
+      document.getElementById('memo').value =
+        entry.memo || "";
 
-      const daily = Math.ceil((TARGET - total) / Math.max(1, 365 - entries.length));
-      document.getElementById('message').innerText =
-        total >= TARGET
-          ? '이미 목적지에 도착했습니다.'
-          : `내일은 약 ${daily}페이지면 충분합니다.`;
-
-      updateCompletedBooks(entries);
-      updateEntryList(entries);
-    }
-
-    updateProgress();
-
-    function updateEntryList(entries) {
-      const list = document.getElementById('entryList');
-      if (!list) return;
-
-      list.innerHTML = '';
-      entries.slice().reverse().forEach(e => {
-        const li = document.createElement('li');
-        li.style.cursor = 'pointer';
-        li.innerText = `${e.date} · ${e.title || '제목 없는 책'} (${e.pages}p)`;
-        li.onclick = () => {
-          const edit = confirm(
-            `날짜: ${e.date}
-` +
-            `책: ${e.title || '제목 없음'}
-` +
-            `읽은 구간: ${e.startPage}p ~ ${e.endPage}p
-` +
-            `페이지 수: ${e.pages}p
-` +
-            `메모: ${e.memo || '없음'}
-
-` +
-            `이 기록을 수정하시겠습니까?`
-          );
-
-          if (edit) {
-            document.getElementById('date').value = e.date;
-            document.getElementById('title').value = e.title;
-            document.getElementById('startPage').value = e.startPage;
-            document.getElementById('endPage').value = e.endPage;
-            document.getElementById('memo').value = e.memo;
-
-            entries.splice(entries.indexOf(e), 1);
-            saveEntries(entries);
-            updateProgress();
-          }
-        };
-        };
-        list.appendChild(li);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
     }
 
-    function updateCompletedBooks(entries) {
-      const list = document.getElementById('completedList');
-      if (!list) return;
+    function updateUI() {
+      const entries = loadEntries();
 
-      const completed = {};
+      // 1. 프로그레스 업데이트
+      const total = entries.reduce((sum, e) =>
+        sum + (e.pages || 0), 0);
+      const percent = Math.min((total / TARGET) *
+        100, 100);
+      document.getElementById('total').innerText =
+        `누적 페이지: ${total.toLocaleString()} / ${TARGET.toLocaleString()}`;
+      document.getElementById('bar').style.width =
+        percent + '%';
 
-      entries.forEach(e => {
-        if (e.totalPages && e.endPage >= e.totalPages) {
-          completed[e.title || '제목 없는 책'] = true;
-        }
-      });
+      const remaining = TARGET - total;
+      document.getElementById('message')
+        .innerText =
+        total >= TARGET ? '목표 달성! 대단합니다.' :
+        `목표까지 ${remaining.toLocaleString()}페이지 남았습니다.`;
 
-      list.innerHTML = '';
-      Object.keys(completed).forEach(title => {
-        const li = document.createElement('li');
-        li.innerText = title;
-        list.appendChild(li);
+      // 2. 히스토리 리스트 업데이트 (역순으로 표시)
+      const historyList = document.getElementById(
+        'historyList');
+      historyList.innerHTML = '';
+      [...entries].reverse().forEach((e,
+      index) => {
+        const realIndex = entries.length - 1 -
+          index;
+        const item = document.createElement(
+          'div');
+        item.className = 'history-item';
+        item.onclick = () => viewEntry(
+          realIndex);
+        item.innerHTML = `
+          <div class="history-date">${e.date} <span style="color:#555; font-weight:normal; margin-left:8px;">${e.title || '제목없음'}</span></div>
+          <div class="history-info">${e.startPage}p ~ ${e.endPage}p (${e.pages}쪽 읽음)</div>
+          ${e.memo ? `<div style="font-size:0.8rem; color:#777; margin-top:4px;">"${e.memo}"</div>` : ''}
+        `;
+        historyList.appendChild(item);
       });
     }
+
+    // 초기 로딩
+    updateUI();
   </script>
 </body>
+
 </html>
