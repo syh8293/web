@@ -53,16 +53,19 @@
     a.is-visited {
     color: blue !important;
     }
+    
   </style>
 
   <script>
-    document.querySelectorAll('a').forEach(link =>
-    {
-    link.addEventListener('click', function() {
-    this.classList.add('is-visited');
-    });
+    document.querySelectorAll('a').forEach(
+    link => {
+      link.addEventListener('click',
+        function () {
+          this.classList.add('is-visited');
+        });
     });
   </script>
+  
 </head>
 
 <body>
