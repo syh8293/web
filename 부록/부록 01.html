@@ -38,16 +38,18 @@
       color: rgb(245, 51, 51)
     }
     
+    /* 기본 상태와 방문 후 상태를 명확히 구분 */
     a:link {
-        color:black;
-        background-color: transparent;
-        text-decoration: none;
-          }
+      color: #0000EE; /* 기본 링크 색상 (필요시 수정) */
+    }
+
+    /* 우선순위를 높이기 위해 tag와 상태를 결합 */
     a:visited {
-        color: blue;
-        background-color: transparent;
-        text-decoration: none;
-          }
+      color: blue !important;
+      background-color: transparent;
+      text-decoration: none;
+    }
+
     a.is-visited {
     color: blue !important;
     }
