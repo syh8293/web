@@ -47,6 +47,40 @@
             padding-left: 20%;
         }
     </style>
+
+    <script>
+        // 각주 클릭 시 현재 위치 강제 저장
+        document.querySelectorAll('a').forEach(
+            anchor => {
+                anchor.addEventListener(
+                    'click', () => {
+                        sessionStorage
+                            .setItem(
+                                'scrollPos',
+                                window
+                                .scrollY);
+                    });
+            });
+
+        // 돌아왔을 때 복구
+        window.addEventListener('load', () => {
+            const scrollPos =
+                sessionStorage.getItem(
+                    'scrollPos');
+            if (scrollPos) {
+                setTimeout(() => {
+                    window
+                        .scrollTo(
+                            0,
+                            parseInt(
+                                scrollPos
+                                )
+                            );
+                },
+                100); // 모바일 렌더링 시간을 고려한 미세한 지연
+            }
+        });
+    </script>
 </head>
 
 <body>
