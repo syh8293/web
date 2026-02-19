@@ -51,20 +51,14 @@
     <script>
         // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
         window.addEventListener('scroll', () => {
-            sessionStorage.setItem(
-                'scrollPos', window
-                .scrollY);
+            sessionStorage.setItem('scrollPos', window.scrollY);
         });
 
         // 2. 페이지가 로드될 때 저장된 위치로 이동
         window.addEventListener('load', () => {
             const scrollPos =
-                sessionStorage.getItem(
-                    'scrollPos');
-            if (scrollPos) {
-                window.scrollTo(0,
-                    parseInt(
-                        scrollPos));
+                sessionStorage.getItem('scrollPos');
+            if (scrollPos) {window.scrollTo(0, parseInt(scrollPos));
             }
         });
     </script>
@@ -242,7 +236,8 @@
 
             <hr>
 
-                <div id="article">
+                <div id="article"
+                    style="text-align: center;">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%202.html">&#9664;</a>
                                 &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
