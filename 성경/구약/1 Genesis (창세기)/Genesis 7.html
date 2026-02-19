@@ -11,17 +11,17 @@
         body {
             background-color: whitesmoke;
             text-align: justify;
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-left: 20px;
+            margin-right: 5px;
             font-size: large;
         }
 
         h3 {
-            text-align: center;
+            text-align:center;
         }
 
         h5 {
-            text-align: unset;
+            text-align:unset;
             margin-left: 80%;
         }
 
@@ -33,13 +33,13 @@
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
         a {
-            text-decoration-line: none;
+            text-decoration: none;
             color: #f00;
         }
 
@@ -47,12 +47,32 @@
             padding-left: 20%;
         }
     </style>
+
+    <script>
+        // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
+        window.addEventListener('scroll', () => {
+            sessionStorage.setItem(
+                'scrollPos', window
+                .scrollY);
+        });
+
+        // 2. 페이지가 로드될 때 저장된 위치로 이동
+        window.addEventListener('load', () => {
+            const scrollPos =
+                sessionStorage.getItem(
+                    'scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0,
+                    parseInt(
+                        scrollPos));
+            }
+        });
+    </script>
+
 </head>
 
 <body>
-    <header>
-        창세기 7 장
-    </header>
+    <header>창세기 7 장</header>
 
     <h3>창세기 7 장</h3>
 
@@ -62,27 +82,22 @@
   
     <p>
         7:1 <b>주</b>께서 노아에게 말씀하시기를 “너와 네 온 집안은 방주로 들어오라.<sup><a
-            href="https://syh8293.github.io/an13/Genesis%207-1.html"
-            target="_blank">ㄱ</a></sup> 네가 이 세대에서 내 앞에 의로운 것을 내가
-        보았음이니라.  
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-1.html"
+            target="_blank">ㄱ</a></sup> 네가 이 세대에서 내 앞에 의로운 것을 내가 보았음이니라.  
     </p>
 
     <p>
-        7:2 너는 모든 정결한 짐승을 수컷과 암컷 일곱씩, 정결하지 않은 짐승은 
-        수컷과 암컷 둘을 네게로 취하며,   
+        7:2 너는 모든 정결한 짐승을 수컷과 암컷 일곱씩, 정결하지 않은 짐승은  수컷과 암컷 둘을 네게로 취하며,   
     </p>
   
     <p>
-        7:3 공중의 새도 수컷과 암컷을 일곱씩 취하여 온 지면에 그 씨로 살아남게 
-        하라.  
+        7:3 공중의 새도 수컷과 암컷을 일곱씩 취하여 온 지면에 그 씨로 살아남게 하라.  
     </p>
   
     <p>
-        7:4 이제 칠 일이 되면 내가 사십 일 낮과 사십 일 밤 동안 땅 위에 비를 
-        내려,<sup><a
-                href="https://syh8293.github.io/an6/Genesis%207-4.html"
-                target="_blank">1</a></sup>
-        내가 지은 모든 생물을 지면에서 쓸어 버리리라.” 하시니라.
+        7:4 이제 칠 일이 되면 내가 사십 일 낮과 사십 일 밤 동안 땅 위에 비를 내려,<sup><a
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-4.html"
+            target="_blank">1</a></sup> 내가 지은 모든 생물을 지면에서 쓸어 버리리라.” 하시니라.
     </p>
 
     <p>
@@ -94,19 +109,17 @@
     </p>
   
     <p>
-        7:7 &#x0039F  홍수의 물들 때문에, 노아가 자기 아들들과, 아내와, 자기 
-        아들들의 아내들과 함께 방주로 들어갔고   
+        7:7 &#x0039F  홍수의 물들 때문에, 노아가 자기 아들들과, 아내와, 자기 아들들의 아내들과 함께 방주로 들어갔고   
     </p>
   
     <p>
         7:8 정결한 짐승들과 정결하지 않은 짐승들과<sup><a 
-            href="https://syh8293.github.io/an6/Genesis%207-8.html"
-                target="_blank">2</a></sup> 새들과 땅에 기는  모든 것이  
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-8.html"
+            target="_blank">2</a></sup> 새들과 땅에 기는  모든 것이  
     </p>
 
     <p>
-        7:9 수컷과 암컷 둘씩 노아에게 나아와 방주로 들어갔으니, <b>하나님</b>께서 
-        노아에게 명하셨던 대로더라.  
+        7:9 수컷과 암컷 둘씩 노아에게 나아와 방주로 들어갔으니, <b>하나님</b>께서 노아에게 명하셨던 대로더라.  
     </p>
   
     <p>
@@ -114,8 +127,8 @@
     </p>
   
     <p>
-        7:11 &#x0039F  노아의 생이 육백 세 되던 해 둘째 달, 그 달 십칠일, 그 날에 
-        모든 큰 깊음의 샘들이 터지고 하늘의 창들이 열렸으니,  
+        7:11 &#x0039F  노아의 생이 육백 세 되던 해 둘째 달, 그 달 십칠일, 그 날에 모든 큰 깊음의 샘들이 
+        터지고 하늘의 창들이 열렸으니,  
     </p>
   
     <p>
@@ -123,15 +136,13 @@
     </p>
   
     <p>
-        7:13 같은 날 노아와, 그의 아들 셈과 함과 야펫과 노아의 아내와 그 아들들의 
-        세 아내들이 다 함께 방주로 들어가니라.  
+        7:13 같은 날 노아와, 그의 아들 셈과 함과 야펫과 노아의 아내와 그 아들들의 세 아내들이 다 함께 방주로 들어가니라.  
     </p>
   
     <p>
-        7:14 그들과 모든 짐승들이 그 종류대로, 모든 가축이 그 종류대로, 땅 위를 
-        기는 모든 기어다니는 것들이 그 종류대로, 모든 새, 즉 각종 새가 그 
-        종류대로,<sup><a
-            href="https://syh8293.github.io/an6/Genesis%207-14.html"
+        7:14 그들과 모든 짐승들이 그 종류대로, 모든 가축이 그 종류대로, 땅 위를 기는 모든 기어다니는 
+        것들이 그 종류대로, 모든 새, 즉 각종 새가 그 종류대로,<sup><a
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-14.html"
             target="_blank">3</a></sup>
     </p>
 
@@ -140,15 +151,14 @@
     </p>
   
     <p>
-        7:16 들어간 것들은 모든 육체의 수컷과 암컷이라. <b>하나님</b>께서 그에게 
-        명하신 대로 들어가니, <b>주</b>께서 그를 안에 넣고 닫으시니라.  
+        7:16 들어간 것들은 모든 육체의 수컷과 암컷이라. <b>하나님</b>께서 그에게 명하신 대로 들어가니, 
+        <b>주</b>께서 그를 안에 넣고 닫으시니라.  
     </p>
 
     <h4>전 세게적 홍수</h4>
 
     <p>
-        7:17 땅에 홍수가 사십 일 동안 있은지라,  물이 불어나서 방주를 띄우니 
-        방주가 땅 위로 들리더라.  
+        7:17 땅에 홍수가 사십 일 동안 있은지라,  물이 불어나서 방주를 띄우니 방주가 땅 위로 들리더라.  
     </p>
   
     <p>
@@ -156,9 +166,8 @@
     </p>
   
     <p>
-        7:19 물이 땅 위에 심히 널리 퍼지니 온 하늘 아래 모든 높은 산들이 
-        잠기더라.<sup><a
-            href="https://syh8293.github.io/an6/Genesis%207-19.html"
+        7:19 물이 땅 위에 심히 널리 퍼지니 온 하늘 아래 모든 높은 산들이 잠기더라.<sup><a
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-19.html"
             target="_blank">4</a></sup>
     </p>
 
@@ -167,20 +176,17 @@
     </p>
   
     <p>
-        7:21 땅에서 움직이는 모든 육체가 죽었으니, 곧 새와 가축과 짐승과 
-        땅에 기어다니는 모든 기는 것들과 모든 사람이라.  
+        7:21 땅에서 움직이는 모든 육체가 죽었으니, 곧 새와 가축과 짐승과 땅에 기어다니는 모든 기는 것들과 모든 사람이라.  
     </p>
   
     <p>
-        7:22 마른 땅에 있는 모든 것 중에서 코로 생명의 호흡을 하던 모든 
-        것은 죽었더라.  
+        7:22 마른 땅에 있는 모든 것 중에서 코로 생명의 호흡을 하던 모든 것은 죽었더라.  
     </p>
   
     <p>
-        7:23 지면에 있는 모든 생물이 멸망하였으니, 곧 사람과 가축과 기
-        어다니는 것들과 하늘의 새들이라. 이들은 땅에서 멸절되었으나, 오직 
-        노아와 그와 함께 방주에 있던 자들만이 살아남았더라.<sup><a
-            href="https://syh8293.github.io/an6/Genesis%207-23.html"
+        7:23 지면에 있는 모든 생물이 멸망하였으니, 곧 사람과 가축과 기어다니는 것들과 하늘의 새들이라. 
+        이들은 땅에서 멸절되었으나, 오직 노아와 그와 함께 방주에 있던 자들만이 살아남았더라.<sup><a
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%207-23.html"
             target="_blank">5</a></sup>
     </p>
 
@@ -190,7 +196,7 @@
 
         <hr>
 
-            <div id="article">
+            <div style="text-align: center;">
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%206.html">&#9664;</a>
                             &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
