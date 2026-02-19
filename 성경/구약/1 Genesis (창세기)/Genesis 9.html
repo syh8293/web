@@ -11,17 +11,17 @@
         body {
             background-color: whitesmoke;
             text-align: justify;
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-left: 20px;
+            margin-right: 5px;
             font-size: large;
         }
 
         h3 {
-            text-align: center;
+            text-align:center;
         }
 
         h5 {
-            text-align: unset;
+            text-align:unset;
             margin-left: 80%;
         }
 
@@ -33,13 +33,13 @@
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
         a {
-            text-decoration-line: none;
+            text-decoration: none;
             color: #f00;
         }
 
@@ -47,12 +47,32 @@
             padding-left: 20%;
         }
     </style>
+
+    <script>
+        // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
+        window.addEventListener('scroll', () => {
+            sessionStorage.setItem(
+                'scrollPos', window
+                .scrollY);
+        });
+
+        // 2. 페이지가 로드될 때 저장된 위치로 이동
+        window.addEventListener('load', () => {
+            const scrollPos =
+                sessionStorage.getItem(
+                    'scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0,
+                    parseInt(
+                        scrollPos));
+            }
+        });
+    </script>
+
 </head>
 
 <body>
-    <header>
-        창세기 9 장
-    </header>
+    <header>창세기 9 장</header>
 
     <h3>창세기 9 장</h3>
 
@@ -86,8 +106,7 @@
 
     <p>
         9:5 내가 반드시 너희 생명의 피를 찾으리니, 모든 짐승의 손과 사람의 손에서도 
-        내가 그것을 찾을 것이며, 모든 사람의 형제의 손에서도 내가 그 사람의 생명을 
-        찾으리라.  
+        내가 그것을 찾을 것이며, 모든 사람의 형제의 손에서도 내가 그 사람의 생명을 찾으리라.  
     </p>
   
     <p>
@@ -102,8 +121,7 @@
     <h4>노아의 언약</h4>
 
     <p>
-        9:8 &#x0039F 또 <b>하나님</b>께서 노아와 그와 함께한 그의 아들들에게 일러 
-        말씀하시기를<sup><a 
+        9:8 &#x0039F 또 <b>하나님</b>께서 노아와 그와 함께한 그의 아들들에게 일러 말씀하시기를<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-8.html"
             target="_blank">3</a></sup>  
     </p>
@@ -190,35 +208,33 @@
         9:23 셈과 야펫이 옷을 집어서 자기들의 어깨에다 걸치고  뒷걸음질로 들어가 아버지의 
         벌거벗은 것을 덮은지라.<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-23.html"
-                target="_blank">ㄹ</a></sup> 그들의 얼굴이 뒤로 향해 있었기에, 그들은 
-        자기 아버지의 벌거벗은<sup><a 
+            target="_blank">ㄹ</a></sup> 그들의 얼굴이 뒤로 향해 있었기에, 그들은 자기 아버지의 벌거벗은<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-23.html"
-                target="_blank">ㅁ</a></sup> 것을 보지 아니하였더라.  
+            target="_blank">ㅁ</a></sup> 것을 보지 아니하였더라.  
     </p>
 
     <p>
         9:24 노아가 포도주에서 깨어나서, 그의 작은 아들이 자기에게 행한<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-24.html"
-                target="_blank">8</a></sup> 일을 알고서,  
+            target="_blank">8</a></sup> 일을 알고서,  
     </p>
 
     <p>
-        9:25 말하기를 “카나안은 저주를 받으리니, 그가 그의 형제들에게 종들의 종이 
-        될지어다.”<sup><a
-                href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-25.html"
-                target="_blank">9</a></sup> 하고,
+        9:25 말하기를 “카나안은 저주를 받으리니, 그가 그의 형제들에게 종들의 종이 될지어다.”<sup><a
+            href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-25.html"
+            target="_blank">9</a></sup> 하고,
     </p>
 
     <p>
         9:26 또 그가 말하기를 “셈의 <b>주 하나님</b>을 송축하리로다.<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-26.html"
-                target="_blank">10</a></sup> 카나안은 그의 종이 되리라.  
+            target="_blank">10</a></sup> 카나안은 그의 종이 되리라.  
     </p>
 
     <p>
         9:27 <b>하나님</b>께서 야펫을 증대케 하시어 셈의 장막에서<sup><a 
             href="https://syh8293.github.io/web/주석/구약/1%20Genesis%20(창세기)/Genesis%209-27.html"
-                target="_blank">11</a></sup> 거하게 하실 것이요, 카나안은 그의 종이 되리라.” 하더라.  
+            target="_blank">11</a></sup> 거하게 하실 것이요, 카나안은 그의 종이 되리라.” 하더라.  
     </p>
 
     <p>
@@ -234,10 +250,10 @@
             <div id="article">
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%208.html">&#9664;</a>
-                            &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
+                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                            &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
+                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%2010.html">&#9654;</a>
             </div>
