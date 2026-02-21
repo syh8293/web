@@ -11,17 +11,17 @@
         body {
             background-color: whitesmoke;
             text-align: justify;
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-left: 20px;
+            margin-right: 5px;
             font-size: large;
         }
 
         h3 {
-            text-align: center;
+            text-align:center;
         }
 
         h5 {
-            text-align: unset;
+            text-align:unset;
             margin-left: 80%;
         }
 
@@ -33,13 +33,13 @@
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
         a {
-            text-decoration-line: none;
+            text-decoration: none;
             color: #f00;
         }
 
@@ -47,12 +47,32 @@
             padding-left: 20%;
         }
     </style>
+
+    <script>
+        // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
+        window.addEventListener('scroll', () => {
+            sessionStorage.setItem(
+                'scrollPos', window
+                .scrollY);
+        });
+
+        // 2. 페이지가 로드될 때 저장된 위치로 이동
+        window.addEventListener('load', () => {
+            const scrollPos =
+                sessionStorage.getItem(
+                    'scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0,
+                    parseInt(
+                        scrollPos));
+            }
+        });
+    </script>
+
 </head>
 
 <body>
-    <header>
-        창세기 13 장
-    </header>
+    <header>창세기 13 장</header>
 
     <h3>창세기 13 장</h3>
 
@@ -180,10 +200,10 @@
             <div id="article">
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%2012">&#9664;</a>
-                            &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
+                            &ensp; &ensp; &ensp;&ensp; &ensp; &ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                            &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
+                            &ensp; &ensp; &ensp;&ensp; &ensp; &ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%2014">&#9654;</a>
             </div>
