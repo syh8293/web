@@ -49,12 +49,32 @@
       text-decoration: none;
     }
   </style>
+
+  <script>
+      // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
+      window.addEventListener('scroll', () => {
+          sessionStorage.setItem(
+              'scrollPos', window
+              .scrollY);
+      });
+
+      // 2. 페이지가 로드될 때 저장된 위치로 이동
+      window.addEventListener('load', () => {
+          const scrollPos =
+              sessionStorage.getItem(
+                  'scrollPos');
+          if (scrollPos) {
+              window.scrollTo(0,
+                  parseInt(
+                      scrollPos));
+          }
+      });
+    </script>
+
 </head>
 
 <body>
-    <header>
-      신약 서론 
-    </header>
+    <header>신약 서론</header>
 
     <h3>신약 서론</h3>
 
@@ -64,7 +84,7 @@
         성경의 신약이 "우리 주와 구주 예수 그리스도의 신약"이라고 불리는 이유는 신약이
         예수 그리스도의 죽으심을 다루기 때문이요, 주님은 『새 언약』을 "유언하신
         분"이시기 때문이다 (<a 
-          href="https://syh8293.github.io/web/성경/구약/서문, 후기/2Prologue1.html" 
+          href="https://syh8293.github.io/web/부록 본문/신약/19 Heb (히브리서)/Hebrews 9-16-17.html" 
           target="_blank">히 9:16-17</a>). 비록 『언약』을 말할 때 "커비넌트"
         (covenant)와 "테스터먼트" (testament)가 &lt킹제임스 성경&gt에서 둘 다 사용되지만, 
         "유언"의 의미를 내포한 "테스터먼트"가 성경의 큰 두 구획을 나타내는데 적합하며, 
@@ -77,7 +97,7 @@
         신약은 27권, 7,959절, 영어 &lt킹제임스 성경&gt의 경우 181,253 단어로 구성되어 있다. 
         신약의 정 중앙 책은 데살로니가후서이며, 정중앙에 있는 장은 로마서 13, 14장이며, 
         정중앙의 구절은 <a 
-          href="https://syh8293.github.io/web/성경/구약/서문, 후기/2Prologue1.html" 
+          href="https://syh8293.github.io/web/부록 본문/신약/5 Act (사도행전)/Acts 17-17-1.html" 
           target="_blank">사도행전 17:17</a>이다.
     </p>
 
@@ -102,15 +122,19 @@
 
     <p>
         "가지"라는 용어는 <a 
-          href="https://syh8293.github.io/web/성경/구약/서문, 후기/2Prologue2.html" 
-          target="_blank">예레미야 23:5</a>, 스카랴 3:8; 6:12-13, <a 
-          href="https://syh8293.github.io/web/성경/구약/서문, 후기/2Prologue3.html" 
-          target="_blank">이사야 4:2</a>에 나온다. 예레미야 23:5는 가지』가 다윗을 통해 오시는 
+            href="https://syh8293.github.io/web/부록 본문/구약/24 Jer (예레미야)/Jeremiah 23-5-1-1.html" 
+            target="_blank">예레미야 23:5</a>, &ensp;<a 
+            href="https://syh8293.github.io/web/부록 본문/구약/38 Zec (스카랴)/Zechariah 3-8-1-1.html"
+            target="_blank">스카랴 3:8</a>; &ensp;<a 
+            href="https://syh8293.github.io/web/부록 본문/구약/38 Zec (스카랴)/Zechariah 6-12-13".html
+            target="_blank">6:12-13</a>, <a 
+            href="https://syh8293.github.io/web/부록 본문/구약/23 Isa (이사야)/Isaiah 4-2-1-1.html" 
+            target="_blank">이사야 4:2</a>에 나온다. 예레미야 23:5는 가지』가 다윗을 통해 오시는 
         이스라엘의 왕임을 밝히고 있다. 마태복음의 주제가 곧 '예수 그리스도께서는 『유대인의 <b>왕</b>』
         이다.'이며, 마태복음에서는 예수님의 계보가 다윗까지 거슬러 올라가고 거기서 다시 유대인들의 조상
         아브라함까지 올라간다. 스카랴 3:8은 『<b>가지</b>』를 하나님의 종이라고 부르며, 이는 하나님의 
         종이신 예수 그리스도를 묘사하는 마가복음의 주제와 일치한다. <a 
-          href="https://syh8293.github.io/web/성경/구약/서문, 후기/2Prologue3.html" 
+          href="https://syh8293.github.io/web/부록 본문/구약/38 Zec (스카랴)/Zechariah 6-12-1.html" 
           target="_blank">스카랴 6:12</a>은 『그 이름이 <b>가지</b>인 사람을 보라』고 말씀하신다.
         누가는 그리스도를 『<b>인자</b>』(the Son of man)로 묘사한다. 이 모든 것이 우연이 아님을 
         확실히 증명하려고, 이사야는 그리스도를 『<b>주</b>의 가지』 곧 주이신 가지라고 말하고 
@@ -188,12 +212,13 @@
           <h4>
               <a
                   href="https://syh8293.github.io/web/성경/구약/서문%2C%20후기/Epilogue.html">&#9664;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                          &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;
               <a
                   href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                          &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;
               <a
                   href="https://syh8293.github.io/web/성경/신약/1%20Matthew%20(마태복음)/Matthew%200.html">&#9654;</a>
         </h4>
 </body>
+
 </html>
