@@ -54,12 +54,32 @@
       line-height: 1.1;
     }
   </style>
+
+  <script>
+        // 1. 페이지를 떠나거나 스크롤할 때 현재 위치 저장
+        window.addEventListener('scroll', () => {
+            sessionStorage.setItem(
+                'scrollPos', window
+                .scrollY);
+        });
+
+        // 2. 페이지가 로드될 때 저장된 위치로 이동
+        window.addEventListener('load', () => {
+            const scrollPos =
+                sessionStorage.getItem(
+                    'scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0,
+                    parseInt(
+                        scrollPos));
+            }
+        });
+    </script>
+
 </head>
 
 <body>
-    <header>
-      성경의 종결부
-    </header>
+    <header>성경의 종결부</header>
 
     <h3>성경의 종결부</h3>
 
@@ -163,10 +183,10 @@
 
           <a
             href="https://syh8293.github.io/web/성경/신약/27 Revelation (요한계시록)/Revelation 22">&#9664;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                     &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;
           <a
             href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                      &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;
           <a
             href="https://syh8293.github.io/web/부록/부록 목차">&#9654;</a>
 
