@@ -14,18 +14,6 @@
             min-height: 200px; /* 애니메이션 중 빈 공간 방지 */
         }
 
-        .row { display: flex; justify-content: center; min-width: max-content; margin: 3px 0; opacity: 0; transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out; }
-        .row.show { opacity: 1; } /* 애니메이션으로 나타날 때 */
-        
-        .cell { 
-            width: 35px; height: 35px; line-height: 35px; 
-            margin: 1px; border-radius: 4px; 
-            box-shadow: 0 1px 3px rgba(123, 226, 209, 0.1); 
-            font-size: 0.8rem; font-weight: bold; 
-            background: white; /* 기본 배경색 */
-            color: #333; /* 기본 글자색 */
-        }
-
         .expansion { 
             margin-top: 20px; font-size: 1rem; color: #007bff; 
             padding: 15px; background: white; border-radius: 10px; 
@@ -47,31 +35,30 @@
         button:hover { background-color: #218838; }
         button:disabled { background-color: #cccccc; cursor: not-allowed; } /* 비활성화 스타일 */
 
-        
             /* ... 이전 스타일 유지 ... */
-            .cell {
-                width: 40px;
-                height: 40px;
-                line-height: 40px;
-                margin: 2px;
-                border-radius: 8px;
-                background: #ffffff;
-                /* 배경은 흰색으로 고정 */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-                font-size: 0.9rem;
-                font-weight: 800;
-                /* 글자 두껍게 */
-                transition: color 0.5s ease-in-out;
-                /* 글자색 변화 애니메이션 */
-            }
+        .cell {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin: 2px;
+            border-radius: 8px;
+            background: #ffffff;
+            /* 배경은 흰색으로 고정 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            font-size: 0.9rem;
+            font-weight: 800;
+            /* 글자 두껍게 */
+            transition: color 0.5s ease-in-out;
+            /* 글자색 변화 애니메이션 */
+        }
 
-            .row {
-                display: flex;
-                justify-content: center;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-                padding: 2px 0;
-            }
+        .row {
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 2px 0;
+        }
     </style>
 
     <script>
