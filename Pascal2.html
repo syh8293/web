@@ -46,7 +46,117 @@
         }
         button:hover { background-color: #218838; }
         button:disabled { background-color: #cccccc; cursor: not-allowed; } /* 비활성화 스타일 */
+
+        
+            /* ... 이전 스타일 유지 ... */
+            .cell {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin: 2px;
+                border-radius: 8px;
+                background: #ffffff;
+                /* 배경은 흰색으로 고정 */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+                font-size: 0.9rem;
+                font-weight: 800;
+                /* 글자 두껍게 */
+                transition: color 0.5s ease-in-out;
+                /* 글자색 변화 애니메이션 */
+            }
+
+            .row {
+                display: flex;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                padding: 2px 0;
+            }
     </style>
+
+    <script>
+        // 행별로 적용할 진한 글자색 팔레트
+        const textColors = [
+            '#E74C3C', '#E67E22', '#F1C40F',
+            '#27AE60', '#2980B9',
+            '#8E44AD', '#2C3E50', '#C0392B',
+            '#D35400', '#16A085'
+        ];
+
+        function animateTriangle() {
+            if (currentAnimationTimeout)
+                clearTimeout(
+                    currentAnimationTimeout);
+
+            const n = parseInt(document
+                .getElementById('level').value
+                );
+            const container = document
+                .getElementById(
+                    'triangle-container');
+            const expansionDiv = document
+                .getElementById(
+                    'expansion-result');
+            const btn = document.getElementById(
+                'generateButton');
+
+            container.innerHTML = '';
+            expansionDiv.classList.remove('show');
+            btn.disabled = true;
+
+            let triangle = [];
+            let rowElements = [];
+
+            for (let i = 0; i <= n; i++) {
+                const rowDiv = document
+                    .createElement('div');
+                rowDiv.className = 'row';
+
+                // 이 행에 사용할 색상 선택
+                const rowColor = textColors[i %
+                    textColors.length];
+
+                let rowData = [];
+                for (let j = 0; j <= i; j++) {
+                    let val = (j === 0 || j ===
+                        i) ? 1 : triangle[i - 1][
+                            j - 1
+                        ] + triangle[i - 1][j];
+                    rowData.push(val);
+
+                    const cell = document
+                        .createElement('div');
+                    cell.className = 'cell';
+                    cell.innerText = val;
+                    cell.style.color =
+                    rowColor; // 글자색 설정
+                    cell.style.border =
+                        `1px solid ${rowColor}44`; // 살짝 테두리 추가 (선택사항)
+                    rowDiv.appendChild(cell);
+                }
+                triangle.push(rowData);
+                rowElements.push(rowDiv);
+                container.appendChild(rowDiv);
+            }
+
+            function showNextRow(index) {
+                if (index <= n) {
+                    rowElements[index].classList
+                        .add('show');
+                    currentAnimationTimeout =
+                        setTimeout(() =>
+                            showNextRow(index +
+                            1), 400);
+                } else {
+                    displayExpansion(n, triangle);
+                    btn.disabled = false;
+                }
+            }
+            showNextRow(0);
+        }
+        // ... displayExpansion 함수는 동일 ...
+    </script>
+
 </head>
 <body>
 
