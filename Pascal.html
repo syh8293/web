@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>파스칼의 삼각형 & 이항 확장</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; background: #f8f9fa; }
+        .row { display: flex; justify-content: center; margin: 5px 0; }
+        .cell { width: 40px; height: 40px; line-height: 40px; margin: 2px; background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: bold; }
+        .expansion { margin-top: 30px; font-size: 1.2rem; color: #007bff; padding: 15px; background: white; border-radius: 10px; display: inline-block; }
+        input { padding: 8px; width: 60px; border-radius: 5px; border: 1px solid #ccc; }
+        button { padding: 8px 15px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2>📐 파스칼의 삼각형 & 이항 확장 시각화</h2>
+    <p>지수(n)를 입력하세요: <input type="number" id="level" value="5" min="0" max="15"> 
+    <button onclick="draw()">생성하기</button></p>
+
+    <div id="triangle-container"></div>
+    <div id="expansion-result" class="expansion"></div>
+
+    <script>
+        function draw() {
+            const n = parseInt(document.getElementById('level').value);
+            const container = document.getElementById('triangle-container');
+            const expansionDiv = document.getElementById('expansion-result');
+            container.innerHTML = '';
+            
+            let triangle = [];
+
+            for (let i = 0; i <= n; i++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row';
+                
+                let rowData = [];
+                for (let j = 0; j <= i; j++) {
+                    let val = (j === 0 || j === i) ? 1 : triangle[i-1][j-1] + triangle[i-1][j];
+                    rowData.push(val);
+                    
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.innerText = val;
+                    rowDiv.appendChild(cell);
+                }
+                triangle.push(rowData);
+                container.appendChild(rowDiv);
+            }
+
+            // 이항 확장식 텍스트 생성 (a + b)^n
+            let formula = `(a + b)<sup>${n}</sup> = `;
+            let terms = [];
+            let lastRow = triangle[n];
+
+            for (let k = 0; k <= n; k++) {
+                let coeff = lastRow[k];
+                let aPow = n - k;
+                let bPow = k;
+                
+                let term = "";
+                if (coeff !== 1 || (aPow === 0 && bPow === 0)) term += coeff;
+                if (aPow > 0) term += "a" + (aPow > 1 ? `<sup>${aPow}</sup>` : "");
+                if (bPow > 0) term += "b" + (bPow > 1 ? `<sup>${bPow}</sup>` : "");
+                
+                terms.push(term);
+            }
+            expansionDiv.innerHTML = formula + terms.join(" + ");
+        }
+
+        // 초기 실행
+        draw();
+    </script>
+</body>
+
+</html>
