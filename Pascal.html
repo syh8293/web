@@ -11,6 +11,65 @@
         input { padding: 8px; width: 60px; border-radius: 5px; border: 1px solid #ccc; }
         button { padding: 8px 15px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px; }
     </style>
+
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 0;
+        }
+
+        /* 모바일에서 삼각형이 잘리지 않도록 가로 스크롤 허용 */
+        #triangle-container {
+            overflow-x: auto;
+            padding: 20px 0;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            min-width: max-content;
+            margin: 3px 0;
+        }
+
+        .cell {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            margin: 1px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .expansion {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #007bff;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            display: block;
+            margin-left: 10px;
+            margin-right: 10px;
+            word-break: break-all;
+            /* 수식이 길어지면 줄바꿈 */
+        }
+
+        /* 입력창과 버튼 크기 확대 */
+        input,
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
 
