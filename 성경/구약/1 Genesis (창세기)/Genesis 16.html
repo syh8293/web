@@ -51,70 +51,62 @@
 </head>
 
 <script>
-    // 1. 페이지 로드 시 실행
-    window.addEventListener('load', () => {
-        const savedRawData =
-            sessionStorage.getItem(
-                'scrollData');
-
-        if (savedRawData) {
-            const scrollData = JSON.parse(
-                savedRawData);
-            const currentUrl = window
-                .location.href;
-
-            // 저장된 주소와 현재 주소가 같을 때만 스크롤 복구
-            if (scrollData.url ===
-                currentUrl) {
-                setTimeout(() => {
+    // 1. 페이지 로드 시 실행 (0.1초 지연으로 렌더링 대기)
+    window.addEventListener('load', function () {
+        const savedData = localStorage
+            .getItem('bible_scroll_pos');
+        if (savedData) {
+            const data = JSON.parse(
+                savedData);
+            // 현재 주소가 저장된 주소와 정확히 일치할 때만 스크롤 이동
+            if (data.url === window
+                .location.href) {
+                setTimeout(function () {
                     window
                         .scrollTo(
                             0,
-                            scrollData
+                            data
                             .pos);
-                }, 50);
+                }, 100);
             }
         }
     });
 
-    // 2. 스크롤하거나 링크를 클릭할 때 위치와 주소 저장
-    // 특정 이벤트(클릭)가 발생할 때만 저장하도록 하여 다음 페이지 이동 시의 간섭을 줄입니다.
-    document.querySelectorAll('a').forEach(
-        anchor => {
-            anchor.addEventListener('click', (
-                e) => {
-                const isNextPage =
-                    anchor.innerText
-                    .includes('▶') ||
-                    anchor.innerText
-                    .includes('◀');
+    // 2. 모든 클릭 이벤트 감시
+    document.addEventListener('click', function (
+        e) {
+        const anchor = e.target.closest(
+            'a');
+        if (!anchor) return;
 
-                if (isNextPage) {
-                    // '다음'이나 '이전' 페이지 버튼을 누를 때는 저장된 데이터를 지워버립니다 (최상단으로 가게)
-                    sessionStorage
-                        .removeItem(
-                            'scrollData'
-                        );
-                } else {
-                    // 각주 등을 누를 때는 현재 위치와 주소를 저장합니다.
-                    const
-                        scrollData = {
-                            url: window
-                                .location
-                                .href,
-                            pos: window
-                                .scrollY
-                        };
-                    sessionStorage
-                        .setItem(
-                            'scrollData',
-                            JSON
-                            .stringify(
-                                scrollData
-                            ));
-                }
-            });
-        });
+        // 각주 링크(새 창으로 열리는 링크)인지 확인
+        const isFootnote = anchor
+            .getAttribute('target') ===
+            '_blank';
+        // 다음/이전 페이지 화살표 링크인지 확인
+        const isNavigation = anchor
+            .innerText.includes('◀') ||
+            anchor.innerText.includes(
+            '▶') || anchor.innerText
+            .includes('⌂');
+
+        if (isNavigation) {
+            // [중요] 다음/이전 페이지로 갈 때는 저장된 위치 정보를 완전히 삭제
+            localStorage.removeItem(
+                'bible_scroll_pos');
+        } else if (isFootnote) {
+            // 각주를 볼 때는 현재 주소와 스크롤 위치를 저장
+            const scrollData = {
+                url: window.location
+                    .href,
+                pos: window.scrollY
+            };
+            localStorage.setItem(
+                'bible_scroll_pos',
+                JSON.stringify(
+                    scrollData));
+        }
+    });
 </script>
 
 <body>
