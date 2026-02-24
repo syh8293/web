@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 	  <meta name="viewport"
 	    content="width=device-width, initial-scale=1, user-scalable=no">
-	  <link href="style.css" rel="stylesheet" type="text/css"/>
+	  <link href="style.css" rel="stylesheet" type="text/css">
 	  <style media="screen">
         body {
             background-color: whitesmoke;
@@ -220,6 +220,72 @@
                     href="https://syh8293.github.io/web/성경/구약/2%20Exodus%20(출애굽기)/Exodus%206">&#9654;</a>
 
             </div>
+
+    <script>
+        // 1. 페이지 로드 시 실행 (0.1초 지연으로 렌더링 대기)
+        window.addEventListener('load',
+        function () {
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                // 현재 주소가 저장된 주소와 정확히 일치할 때만 스크롤 이동
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(
+                function () {
+                        window
+                            .scrollTo(
+                                0,
+                                data
+                                .pos
+                                );
+                    }, 100);
+                }
+            }
+        });
+
+        // 2. 모든 클릭 이벤트 감시
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                // 각주 링크(새 창으로 열리는 링크)인지 확인
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                // 다음/이전 페이지 화살표 링크인지 확인
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶') || anchor
+                    .innerText.includes('⌂');
+
+                if (isNavigation) {
+                    // [중요] 다음/이전 페이지로 갈 때는 저장된 위치 정보를 완전히 삭제
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 볼 때는 현재 주소와 스크롤 위치를 저장
+                    const scrollData = {
+                        url: window
+                            .location
+                            .href,
+                        pos: window
+                            .scrollY
+                    };
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify(
+                            scrollData));
+                }
+            });
+    </script>
 
 </body>
 
