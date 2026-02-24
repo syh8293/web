@@ -48,6 +48,8 @@
         }
     </style>
 
+</head>
+
 <script>
     // 1. 페이지 로드 시 실행
     window.addEventListener('load', () => {
@@ -92,30 +94,28 @@
                     sessionStorage
                         .removeItem(
                             'scrollData'
-                            );
+                        );
                 } else {
                     // 각주 등을 누를 때는 현재 위치와 주소를 저장합니다.
                     const
-                    scrollData = {
-                        url: window
-                            .location
-                            .href,
-                        pos: window
-                            .scrollY
-                    };
+                        scrollData = {
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        };
                     sessionStorage
                         .setItem(
                             'scrollData',
                             JSON
                             .stringify(
                                 scrollData
-                                ));
+                            ));
                 }
             });
         });
 </script>
-
-</head>
 
 <body>
     <header>창세기 16 장</header>
