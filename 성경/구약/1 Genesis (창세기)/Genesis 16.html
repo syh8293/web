@@ -48,45 +48,6 @@
         }
     </style>
 
-    <script>
-    // 1. 페이지 로드 시 실행
-    window.addEventListener('load', () => {
-        const savedRawData = sessionStorage.getItem('scrollData');
-        
-        if (savedRawData) {
-            const scrollData = JSON.parse(savedRawData);
-            const currentUrl = window.location.href;
-
-            // 저장된 주소와 현재 주소가 같을 때만 스크롤 복구
-            if (scrollData.url === currentUrl) {
-                setTimeout(() => {
-                    window.scrollTo(0, scrollData.pos);
-                }, 50); 
-            }
-        }
-    });
-
-    // 2. 스크롤하거나 링크를 클릭할 때 위치와 주소 저장
-    // 특정 이벤트(클릭)가 발생할 때만 저장하도록 하여 다음 페이지 이동 시의 간섭을 줄입니다.
-    document.querySelectorAll('a').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const isNextPage = anchor.innerText.includes('▶') || anchor.innerText.includes('◀');
-            
-            if (isNextPage) {
-                // '다음'이나 '이전' 페이지 버튼을 누를 때는 저장된 데이터를 지워버립니다 (최상단으로 가게)
-                sessionStorage.removeItem('scrollData');
-            } else {
-                // 각주 등을 누를 때는 현재 위치와 주소를 저장합니다.
-                const scrollData = {
-                    url: window.location.href,
-                    pos: window.scrollY
-                };
-                sessionStorage.setItem('scrollData', JSON.stringify(scrollData));
-            }
-        });
-    });
-</script>
-
 <script>
     // 1. 페이지 로드 시 실행
     window.addEventListener('load', () => {
