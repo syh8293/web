@@ -47,11 +47,87 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: whitesmoke;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        .controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .controls button {
+            padding: 5px 8px;
+            font-size: 14px;
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 4px;
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 10px;
+            display: none;
+            /* 기본은 숨김 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        #searchInput {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        /* 본문 영역 */
+        #bible-content {
+            margin-top: 60px;
+            /* 헤더 공간 확보 */
+            transition: font-size 0.2s;
+            /* 부드러운 크기 변경 */
+        }
+    </style>
     
 </head>
 
 <body>
-    <header>창세기 1 장</header>
+    <header>
+        <span>창세기 1 장</span>
+        <div class="controls">
+            <button
+                onclick="toggleSearch()">🔍</button>
+            <button
+                onclick="changeFontSize(2)">A+</button>
+            <button
+                onclick="changeFontSize(-2)">A-</button>
+        </div>
+    </header>
+
+    <div id="searchBox" class="search-container">
+        <input type="text" id="searchInput"
+            placeholder="검색어 입력...">
+        <button
+            onclick="searchInPage()">찾기</button>
+    </div>
+
+    <div id="bible-content">
 
     <h3>창세기 1 장</h3>
 
@@ -252,6 +328,8 @@
         1:31 <b>하나님</b>께서 지으신 모든 것을 보시니, 보라, 그것이 아주 좋았더라. 저녁과 
         아침이 되니 여섯째 날이더라.
     </p>
+
+    </div>
 
     <hr>
 
