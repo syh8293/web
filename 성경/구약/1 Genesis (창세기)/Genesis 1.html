@@ -76,20 +76,6 @@
             border-radius: 4px;
         }
 
-        /* 검색창 스타일 */
-        .search-container {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 10px;
-            display: none;
-            /* 기본은 숨김 */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
-
         #searchInput {
             width: 70%;
             padding: 8px;
@@ -109,15 +95,13 @@
 
 <body>
     <header>
-        <span>창세기 1 장</span>
-        <div class="controls">
-            <button
-                onclick="toggleSearch()">🔍</button>
-            <button
-                onclick="changeFontSize(2)">A+</button>
-            <button
-                onclick="changeFontSize(-2)">A-</button>
-        </div>
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">창세기 1 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
 
     <div id="searchBox" class="search-container">
@@ -345,46 +329,33 @@
         </div>
 
     <script>
-        // [1] 글자 크기 조절 및 저장
+        // 1. 글자 크기 변경 함수
         function changeFontSize(delta) {
             const content = document
                 .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
             let currentSize = parseInt(window
                 .getComputedStyle(content)
                 .fontSize);
             let newSize = currentSize + delta;
-            content.style.fontSize = newSize +
-                "px";
-            localStorage.setItem(
-                'bible_font_size', newSize);
-        }
 
-        // [2] 검색 기능
-        function toggleSearch() {
-            const sb = document.getElementById(
-                'searchBox');
-            sb.style.display = (sb.style
-                    .display === 'block') ?
-                'none' : 'block';
-        }
-
-        function searchInPage() {
-            const keyword = document
-                .getElementById('searchInput')
-                .value;
-            if (!keyword) return;
-            if (!window.find(keyword)) {
-                alert("찾는 말씀이 없습니다.");
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
             }
         }
 
-        // [3] 통합 로드 이벤트 (스크롤 위치 + 글자 크기 복구)
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
         window.addEventListener('load',
         function () {
-            // 글자 크기 복구
+            // [글자 크기 복구]
             const savedSize = localStorage
                 .getItem(
-                    'bible_font_size');
+                'user_font_size');
             if (savedSize) {
                 document.getElementById(
                         'bible-content')
@@ -392,7 +363,7 @@
                     savedSize + "px";
             }
 
-            // 스크롤 위치 복구 (지난번 드린 확실한 코드)
+            // [스크롤 위치 복구]
             const savedData = localStorage
                 .getItem(
                     'bible_scroll_pos');
@@ -405,12 +376,12 @@
                         window
                         .scrollTo(0,
                             data.pos),
-                        150);
+                        100);
                 }
             }
         });
 
-        // [4] 클릭 이벤트 감시 (지난번 코드 유지)
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
         document.addEventListener('click',
             function (e) {
                 const anchor = e.target
@@ -426,10 +397,12 @@
                     .includes('▶');
 
                 if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
                     localStorage.removeItem(
                         'bible_scroll_pos'
                         );
                 } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
                     localStorage.setItem(
                         'bible_scroll_pos',
                         JSON.stringify({
@@ -442,8 +415,7 @@
                 }
             });
     </script>
-    
-        
+          
 </body>
 
 </html>
