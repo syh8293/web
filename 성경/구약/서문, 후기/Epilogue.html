@@ -58,11 +58,53 @@
         text-decoration: none;
     }
   </style>
+
+  <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.8;
+        }
+    </style>
     
 </head>
 
 <body>
-      <header>구약 후기</header>
+    <header>
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">구약 후기</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
+
+    <div id="bible-content">
 
       <h3>구약 후기</h3>
 
@@ -118,6 +160,8 @@
             맹세해야 한다. 이것이 2012년 현재 교황 베덱토 16세의 공식적인 입장이며, 로마 카톨릭은 제2차 바티칸 공회 
             이후로 조금도 바뀌지 않았다.
         </p>
+
+  </div>
 
           <hr>
 
