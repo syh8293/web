@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        사무엘상 21 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">사무엘상 21 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+        <div id="bible-content">
 
     <h3>사무엘상 21장</h3>
 
@@ -95,6 +136,7 @@
             빵이 없었기 때문이니, 그 빵은 물려 낸 그 날에 더운 빵을 드리기 위해 <b>주</b> 
             앞에서 물려 낸 것이었더라.  
         </p>
+
         <p>
             21:7 그 날 사울의 신하들 중 어떤 사람이 <b>주</b> 앞에 머물러 있었는데, 그의 
             이름은 도엑이며 에돔인으로 사울에게 속한 목자장이더라.  
@@ -114,7 +156,7 @@
             말하기를 “그 같은 것이 없나니, 그것을 나에게 주소서.” 하더라.  
         </p>
 
-        <h4>다윗이 "사람을 두려워 함"에 굴복하다</h4>
+    <h4>다윗이 "사람을 두려워 함"에 굴복하다</h4>
 
         <p>
             21:10 &#x0039F 다윗이 사울을 두려워하여 그 날에 일어나 도망하여 가드 왕 아키스에게로 갔는데  
@@ -147,18 +189,108 @@
             하게 하느냐? 이 자를 내 집에 들어오게 하겠느냐?” 고 하더라.  
         </p>
 
+        </body>
+
             <hr>
 
                 <div id="article">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/9%20Samuel1%20(사무엘상)/Samuel1%2020">&#9664;</a>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                    &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp  
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/9%20Samuel1%20(사무엘상)/Samuel1%2022">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
