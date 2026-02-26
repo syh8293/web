@@ -5,15 +5,15 @@
     <title>열왕기상</title>
     <meta charset="utf-8">
     <meta name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no">
+        content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="style.css" type="text/css">
     <style media="screen">
         body {
-            background-color: whitesmoke;
-            text-align: justify;
-            margin-left: 10px;
-            margin-right: 10px;
-            font-size: large;
+                background-color: whitesmoke;
+                text-align: justify;
+                margin-left: 7px;
+                margin-right: 10px;
+                font-size: large;
         }
 
         h3 {
@@ -21,16 +21,15 @@
             padding: 20px;
             margin: auto;
             text-align: center;
-            padding-top: 5px;
         }
 
         h4 {
-            text-align: left;
+           text-align: center;
+           padding-top: 5px;
         }
 
         h4.one {
-                text-align: center;
-                color: #7507fcec;
+             text-align: center;
         }
 
         p, ol {
@@ -39,8 +38,8 @@
         }
 
         #grid ul {
-            border-right: 2px solid gray;
-            width: 50px;
+            border-right: 1px solid gray;
+            width: 40px;
             margin: 0;
             padding-left: 3px;
             padding-right: 0px;
@@ -57,14 +56,14 @@
         #article {
             margin-left: -70px;
             padding-left: 1px;
-            line-height: 2.0;
+            line-height: 2.7;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -72,12 +71,53 @@
             text-decoration: none;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+        #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+
 </head>
 
 <body>
-    <header>
-        열왕기상
-    </header>
+        <header>
+
+            <button class="font-btn"
+                onclick="changeFontSize(-2)">A-</button>
+            <span id="header-title">열왕기상</span>
+
+            <button class="font-btn"
+                 onclick="changeFontSize(2)">A+</button>
+        </header>
+
+        <div id="bible-content">
 
     <h3>열 왕 기 상</h3>
 
@@ -197,18 +237,18 @@
                 부정적으로 퇴보한다는 사실을 보여 준다 (재판관기 서문에 있는 '인간 붕괴의 
                 원리'에 관한 설명을 보라). 1장부터 12장까지의 솔로몬의 통치는 예수 그리스도께서 
                 통치하시는 천년왕국의 모습을 보여 준다. 그러나 솔로몬은 적그리스도의 유형으로 끝난다 (<a 
-                href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Kings1%2011-1-1.html"
-                 target="_blank">왕상 11:1-6</a>, <a 
-                href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Chronicles2%209-13-1.html"
-                 target="_blank">대하 9:13)</a>. 솔로몬의 통치기간 내내 화평이 있었다 (<a 
-                href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Chronicles2%209-13-1.html"
-                 target="_blank">왕상 4:24-25</a>). 솔로몬이라는 말 자체의 의미는 "샬롬," 
+                        href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Kings1%2011-1-1.html"
+                        target="_blank">왕상 11:1-6</a>, <a 
+                        href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Chronicles2%209-13-1.html"
+                        target="_blank">대하 9:13)</a>. 솔로몬의 통치기간 내내 화평이 있었다 (<a 
+                        href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Chronicles2%209-13-1.html"
+                        target="_blank">왕상 4:24-25</a>). 솔로몬이라는 말 자체의 의미는 "샬롬," 
                 "실로" (히브리어로 "화평")라는 뜻에 가깝다. 그러나 솔로몬이 누렸던 "화평"은 
                 그의 통치 처음 기간 동안에는 불순종으로 인하여, 그의 통치 마지막 기간 동안에는 
                 우상 숭배로 인하여 깨어졌다. 예수 그리스도를 가장 탁월하게 모방할 수 있는 인물은 
                 적그리스도인데 적그리스도는 자신의 왕국을 "화평 가운데" 오게 한다 (<a 
-                href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Samuel2%2018-18-1.html" 
-                 target="_blank">사무엘하 18:18</a>에 기록된 압살롬에 대한 설명을 보라. 
+                        href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/본문/Samuel2%2018-18-1.html" 
+                        target="_blank">사무엘하 18:18</a>에 기록된 압살롬에 대한 설명을 보라. 
                 그 이름의 의미는 "화평의 아버지"라는 뜻이다). 모든 교황은 이에 딱 들어맞는데, 
                 이들은 다른 것은 다 제쳐두고 "평화" 만을 말하기 때문이다. 이런 이유로 오래전부터 
                 &lt킹제임스 성경&gt 번역자들은 자신들의 때에 통치했던 교황들에 대해 "죄의 사람"
@@ -216,19 +256,109 @@
             </p>
         </div>
     </div>
+        </div>
 
         <hr>
 
             <h4 class="one">
                 <a
                     href="https://syh8293.github.io/web/성경/구약/10%20Samuel2%20(사무엘하)/Samuel2%2024">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <a
                     href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/Kings1%201">&#9654;</a>
             </h4>
+
+        <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
+    
 </body>
 
 </html>
