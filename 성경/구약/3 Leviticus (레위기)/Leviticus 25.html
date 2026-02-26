@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
     content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="style.css" rel="stylesheet" type="text/css">
     <style media="screen">
         body {
             background-color: whitesmoke;
@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        레위기 25 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">레위기 25 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>레위기 25 장</h3>
 
