@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            욥 기 16 장
-        </header>
+    <header>
 
-        <h3>욥 기 16 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">욥기 16 장</span>
 
-        <h5>B.C. 1780</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>욥이 엘리파스의 두 번째 비난에 답하다</h4>
+    <div id="bible-content">
+
+    <h3>욥 기 16 장</h3>
+
+    <h5>B.C. 1780</h5>
+
+    <h4>욥이 엘리파스의 두 번째 비난에 답하다</h4>
     
         <p>
             16:1 그러자 욥이 대답하여 말하기를  
@@ -73,13 +114,13 @@
         </p>
 
         <p>
-            16:4 나도 너희가 하는 것처럼 말할 수 있도다. 만일 너희 혼이 내 혼의
-            자리에 있다면 나도 너희에 대하여 말을 쌓아올리고 내 머리를 너희에게 흔들
-            수 있느니라.
+            16:4 나도 너희가 하는 것처럼 말할 수 있도다. 만일 너희 혼이 내 혼의 자리에 있다면 나도 
+            너희에 대하여 말을 쌓아올리고 내 머리를 너희에게 흔들 수 있느니라.
         </p>
 
         <p>
-            16:5 그러나 나는 내 입으로 너희에게 힘을 돋우어 주었을 것이요, 내 입술의 움직임이 너희의 근심을 누그러뜨렸으리라.<sup><a
+            16:5 그러나 나는 내 입으로 너희에게 힘을 돋우어 주었을 것이요, 내 입술의 움직임이 너희의 근심을 
+            누그러뜨렸으리라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2016-5.html"
                 target="_blank">ㄱ</a></sup>
         </p>
@@ -93,13 +134,15 @@
         </p>
 
         <p>
-            16:8 주께서는 나를 주름으로 채우셨으니 그것이 나를 대적하시는 증거며 내 몸의 깡마름은 내 얼굴에 증거가 되나이다.<sup><a
+            16:8 주께서는 나를 주름으로 채우셨으니 그것이 나를 대적하시는 증거며 내 몸의 깡마름은 내 얼굴에 
+            증거가 되나이다.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2016-8.html"
                 target="_blank">ㄴ</a></sup>
         </p>
         
         <p>
-            16:9 그분은 그의 진노로 나를 찢으시고 미워하시며 나에게 이를 가시니 나의 원수가 나에게 그의 눈을 날카롭게 하는도다.
+            16:9 그분은 그의 진노로 나를 찢으시고 미워하시며 나에게 이를 가시니 나의 원수가 나에게 그의 눈을 
+            날카롭게 하는도다.
         </p>
 
         <p>
@@ -115,8 +158,8 @@
         </p>
 
         <p>
-            16:12 내가 평안하였더니 그는 나를 산산이 쪼개셨으며 그는 또한 내 목을 낚아채시어 산산조각으로 흔들어 놓으시고 
-            나를 세워 그의 표적으로 삼으셨도다.
+            16:12 내가 평안하였더니 그는 나를 산산이 쪼개셨으며 그는 또한 내 목을 낚아채시어 산산조각으로 
+            흔들어 놓으시고 나를 세워 그의 표적으로 삼으셨도다.
         </p>
 
         <p>
@@ -167,20 +210,110 @@
             16:22 몇 년이 지나면 나는 돌아오지 못할 길로 갈 것이라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/18%20Job%20(욥기)/Job%2015">&#9664;</a>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/18%20Job%20(욥기)/Job%2017">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
