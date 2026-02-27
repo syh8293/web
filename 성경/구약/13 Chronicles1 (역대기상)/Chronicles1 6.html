@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            역대기상 6 장
-        </header>
+    <header>
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">역대기상 6 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
+
+    <div id="bible-content">
 
         <h3>역대기상 6 장</h3>
 
@@ -258,17 +299,15 @@
             6:48 그들의 형제 레위인들 또한 <b>하나님</b>의 전 성막의 모든 봉사를 맡았더라.
         </p>
         
-        <h4>아론의 계보</h4>
+    <h4>아론의 계보</h4>
 
         <p>
-            6:49 &#x0039F 그러나 아론과 그의 아들들은 번제단과 향단에 제사를
-            드리며 지성소의 모든 일들과 <b>하나님</b>의 종 모세가 명한 모든 것에
-            따라 이스라엘을 위하여 속죄하는 일에 임명되었더라.
+            6:49 &#x0039F 그러나 아론과 그의 아들들은 번제단과 향단에 제사를 드리며 지성소의 모든 일들과 
+            <b>하나님</b>의 종 모세가 명한 모든 것에 따라 이스라엘을 위하여 속죄하는 일에 임명되었더라.
         </p>
         
         <p>
-            6:50 아론의 아들들은 이러하니 그의 아들 엘르아살과 그의 아들 피느하스와
-            그의 아들 아비수아와
+            6:50 아론의 아들들은 이러하니 그의 아들 엘르아살과 그의 아들 피느하스와 그의 아들 아비수아와
         </p>
         
         <p>
@@ -283,12 +322,11 @@
             6:53 그의 아들 사독과 그의 아들 아히마아스더라.
         </p>
         
-        <h4>레위인들의 성읍들</h4>
+    <h4>레위인들의 성읍들</h4>
 
         <p>
-            6:54 &#x0039F 이제 이것들은 그들의 지경 안 그들의 성곽들에 있는
-            그들의 거처들인데 코핫인들의 족속 중에서 아론의 아들들에게 속하였으니 이는
-            그 몫이 그들의 것이었음이라.
+            6:54 &#x0039F 이제 이것들은 그들의 지경 안 그들의 성곽들에 있는 그들의 거처들인데 코핫인들의 
+            족속 중에서 아론의 아들들에게 속하였으니 이는 그 몫이 그들의 것이었음이라.
         </p>
         
         <p>
@@ -313,9 +351,8 @@
         </p>
         
         <p>
-            6:60 또 베냐민 지파 중에서는 게바와 그 외곽 지역과, 알레멧과 그 외곽
-            지역과, 아나돗과 그 외곽 지역을 주었더라. 그들 족속에게 준 성읍들은 모두
-            열세 성읍이더라.
+            6:60 또 베냐민 지파 중에서는 게바와 그 외곽 지역과, 알레멧과 그 외곽 지역과, 아나돗과 그 외곽 
+            지역을 주었더라. 그들 족속에게 준 성읍들은 모두 열세 성읍이더라.
         </p>
         
         <p>
@@ -413,18 +450,108 @@
             6:81 헤스본을 그 외곽 지역과, 야셀을 그 외곽 지역과 함께 주었더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/13%20Chronicles1%20(역대기상)/Chronicles1%205">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/13%20Chronicles1%20(역대기상)/Chronicles1%207">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
