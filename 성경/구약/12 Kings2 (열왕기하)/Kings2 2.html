@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -43,20 +43,57 @@
             color: #f00;
         }
 
-        a.one:link {color:black;}
-        a.one:visited {color:blue;}
-        a.one:hover {color:red;}
-
         #article {
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        열왕기하 2 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">열왕기하 2 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>열왕기하 2 장</h3>
 
@@ -64,7 +101,7 @@
 
     <h4>환란 후 휴거의 모형 (<a class="one"
         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/본문/Revelation%2011-11-1.html"
-         target="_blank">계 11:11-12</a>)</h4>
+        target="_blank">계 11:11-12</a>)</h4>
 
         <p>
             2:1 <b>주</b>께서 회오리바람으로 엘리야를 하늘로 들어올리려 하실
@@ -75,8 +112,7 @@
             2:2 엘리야가 엘리사에게 말하기를 “내가 청하노니 너는 여기서 머무르라.
             <b>주</b>께서 나를 벧엘로 보내셨느니라.” 하니 엘리사가 엘리야에게
             말하기를 “<b>주</b>께서 살아 계시는 한, 또 당신의 혼이 살아 있는
-            한 내가 당신을 떠나지 아니하리이다.” 하더라. 그리하여 그들이 벧엘로
-            내려가니라.<sup><a
+            한 내가 당신을 떠나지 아니하리이다.” 하더라. 그리하여 그들이 벧엘로 내려가니라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/12%20Kings%202%20(열왕기하)/Kings2%202-2.html"
                 target="_blank">ㄱ</a></sup>
         </p>
@@ -92,8 +128,7 @@
             2:4 엘리야가 그에게 말하기를 “엘리사야, 내가 청하노니 너는 여기서
             머무르라. <b>주</b>께서 나를 여리코로 보내셨느니라.” 하니 그가
             말하기를 “<b>주</b>께서 살아 계시는 한, 또 당신의 혼이 살아 있는
-            한 내가 당신을 떠나지 아니하리이다.” 하더라. 그리하여 그들이 여리코로
-            가니라.
+            한 내가 당신을 떠나지 아니하리이다.” 하더라. 그리하여 그들이 여리코로 가니라.
         </p>
 
         <p>
@@ -141,7 +176,7 @@
             엘리야가 회오리바람을 타고 하늘로 올라가더라.
         </p>
 
-        <h4>엘리사가 엘리야의 영과 능력을 받음 (<a class="one"
+    <h4>엘리사가 엘리야의 영과 능력을 받음 (<a class="one"
             href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/본문/Revelation%2011-11-1.html"
             target="_blank">눅 1:17</a>)</h4>
 
@@ -231,18 +266,108 @@
             2:25 그가 거기서부터 칼멜 산으로 가고, 또 거기서 사마리아로 돌아오니라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%201">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%203">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
