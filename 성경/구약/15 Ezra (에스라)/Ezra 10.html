@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            에스라 10 장
-        </header>
+    <header>
 
-        <h3>에스라 10 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">에스라 10 장</span>
 
-        <h5>B.C. 457</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>성별을 회복함</h4>
+    <div id="bible-content">
+
+    <h3>에스라 10 장</h3>
+
+    <h5>B.C. 457</h5>
+
+    <h4>성별을 회복함</h4>
 
         <p>
             10:1 에스라가 <b>하나님</b>의 전 앞에서 울며 엎드려 기도하고
@@ -75,10 +116,9 @@
         </p>
         
         <p>
-            10:3 그러므로 이제 내 <i><small>주</small></i>와 우리
-            <b>하나님</b>의 계명 앞에서 떠는 자들의 의견대로 우리로 우리
-            <b>하나님</b>과 언약을 세워 모든 아내들과 그들에게서 태어난 소생을
-            내어 보내게 하여 이 일이 율법에 따라 이루어지게 하소서.<sup><a
+            10:3 그러므로 이제 내 <i><small>주</small></i>와 우리 <b>하나님</b>의 계명 
+            앞에서 떠는 자들의 의견대로 우리로 우리 <b>하나님</b>과 언약을 세워 모든 
+            아내들과 그들에게서 태어난 소생을 내어 보내게 하여 이 일이 율법에 따라 이루어지게 하소서.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%2010-3.html"
                 target="_blank">ㄴ</a></sup>
         </p>
@@ -94,15 +134,14 @@
         </p>
         
         <p>
-            10:6 &#x0039F 그러자 에스라가 <b>하나님</b>의 전 앞에서
-            일어나서 엘리아십의 아들 요하난의 방으로 들어가니라. 그가 거기에 들어가서
-            빵도 먹지 아니하고 물도 마시지 아니하였으니 이는 그가 끌려갔었던 자들의
-            죄로 인하여 애도하였음이더라.
+            10:6 &#x0039F 그러자 에스라가 <b>하나님</b>의 전 앞에서 일어나서 엘리아십의 
+            아들 요하난의 방으로 들어가니라. 그가 거기에 들어가서 빵도 먹지 아니하고 물도 
+            마시지 아니하였으니 이는 그가 끌려갔었던 자들의 죄로 인하여 애도하였음이더라.
         </p>
         
         <p>
-            10:7 그들이 유다와 예루살렘 전역에 사로잡혀갔던 모든 자손들에게
-            공표하기를 그들이 예루살렘으로 다 모여야 한다고 하며
+            10:7 그들이 유다와 예루살렘 전역에 사로잡혀갔던 모든 자손들에게 공표하기를 
+            그들이 예루살렘으로 다 모여야 한다고 하며
         </p>
         
         <p>
@@ -112,10 +151,9 @@
         </p>
         
         <p>
-            10:9 &#x0039F 그러자 유다와 베냐민의 모든 사람이 삼 일 안에
-            예루살렘에 다 모였으니 그때가 아홉째 달이었고 그 달의 이십일이더라. 모든
-            백성이 <b>하나님</b>의 전의 거리에 앉아 이 일과 큰 비 때문에
-            떨더라.
+            10:9 &#x0039F 그러자 유다와 베냐민의 모든 사람이 삼 일 안에 예루살렘에 다 
+            모였으니 그때가 아홉째 달이었고 그 달의 이십일이더라. 모든 백성이 <b>하나님</b>의 
+            전의 거리에 앉아 이 일과 큰 비 때문에 떨더라.
         </p>
         
         <p>
@@ -143,9 +181,9 @@
         <p>
             10:14 이제 온 회중에서 우리의 관원들을 세우고<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%2010-14.html"
-                target="_blank">1</a></sup> 우리의 성읍들에서 타국의 아내들을 취한 모든 자들로 정한 때에 각 성읍의
-            장로들과 재판장과 함께 오게 하여 이 일로 인한 우리 <b>하나님</b>의
-            불 같은 진노가 우리에게서 돌이켜지게 하소서.” 하더라.
+                target="_blank">1</a></sup> 우리의 성읍들에서 타국의 아내들을 취한 모든 
+            자들로 정한 때에 각 성읍의 장로들과 재판장과 함께 오게 하여 이 일로 인한 우리 
+            <b>하나님</b>의 불 같은 진노가 우리에게서 돌이켜지게 하소서.” 하더라.
         </p>
         
         <p>
@@ -160,15 +198,14 @@
         </p>
         
         <p>
-            10:17 그들이 첫째 달 일일까지 타국 아내를 취한 모든 자들의 조사를
-            끝마쳤더라.<sup><a
+            10:17 그들이 첫째 달 일일까지 타국 아내를 취한 모든 자들의 조사를 끝마쳤더라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%2010-17.html"
                 target="_blank">2</a></sup>
         </p>
         
         <p>
-            10:18 &#x0039F 제사장들의 아들들 가운데 타국 아내를 취한 것으로
-            판명된 자들은 요사닥의 아들인 예수아의 아들들과 그의 형제 중에서 마아세야와
+            10:18 &#x0039F 제사장들의 아들들 가운데 타국 아내를 취한 것으로 판명된 
+            자들은 요사닥의 아들인 예수아의 아들들과 그의 형제 중에서 마아세야와
             엘리에셀과 야립과 그달랴요,
         </p>
         
@@ -183,38 +220,32 @@
         </p>
         
         <p>
-            10:21 하림 자손 중에서는 마아세야와 엘리야와 스마야와 여히엘과
-            웃시야요,
+            10:21 하림 자손 중에서는 마아세야와 엘리야와 스마야와 여히엘과 웃시야요,
         </p>
         
         <p>
-            10:22 파술 자손 중에서는 엘료에내와 마아세야와 이스마엘과 느다니엘과
-            요사밧과 엘라사였더라.
+            10:22 파술 자손 중에서는 엘료에내와 마아세야와 이스마엘과 느다니엘과 요사밧과 엘라사였더라.
         </p>
         
         <p>
-            10:23 레위인 중에서는 요사밧과 시므이와 클라야와 (이는 클리타라)
-            프다히야와 유다와 엘리에셀이더라.
+            10:23 레위인 중에서는 요사밧과 시므이와 클라야와 (이는 클리타라) 프다히야와 유다와 엘리에셀이더라.
         </p>
         
         <p>
-            10:24 노래하는 자들 중에서도 엘리아십이요, 문지기들 중에서도 살룸과
-            텔렘과 우리더라.
+            10:24 노래하는 자들 중에서도 엘리아십이요, 문지기들 중에서도 살룸과 텔렘과 우리더라.
         </p>
         
         <p>
-            10:25 또 이스라엘 중에서는 파로스 자손 중에서 라미야와 여시야와
-            말키야와 미야민과 엘르아살과 말키야와 브나야요
+            10:25 또 이스라엘 중에서는 파로스 자손 중에서 라미야와 여시야와 말키야와 미야민과 
+            엘르아살과 말키야와 브나야요
         </p>
         
         <p>
-            10:26 엘람의 아들들 중에서는 맛타냐와 스카랴와 여히엘과 압디와 여레못과
-            엘리야요,
+            10:26 엘람의 아들들 중에서는 맛타냐와 스카랴와 여히엘과 압디와 여레못과 엘리야요,
         </p>
         
         <p>
-            10:27 삿투의 아들들 중에서는 엘료에내와 엘리아십과 맛타냐와 여레못과
-            사밧과 아시사요,
+            10:27 삿투의 아들들 중에서는 엘료에내와 엘리아십과 맛타냐와 여레못과 사밧과 아시사요,
         </p>
         
         <p>
@@ -222,8 +253,7 @@
         </p>
         
         <p>
-            10:29 바니의 아들들 중에서는 므술람과 말룩과 아다야와 야숩과 스알과
-            라못이요,
+            10:29 바니의 아들들 중에서는 므술람과 말룩과 아다야와 야숩과 스알과 라못이요,
         </p>
         
         <p>
@@ -232,8 +262,7 @@
         </p>
         
         <p>
-            10:31 하림의 아들들 중에서는 엘리에셀과 이시야와 말키야와 스마야와
-            시므온과
+            10:31 하림의 아들들 중에서는 엘리에셀과 이시야와 말키야와 스마야와 시므온과
         </p>
         
         <p>
@@ -241,8 +270,7 @@
         </p>
         
         <p>
-            10:33 하숨의 아들들 중에서는 맛트내와 맛타다와 사밧과 엘리펠렛과
-            여레매와 므낫세와 시므이요,
+            10:33 하숨의 아들들 중에서는 맛트내와 맛타다와 사밧과 엘리펠렛과 여레매와 므낫세와 시므이요,
         </p>
         
         <p>
@@ -293,18 +321,109 @@
             낳은 아내들도 있었더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/15%20Ezra%20(에스라)/Ezra%209">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%200">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
