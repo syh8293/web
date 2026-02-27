@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            역대기상 9 장
-        </header>
+    <header>
 
-        <h3>역대기상 9 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">역대기상 9 장</span>
 
-        <h5>B.C. 4004-1056</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>예루살렘의 거민들</h4>
+    <div id="bible-content">
+
+    <h3>역대기상 9 장</h3>
+
+    <h5>B.C. 4004-1056</h5>
+
+    <h4>예루살렘의 거민들</h4>
 
         <p>
             9:1 그리하여 온 이스라엘이 계보대로 계수되었으니 보라, 그들이 이스라엘과 유다 왕들의 책에 
@@ -99,7 +140,7 @@
             9:9 그들의 형제들은 그들 계보에 따르면 구백오십육 명이요, 이 모든 사람은 그들 조상 집의 족장들이었더라.
         </p>
         
-        <h4>예루살렘에서 섬기는 제사장들</h4>
+    <h4>예루살렘에서 섬기는 제사장들</h4>
 
         <p>
             9:10 &#x0039F 제사장들 중에서는 여다야와 여호야립과 야킨과
@@ -210,7 +251,7 @@
             9:34 이들 레위인들의 족장들이 대대로 우두머리였으니 이들이 예루살렘에 거하였더라.
         </p>
         
-        <h4>기브온 거민들</h4>
+    <h4>기브온 거민들</h4>
 
         <p>
             9:35 &#x0039F 기브온에는 기브온의 조상 여히엘이 거하였으니 그의 아내의 이름은 마아카더라.
@@ -253,18 +294,109 @@
             스아랴와 오바댜와 하난이라. 이들이 아셀의 아들들이더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/13%20Chronicles1%20(역대기상)/Chronicles1%208">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/13%20Chronicles1%20(역대기상)/Chronicles1%2010">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
