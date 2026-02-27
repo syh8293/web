@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            역대기하 25 장
-        </header>
+    <header>
 
-        <h3>역대기하 25 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">역대기하 25 장</span>
 
-        <h5>B.C. 827</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>아마샤-유다의 비교적 선한 왕</h4>
+    <div id="bible-content">
+
+    <h3>역대기하 25 장</h3>
+
+    <h5>B.C. 827</h5>
+
+    <h4>아마샤-유다의 비교적 선한 왕</h4>
 
         <p>
             25:1 아마샤가 치리하기 시작할 때 이십오 세였으며, 그가 예루살렘에서 이십구 년을 치리하였고 
@@ -74,19 +115,17 @@
         </p>
 
         <p>
-            25:4 그러나 그가 그들의 자녀는 죽이지 아니하여 모세의 책에 율법으로
-            기록된 대로 행하였으니 이는 <b>주</b>께서 율법에 명령하여 말씀하시기를
-            “아버지를 자녀로 인하여 죽이지 말고 자녀를 아버지로 인하여 죽이지 말며 각
-            사람은 자기 자신의 죄로 인하여만 죽을 것이니라.”<sup><a
+            25:4 그러나 그가 그들의 자녀는 죽이지 아니하여 모세의 책에 율법으로 기록된 대로 행하였으니 
+            이는 <b>주</b>께서 율법에 명령하여 말씀하시기를 “아버지를 자녀로 인하여 죽이지 말고 자녀를 
+            아버지로 인하여 죽이지 말며 각 사람은 자기 자신의 죄로 인하여만 죽을 것이니라.”<sup><a
                 href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2025-4.html"
                 target="_blank">ㄱ</a></sup> 하신 것이라.
         </p>
 
         <p>
-            25:5 &#x0039F 또 아마샤가 유다를 함께 모으고 온 유다와 베냐민에
-            그들 조상의 집들을 따라 천부장들과 백부장들을 세웠으며 이십 세 이상을
-            계수하여 그 중에서 전쟁에 나가 창과 방패를 다룰 수 있는 선별된 사람
-            삼십만 명을 얻고
+            25:5 &#x0039F 또 아마샤가 유다를 함께 모으고 온 유다와 베냐민에 그들 조상의 집들을 
+            따라 천부장들과 백부장들을 세웠으며 이십 세 이상을 계수하여 그 중에서 전쟁에 나가 
+            창과 방패를 다룰 수 있는 선별된 사람 삼십만 명을 얻고
         </p>
         
 
@@ -96,47 +135,46 @@
                 target="_blank">ㄴ</a></sup>
         </p>
         
-        <h4>아마샤-에돔과의 전쟁에서 승리를 하나님께 의뢰함</h4>
+    <h4>아마샤-에돔과의 전쟁에서 승리를 하나님께 의뢰함</h4>
 
         <p>
-            25:7 그러나 어떤 <b>하나님</b>의 사람이 그에게 가서 말하기를 “오
-            왕이여, 이스라엘의 군대와 함께 가지 마소서. 이는 <b>주</b>께서
-            이스라엘, 즉 에프라임의 모든 자손과 함께하지 아니하심이니이다.
+            25:7 그러나 어떤 <b>하나님</b>의 사람이 그에게 가서 말하기를 “오 왕이여, 이스라엘의 
+            군대와 함께 가지 마소서. 이는 <b>주</b>께서 이스라엘, 즉 에프라임의 모든 자손과 함께하지 
+            아니하심이니이다.
         </p>
 
         <p>
-            25:8 그러나 왕이 만일 가시려거든 가셔서 힘써 싸우소서. <b>하나님</b>께서 왕을 원수 앞에 쓰러지게 하시리이다.
-            <b>하나님</b>께는 도우실 권세도, 패하게 하실 권세도 있나이다.” 하니
+            25:8 그러나 왕이 만일 가시려거든 가셔서 힘써 싸우소서. <b>하나님</b>께서 왕을 원수 
+            앞에 쓰러지게 하시리이다. <b>하나님</b>께는 도우실 권세도, 패하게 하실 권세도 있나이다.” 하니
         </p>
 
         <p>
-            25:9 아마샤가 그 <b>하나님</b>의 사람에게 말하기를 “그러면 내가
-            이스라엘 군대에게 준 일백 달란트를 어찌하랴?” 하니 <b>하나님</b>의
-            사람이 대답하기를 “<b>주</b>께서는 이보다 훨씬 많이 왕께 주실 수
-            있나이다.” 하더라.
+            25:9 아마샤가 그 <b>하나님</b>의 사람에게 말하기를 “그러면 내가 이스라엘 군대에게 준 
+            일백 달란트를 어찌하랴?” 하니 <b>하나님</b>의 사람이 대답하기를 “<b>주</b>께서는 이보다 
+            훨씬 많이 왕께 주실 수 있나이다.” 하더라.
         </p>
 
         <p>
-            25:10 그러자 아마샤가 그들, 즉 에프라임에서 그에게 온 군대를 분류하여
-            귀향하게 하니 유다를 향한 그들의 분노가 심히 맹렬하였으며 그들이 크게
-            분노하여 고향으로 돌아갔더라.
+            25:10 그러자 아마샤가 그들, 즉 에프라임에서 그에게 온 군대를 분류하여 귀향하게 하니 유다를 
+            향한 그들의 분노가 심히 맹렬하였으며 그들이 크게 분노하여 고향으로 돌아갔더라.
         </p>
 
         <p>
-            25:11 &#x0039F 그후 아마샤가 스스로 힘을 기르고 그의 백성을 인도하여 소금 골짜기로 가서 세일 자손 일만을 치니라.
+            25:11 &#x0039F 그후 아마샤가 스스로 힘을 기르고 그의 백성을 인도하여 소금 골짜기로 가서 
+            세일 자손 일만을 치니라.
         </p>
 
         <p>
-            25:12 살아남은 다른 일만은 유다 자손이 사로잡아 바위 위로 끌고 가서
-            바위 위에서 그들을 내던지니 그들 모두가 산산조각이 났더라.
+            25:12 살아남은 다른 일만은 유다 자손이 사로잡아 바위 위로 끌고 가서 바위 위에서 그들을 
+            내던지니 그들 모두가 산산조각이 났더라.
         </p>
 
         <p>
-            25:13 &#x0039F 한편 아마샤가 자기와 함께 전쟁에 나가지 못하게 돌려보낸 군대의 병사들이 사마리아로부터 
-            벧호론까지 유다의 성읍들을 기습하여 그들 중에서 삼천 명을 치고 많은 탈취물을 취하였더라.
+            25:13 &#x0039F 한편 아마샤가 자기와 함께 전쟁에 나가지 못하게 돌려보낸 군대의 병사들이 
+            사마리아로부터 벧호론까지 유다의 성읍들을 기습하여 그들 중에서 삼천 명을 치고 많은 탈취물을 취하였더라.
         </p>
     
-        <h4>아마샤의 배교</h4>
+    <h4>아마샤의 배교</h4>
 
         <p>
             25:14 &#x0039F 아마샤가 에돔인들을 살육하고 돌아온 후 세일 자손의 신들을 가져와서 그의 신들로 삼아 
@@ -144,24 +182,23 @@
         </p>
 
         <p>
-            25:15 그러므로 아마샤에 대하여 <b>주</b>의 분노가 발하여 그에게
-            한 선지자를 보내셨으니 그가 그에게 말하기를 “어찌하여 왕은 왕의 손에서
-            그들 자신의 백성도 구해 낼 수 없는 그 백성의 신들에게 구하시나이까?” 하니라.<sup><a
+            25:15 그러므로 아마샤에 대하여 <b>주</b>의 분노가 발하여 그에게 한 선지자를 보내셨으니 그가 
+            그에게 말하기를 “어찌하여 왕은 왕의 손에서 그들 자신의 백성도 구해 낼 수 없는 그 백성의 
+            신들에게 구하시나이까?” 하니라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2025-15.html"
                 target="_blank">1</a></sup>
         </p>
 
         <p>
-            25:16 선지자가 왕에게 말하는데 왕이 선지자에게 말하기를 “네가 왕의
-            조언자가 되었더냐? 그치라. 어찌하여 네가 맞아야 하겠느냐?” 하니 선지자가
-            그치며 말하기를 “왕께서 이 일을 행하시고 나의 조언에 경청하지 아니하셨으니
-            내가 <b>하나님</b>께서 왕을 멸하기로 결정하신 것을 아나이다.”
+            25:16 선지자가 왕에게 말하는데 왕이 선지자에게 말하기를 “네가 왕의 조언자가 되었더냐? 그치라. 
+            어찌하여 네가 맞아야 하겠느냐?” 하니 선지자가 그치며 말하기를 “왕께서 이 일을 행하시고 나의 
+            조언에 경청하지 아니하셨으니 내가 <b>하나님</b>께서 왕을 멸하기로 결정하신 것을 아나이다.”
             하더라.
         </p>
 
         <p>
-            25:17 &#x0039F 그때 유다의 아마샤왕이 상의하고 예후의 손자, 여호아하스의 아들, 
-            이스라엘의 왕 요아스에게 보내어 말하기를 “오라, 우리가 서로 대면하자.” 하니
+            25:17 &#x0039F 그때 유다의 아마샤왕이 상의하고 예후의 손자, 여호아하스의 아들, 이스라엘의 왕 
+            요아스에게 보내어 말하기를 “오라, 우리가 서로 대면하자.” 하니
         </p>
 
         <p>
@@ -216,18 +253,109 @@
             25:28 무리가 그를 말들 위에 싣고 가서 유다 성읍에 그의 조상들과 함께 장사하였더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/14%20Chronicles2%20(역대기하)/Chronicles2%2024">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/14%20Chronicles2%20(역대기하)/Chronicles2%2026">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
