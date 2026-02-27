@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            느헤미야 7 장
-        </header>
+    <header>
 
-        <h3>느헤미야 7 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">느헤미야 7 장</span>
 
-        <h5>B.C.445</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>성벽이 완성되다</h4>
+    <div id="bible-content">
+
+    <h3>느헤미야 7 장</h3>
+
+    <h5>B.C.445</h5>
+
+    <h4>성벽이 완성되다</h4>
 
         <p>
             7:1 성벽이 건축되고 내가 문짝들을 단 후, 문지기들과 노래하는 자들과
@@ -83,7 +124,7 @@
             7:4 그때 성읍은 넓고 크나 그 안에 백성들은 적고 집들은 지어지지 아니하였더라.
         </p>
         
-        <h4>포로에서 돌아온 자들의 명단</h4>
+    <h4>포로에서 돌아온 자들의 명단</h4>
 
         <p>
             7:5 &#x0039F 나의 <b>하나님</b>께서 내 마음속에 <i><small>생각을</small></i> 
@@ -230,8 +271,7 @@
         </p>
         
         <p>
-            7:39 &#x0039F 제사장들은 예수아 집의 여다야 자손이 구백칠십삼
-            명이요
+            7:39 &#x0039F 제사장들은 예수아 집의 여다야 자손이 구백칠십삼 명이요
         </p>
         
         <p>
@@ -247,8 +287,7 @@
         </p>
         
         <p>
-            7:43 &#x0039F 레위인들은 호드와 자손 중에서 예수아와 캇미엘
-            자손이 칠십사 명이더라.
+            7:43 &#x0039F 레위인들은 호드와 자손 중에서 예수아와 캇미엘 자손이 칠십사 명이더라.
         </p>
         
         <p>
@@ -256,13 +295,12 @@
         </p>
         
         <p>
-            7:45 &#x0039F 문지기들은 살룸 자손과 아텔 자손과 탈몬 자손과
-            악쿱 자손과 하티타 자손과 소배 자손이 일백삼십팔 명이더라.
+            7:45 &#x0039F 문지기들은 살룸 자손과 아텔 자손과 탈몬 자손과 악쿱 자손과 하티타 
+            자손과 소배 자손이 일백삼십팔 명이더라.
         </p>
         
         <p>
-            7:46 &#x0039F 느디님인들은 시하 자손과 하수바 자손과 탑바옷
-            자손과
+            7:46 &#x0039F 느디님인들은 시하 자손과 하수바 자손과 탑바옷 자손과
         </p>
         
         <p>
@@ -306,8 +344,7 @@
         </p>
         
         <p>
-            7:57 &#x0039F 솔로몬의 신하들의 자손은 소태 자손과 소페렛 자손과
-            프리다 자손과
+            7:57 &#x0039F 솔로몬의 신하들의 자손은 소태 자손과 소페렛 자손과 프리다 자손과
         </p>
         
         <p>
@@ -346,10 +383,9 @@
         
         <p>
             7:65 틸사다가 그들에게 말하기를 “우림과 툼밈을<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%207-65.html"
-                    target="_blank">ㄴ</a></sup>
-            가진 제사장이 일어서기 전에는 그들이 지극히 거룩한 것들을 먹어서는 안
-            되느니라.” 하더라.
+                href="https://syh8293.github.io/web/주석/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%207-65.html"
+                target="_blank">ㄴ</a></sup> 가진 제사장이 일어서기 전에는 그들이 
+            지극히 거룩한 것들을 먹어서는 안 되느니라.” 하더라.
         </p>
         
         <p>
@@ -372,9 +408,8 @@
         </p>
         
         <p>
-            7:70 &#x0039F 족장 중 몇은 공사를 위하여 바쳤으니, 틸사다는
-            보물창고에 금 일천 드람과 대야 오십 개와 제사장 의복 오백삼십 벌을
-            바쳤으며
+            7:70 &#x0039F 족장 중 몇은 공사를 위하여 바쳤으니, 틸사다는 보물창고에 금 
+            일천 드람과 대야 오십 개와 제사장 의복 오백삼십 벌을 바쳤으며
         </p>
         
         <p>
@@ -394,19 +429,110 @@
                 href="https://syh8293.github.io/web/주석/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%207-73.html"
                 target="_blank">ㄹ</a></sup>
         </p>
+
+        </div>
         
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%206">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%208">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
