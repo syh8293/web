@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            느헤미야 12 장
-        </header>
+    <header>
 
-        <h3>느헤미야 12 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">느헤미야 12 장</span>
 
-        <h5>B.C.434</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>포로에서 귀환한 제사장들과 레위인들</h4>
+    <div id="bible-content">
+
+    <h3>느헤미야 12 장</h3>
+
+    <h5>B.C.434</h5>
+
+    <h4>포로에서 귀환한 제사장들과 레위인들</h4>
 
         <p>
             12:1 스알티엘의 아들 스룹바벨과 예수아와 함께 올라온 제사장들과 레위인들은 이러하니, 
@@ -95,8 +136,7 @@
         </p>
         
         <p>
-            12:9 또 그들 형제들인 박부키야와 운니는 파수보는 일로 그들 맞은편을
-            맡았더라.
+            12:9 또 그들 형제들인 박부키야와 운니는 파수보는 일로 그들 맞은편을 맡았더라.
         </p>
         
         <p>
@@ -164,11 +204,13 @@
         </p>
         
         <p>
-            12:25 맛타냐와 박부키야, 오바댜, 므술람, 탈몬, 악쿱은 성문의 입구에서 직무를 수행하는 문지기들이더라.
+            12:25 맛타냐와 박부키야, 오바댜, 므술람, 탈몬, 악쿱은 성문의 입구에서 직무를 수행하는 
+            문지기들이더라.
         </p>
         
         <p>
-            12:26 이들이 요사닥의 손자, 예수아의 아들 요야킴과 총독 느헤미야와 제사장이자 서기관인 에스라의 때에 있었더라.
+            12:26 이들이 요사닥의 손자, 예수아의 아들 요야킴과 총독 느헤미야와 제사장이자 서기관인 
+            에스라의 때에 있었더라.
         </p>
         
         <h4>백성들이 에루살렘 성벽을 봉헌하다</h4>
@@ -179,13 +221,12 @@
         </p>
         
         <p>
-            12:28 노래하는 자들의 아들들이 예루살렘 주변의 평지 지방과 느토밧인의
-            마을들에서 함께 모여서 갔으며
+            12:28 노래하는 자들의 아들들이 예루살렘 주변의 평지 지방과 느토밧인의 마을들에서 함께 모여서 갔으며
         </p>
         
         <p>
-            12:29 길갈의 집과 게바와 아스마웻의 들에서도 갔으니 노래하는 자들이
-            그들에게 예루살렘 주위에 마을들을 세워 주었더라.
+            12:29 길갈의 집과 게바와 아스마웻의 들에서도 갔으니 노래하는 자들이 그들에게 예루살렘 주위에 
+            마을들을 세워 주었더라.
         </p>
         
         <p>
@@ -193,9 +234,8 @@
         </p>
         
         <p>
-            12:31 그때 내가 유다의 고관들을 성벽 위로 데려가서 감사를 드리는 두
-            개의 큰 무리로 그들을 정하고 그 중 한 무리로는 성벽 위 오른편에서
-            똥문쪽으로 가게 하니
+            12:31 그때 내가 유다의 고관들을 성벽 위로 데려가서 감사를 드리는 두 개의 큰 무리로 그들을 정하고 
+            그 중 한 무리로는 성벽 위 오른편에서 똥문쪽으로 가게 하니
         </p>
         
         <p>
@@ -280,18 +320,109 @@
                 target="_blank">2</a></sup>
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%2011">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%2013">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
