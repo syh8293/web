@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        욥 기 12 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">욥기 12 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>욥 기 12 장</h3>
 
@@ -71,30 +112,28 @@
         </p>
         
         <p>
-            12:3 그러나 나에게도 너희 같은 명철이 있으며 나도 너희보다 못하지
-            아니하니, 정녕 그 같은 일을 누가 알지 못하겠느냐?
+            12:3 그러나 나에게도 너희 같은 명철이 있으며 나도 너희보다 못하지 아니하니, 
+            정녕 그 같은 일을 누가 알지 못하겠느냐?
         </p>
         
         <p>
-            12:4 나는 자기 이웃에게 조롱당하는 자와 같아 <b>하나님</b>을
-            부르나 이웃이 답변을 하니 정직한 의인이 조소를 당하는도다.
+            12:4 나는 자기 이웃에게 조롱당하는 자와 같아 <b>하나님</b>을 부르나 이웃이 답변을 
+            하니 정직한 의인이 조소를 당하는도다.
         </p>
         
         <p>
-            12:5 그 발이 곧 미끄러질 자는 편히 지내는 자가 자기 생각으로 멸시하는
-            등불 같도다.
+            12:5 그 발이 곧 미끄러질 자는 편히 지내는 자가 자기 생각으로 멸시하는 등불 같도다.
         </p>
         
         <p>
-            12:6 강도들의 장막들은 번성하며 <b>하나님</b>을 진노케 하는 자들은
-            평안하니 <b>하나님</b>께서 그들의 손에 풍성하게 가져다 주심이라.<sup><a
+            12:6 강도들의 장막들은 번성하며 <b>하나님</b>을 진노케 하는 자들은 평안하니 <b>하나님</b>께서 
+            그들의 손에 풍성하게 가져다 주심이라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-6.html"
                 target="_blank">1</a></sup>
         </p>
         
         <p>
-            12:7 그러나 이제 짐승들에게 물어 보라. 그들이 너를
-            가르치리라.<sup><a
+            12:7 그러나 이제 짐승들에게 물어 보라. 그들이 너를 가르치리라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-7-1.html"
                 target="_blank">2</a></sup> 공중의 새들에게 물어 보라. 그들이 너에게 말해 주리라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-7-2.html"
@@ -102,8 +141,7 @@
         </p>
         
         <p>
-            12:8 아니면 땅에게 고하라. 그리하면 그것이 네게 가르쳐 주리라. 또
-            바다의 고기들도 네게 선포하리라.
+            12:8 아니면 땅에게 고하라. 그리하면 그것이 네게 가르쳐 주리라. 또 바다의 고기들도 네게 선포하리라.
         </p>
         
         <p>
@@ -119,8 +157,7 @@
         </p>
         
         <p>
-            12:11 귀가 말들을 시험하지 아니하느냐? 또 입이 음식을 맛보지
-            아니하느냐?
+            12:11 귀가 말들을 시험하지 아니하느냐? 또 입이 음식을 맛보지 아니하느냐?
         </p>
         
         <p>
@@ -134,13 +171,11 @@
         </p>
         
         <p>
-            12:14 보라, 그가 허시면 다시 세울 수 없고 그가 사람을 가두시면 열
-            수 없느니라.
+            12:14 보라, 그가 허시면 다시 세울 수 없고 그가 사람을 가두시면 열 수 없느니라.
         </p>
         
         <p>
-            12:15 보라, 그가 물들을 거두시니 물이 마르고 그가 또 물들을 보내시어
-            땅을 뒤집는도다.
+            12:15 보라, 그가 물들을 거두시니 물이 마르고 그가 또 물들을 보내시어 땅을 뒤집는도다.
         </p>
         
         <p>
@@ -194,8 +229,7 @@
         </p>
         
         <p>
-            12:23 그는 민족들을 흥성케도 하시고 멸망시키기도
-            하시며<sup><a
+            12:23 그는 민족들을 흥성케도 하시고 멸망시키기도 하시며<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-23.html"
                 target="_blank">ㅏ</a></sup> 그는 민족들을 확장시키기도 하시고<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-23.html"
@@ -203,8 +237,7 @@
         </p>
         
         <p>
-            12:24 그는 땅의 백성 중에서 우두머리의 마음을 빼앗아 가기도
-            하시며<sup><a
+            12:24 그는 땅의 백성 중에서 우두머리의 마음을 빼앗아 가기도 하시며<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-24.html"
                 target="_blank">ㅓ</a></sup> 그들로 길이 없는 광야에서 방황하게도 하시는도다.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/18%20Job%20(욥기)/Job%2012-24.html"
@@ -217,20 +250,111 @@
                 target="_blank">ㅗ</a></sup>
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/18%20Job%20(욥기)/Job%2011">&#9664;</a>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/18%20Job%20(욥기)/Job%2013">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
+    
 </body>
 
 </html>
