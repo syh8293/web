@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            역대기하 20 장
-        </header>
+    <header>
 
-        <h3>역대기하 20 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">역대기하 20 장</span>
 
-        <h5>B.C. 897</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>하나님께서 여호사밧을 모압인들과 암몬인들에게서 구해 주심</h4>
+    <div id="bible-content">
+
+    <h3>역대기하 20 장</h3>
+
+    <h5>B.C. 897</h5>
+
+    <h4>하나님께서 여호사밧을 모압인들과 암몬인들에게서 구해 주심</h4>
 
         <p>
             20:1 이 일 후에도 모압 자손과 암몬 자손과 암몬인들 외에 다른 족속도 그들과 더불어 여호사밧을 
@@ -91,22 +132,19 @@
         
         <p>
             20:7 이 땅의 거민을 주의 백성 이스라엘 앞에서 몰아내시고 그 땅을 주의
-            친구 아브라함의 씨에게 영원히 주신 주께서는 우리 <b>하나님</b>이
-            아니시니이까?
+            친구 아브라함의 씨에게 영원히 주신 주께서는 우리 <b>하나님</b>이 아니시니이까?
         </p>
         
         <p>
-            20:8 그들이 거기 거하며, 거기에 주의 이름을 위하여 주께 한 성소를
-            건축하고 말하기를
+            20:8 그들이 거기 거하며, 거기에 주의 이름을 위하여 주께 한 성소를 건축하고 말하기를
         </p>
         
         <p>
-            20:9 ‘칼이나 심판이나 전염병이나 기근과 같은 재앙이 우리에게 임할 때
-            만일 우리가 이 전 앞과 주의 면전에 서서 (이는 주의 이름이 이 전에
-            있음이오니) 우리의 고통 가운데 주께 부르짖으면 주께서는 들으시고
-            도와주시리이다.’<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-9.html"
-                    target="_blank">ㄱ</a></sup> 하였나이다.
+            20:9 ‘칼이나 심판이나 전염병이나 기근과 같은 재앙이 우리에게 임할 때 만일 우리가 
+            이 전 앞과 주의 면전에 서서 (이는 주의 이름이 이 전에 있음이오니) 우리의 고통 가운데 
+            주께 부르짖으면 주께서는 들으시고 도와주시리이다.’<sup><a
+                href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-9.html"
+                target="_blank">ㄱ</a></sup> 하였나이다.
         </p>
         
         <p>
@@ -142,8 +180,7 @@
         
         <p>
             20:16 내일 너희는 그들을 향하여 내려가라. 보라, 그들이 시스 벼랑을
-            따라 올라올 것이요, 너희가 여루엘 광야 앞 시내의 끝에서 그들을 만날
-            것이나
+            따라 올라올 것이요, 너희가 여루엘 광야 앞 시내의 끝에서 그들을 만날 것이나
         </p>
         
         <p>
@@ -151,8 +188,8 @@
             너희는 전열을 가다듬고 서서 너희와 함께하는 <b>주</b>의 구원을 보라.
             두려워 말고 놀라지 말며 내일 그들을 향하여 나가라. 이는 <b>주</b>가
             너희와 함께할 것임이라.”<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-17.html"
-                    target="_blank">ㄴ</a></sup> 하자
+                href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-17.html"
+                target="_blank">ㄴ</a></sup> 하자
         </p>
         
         <p>
@@ -183,8 +220,8 @@
             20:23 이는 암몬 자손과 모압 자손이 세일 산의 거민들을 대적하여 일어나
             그들을 완전히 죽이고 멸했기 때문이더라. 그들이 세일의 거민들을 진멸시킨 후
             각자가 서로 죽이니라.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-23.html"
-                    target="_blank">ㄷ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/14%20Chronicles%202%20(역대기하)/Chronicles2%2020-23.html"
+                target="_blank">ㄷ</a></sup>
         </p>
         
         <p>
@@ -195,8 +232,7 @@
         <p>
             20:25 여호사밧과 그의 백성이 그들에게서 탈취물을 취하려고 가서 보니
             가운데 시체들과 함께 많은 재물과 진귀한 보물이 있는지라. 그들이 자신들을
-            위하여 가져갈 수 없을 만큼 벗겨 갔으니 전리품이 너무 많아 모으는 데 삼
-            일이 걸렸더라.
+            위하여 가져갈 수 없을 만큼 벗겨 갔으니 전리품이 너무 많아 모으는 데 삼 일이 걸렸더라.
         </p>
         
         <p>
@@ -262,18 +298,109 @@
             되었더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/14%20Chronicles2%20(역대기하)/Chronicles2%2019">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/14%20Chronicles2%20(역대기하)/Chronicles2%2021">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
