@@ -5,13 +5,13 @@
     <title>열왕기하</title>
     <meta charset="utf-8">
     <meta name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no">
+        content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="style.css" type="text/css">
     <style media="screen">
         body {
                 background-color: whitesmoke;
                 text-align: justify;
-                margin-left: 10px;
+                margin-left: 7px;
                 margin-right: 10px;
                 font-size: large;
         }
@@ -21,16 +21,15 @@
             padding: 20px;
             margin: auto;
             text-align: center;
-            padding-top: 5px;
         }
 
         h4 {
-           text-align: left;
+           text-align: center;
+           padding-top: 5px;
         }
 
         h4.one {
-           text-align: center;
-           color: #7507fcec;
+             text-align: center;
         }
 
         p, ol {
@@ -39,8 +38,8 @@
         }
 
         #grid ul {
-            border-right: 2px solid gray;
-            width: 50px;
+            border-right: 1px solid gray;
+            width: 40px;
             margin: 0;
             padding-left: 3px;
             padding-right: 0px;
@@ -57,14 +56,14 @@
         #article {
             margin-left: -70px;
             padding-left: 1px;
-            line-height: 2.0;
+            line-height: 2.7;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -72,97 +71,138 @@
             text-decoration: none;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+        #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+
 </head>
 
 <body>
-    <header>
-        열왕기하
-    </header>
+        <header>
 
-    <h3>열 왕 기 하</h3>
+            <button class="font-btn"
+                onclick="changeFontSize(-2)">A-</button>
+            <span id="header-title">열왕기하</span>
 
-    <div id="grid">
+            <button class="font-btn"
+                 onclick="changeFontSize(2)">A+</button>
+        </header>
 
-            <ul>
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%201"
-                        target="_blank"><b>1</b></a></li>
+        <div id="bible-content">
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%202"
-                        target="_blank"><b>2</b></a></li>
+        <h3>열 왕 기 하</h3>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%203"
-                        target="_blank"><b>3</b></a></li>
+                <div id="grid">
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%204"
-                        target="_blank"><b>4</b></a></li>
+                <ul>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%201"
+                                target="_blank"><b>1</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%205"
-                        target="_blank"><b>5</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%202"
+                                target="_blank"><b>2</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%206"
-                        target="_blank"><b>6</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%203"
+                                target="_blank"><b>3</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%207"
-                        target="_blank"><b>7</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%204"
+                                target="_blank"><b>4</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%208"
-                        target="_blank"><b>8</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%205"
+                                target="_blank"><b>5</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%209"
-                        target="_blank"><b>9</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%206"
+                                target="_blank"><b>6</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2010"
-                        target="_blank"><b>10</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%207"
+                                target="_blank"><b>7</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2011"
-                        target="_blank"><b>11</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%208"
+                                target="_blank"><b>8</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2012"
-                        target="_blank"><b>12</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%209"
+                                target="_blank"><b>9</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2013"
-                        target="_blank"><b>13</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2010"
+                                target="_blank"><b>10</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2014"
-                        target="_blank"><b>14</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2011"
+                                target="_blank"><b>11</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2015"
-                        target="_blank"><b>15</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2012"
+                                target="_blank"><b>12</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2016"
-                        target="_blank"><b>16</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2013"
+                                target="_blank"><b>13</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2017"
-                        target="_blank"><b>17</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2014"
+                                target="_blank"><b>14</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2018"
-                        target="_blank"><b>18</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2015"
+                                target="_blank"><b>15</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2019"
-                        target="_blank"><b>19</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2016"
+                                target="_blank"><b>16</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2020"
-                        target="_blank"><b>20</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2017"
+                                target="_blank"><b>17</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2021"
-                        target="_blank"><b>21</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2018"
+                                target="_blank"><b>18</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2022"
-                        target="_blank"><b>22</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2019"
+                                target="_blank"><b>19</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2023"
-                        target="_blank"><b>23</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2020"
+                                target="_blank"><b>20</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2024"
-                        target="_blank"><b>24</b></a></li>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2021"
+                                target="_blank"><b>21</b></a></li>
 
-                <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2025"
-                        target="_blank"><b>25</b></a></li>
-            </ul>
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2022"
+                                target="_blank"><b>22</b></a></li>
+
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2023"
+                                target="_blank"><b>23</b></a></li>
+
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2024"
+                                target="_blank"><b>24</b></a></li>
+
+                        <li><a href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2025"
+                                target="_blank"><b>25</b></a></li>
+                </ul>
             
-        <div id="article">
+                <div id="article">
 
-            <h4>왕들에 관한 네 번째 책</h4>
+        <h4>왕들에 관한 네 번째 책</h4>
 
             <p>
                 기록자와 기록 시기에 관해서는 열왕기상 서문에서 살펴 보았다.
@@ -198,18 +238,107 @@
             </p>
         </div>
     </div>
+        </div>
 
         <hr>
                 <h4 class="one">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/Kings1%2022">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%201.html">&#9654;</a>
                 </h4>
+
+        <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 </body>
 
 </html>
