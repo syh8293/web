@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            느헤미야 13 장
-        </header>
+    <header>
 
-        <h3>느헤미야 13 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">느헤미야 13 장</span>
 
-        <h5>B.C.434</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>느헤미야가 행한 다른 개혁들</h4>
+    <div id="bible-content">
+
+    <h3>느헤미야 13 장</h3>
+
+    <h5>B.C.434</h5>
+
+    <h4>느헤미야가 행한 다른 개혁들</h4>
 
         <p>
             13:1 그 날에 그들이 백성의 청중에게 모세의 책을 낭독하였는데, 그 책에
@@ -85,15 +126,14 @@
         </p>
 
         <p>
-            13:5 그를 위하여 큰 방 하나를 준비하였으니 이는 이전에 그들이
-            음식제사와 유향과 기명들과 곡식과 새 포도주와 레위인들과 노래하는 자들과
-            문지기들에게 주도록 명한 기름의 십일조와 제사장들의 예물들을 두던 곳이더라.
+            13:5 그를 위하여 큰 방 하나를 준비하였으니 이는 이전에 그들이 음식제사와 유향과 
+            기명들과 곡식과 새 포도주와 레위인들과 노래하는 자들과 문지기들에게 주도록 명한 
+            기름의 십일조와 제사장들의 예물들을 두던 곳이더라.
         </p>
 
         <p>
-            13:6 그러나 내가 그 기간 내내 예루살렘에 있지 아니하였으니 바빌론의
-            아탁세르세스왕 제삼십이년에 내가 왕에게 갔다가 며칠 후에 왕에게서 떠날
-            허락을 얻었음이라.
+            13:6 그러나 내가 그 기간 내내 예루살렘에 있지 아니하였으니 바빌론의 아탁세르세스왕 
+            제삼십이년에 내가 왕에게 갔다가 며칠 후에 왕에게서 떠날 허락을 얻었음이라.
         </p>
 
         <p>
@@ -102,8 +142,7 @@
         </p>
 
         <p>
-            13:8 그 일이 나를 심히 슬프게 하였으므로 내가 토비야의 모든 세간을 그
-            방 밖으로 던져 버리니라.
+            13:8 그 일이 나를 심히 슬프게 하였으므로 내가 토비야의 모든 세간을 그 방 밖으로 던져 버리니라.
         </p>
 
         <p>
@@ -112,8 +151,8 @@
         </p>
 
         <p>
-            13:10 또 레위인들이 몫을 받지 않은 것을 내가 알았으니 그 직무를
-            행하는 레위인들과 노래하는 자들이 각기 자기 밭으로 도망하였음이라.
+            13:10 또 레위인들이 몫을 받지 않은 것을 내가 알았으니 그 직무를 행하는 레위인들과 
+            노래하는 자들이 각기 자기 밭으로 도망하였음이라.
         </p>
 
         <p>
@@ -122,15 +161,13 @@
         </p>
 
         <p>
-            13:12 그러자 온 유다가 곡식과 새 포도주와 기름의 십일조를 가져와서
-            보물창고에 들이더라.
+            13:12 그러자 온 유다가 곡식과 새 포도주와 기름의 십일조를 가져와서 보물창고에 들이더라.
         </p>
 
         <p>
-            13:13 또 내가 제사장 셀레먀와 서기관 사독과 레위인 프다야와 그들
-            다음으로 맛타냐의 손자, 삭쿨의 아들 하난을 재무를 감독하는 재무관들로
-            삼았으니 이는 그들이 신실한 자들로 여겨졌음이라. 그들의 직분은 그들의
-            형제들에게 분배하는 것이었더라.
+            13:13 또 내가 제사장 셀레먀와 서기관 사독과 레위인 프다야와 그들 다음으로 맛타냐의 손자, 
+            삭쿨의 아들 하난을 재무를 감독하는 재무관들로 삼았으니 이는 그들이 신실한 자들로 
+            여겨졌음이라. 그들의 직분은 그들의 형제들에게 분배하는 것이었더라.
         </p>
 
         <p>
@@ -139,20 +176,19 @@
         </p>
 
         <p>
-            13:15 그 당시에 유다에서 어떤 자들이 안식일에 포도즙틀을 밟고 곡식단을
-            나귀에 실어 가져가는 것을 내가 본지라, 포도주와 포도와 무화과와 온갖
-            짐들을 또한 그들이 안식일에 예루살렘으로 가져가기에 그들이 식물을 파는 그
-            날에 내가 그들을 대적하여 증거하였더라.
+            13:15 그 당시에 유다에서 어떤 자들이 안식일에 포도즙틀을 밟고 곡식단을 나귀에 실어 
+            가져가는 것을 내가 본지라, 포도주와 포도와 무화과와 온갖 짐들을 또한 그들이 안식일에 
+            예루살렘으로 가져가기에 그들이 식물을 파는 그 날에 내가 그들을 대적하여 증거하였더라.
         </p>
 
         <p>
-            13:16 예루살렘에 거하는 투로 사람들도 물고기와 여러 가지 물건들을
-            가져와 안식일에 유다 자손에게 예루살렘에서 팔기에
+            13:16 예루살렘에 거하는 투로 사람들도 물고기와 여러 가지 물건들을 가져와 안식일에 
+            유다 자손에게 예루살렘에서 팔기에
         </p>
 
         <p>
-            13:17 내가 유다의 귀족들과 다투어 그들에게 말하기를 “너희가 어찌하여
-            이 악한 일을 행하여 안식일을 더럽히느냐?
+            13:17 내가 유다의 귀족들과 다투어 그들에게 말하기를 “너희가 어찌하여 이 악한 일을 
+            행하여 안식일을 더럽히느냐?
         </p>
 
         <p>
@@ -162,9 +198,9 @@
         </p>
 
         <p>
-            13:19 안식일 전날 예루살렘 성문들이 어두워지기 시작할 때 내가 성문들을
-            닫으라고 명령하고 안식일이 지나기 전에는 열지 말라고 당부하였으며 내 부하
-            중 몇을 성문들에 세워 안식일에는 어떤 짐도 들여오지 못하게 하니라.
+            13:19 안식일 전날 예루살렘 성문들이 어두워지기 시작할 때 내가 성문들을 닫으라고 
+            명령하고 안식일이 지나기 전에는 열지 말라고 당부하였으며 내 부하 중 몇을 성문들에 
+            세워 안식일에는 어떤 짐도 들여오지 못하게 하니라.
         </p>
 
         <p>
@@ -178,15 +214,13 @@
         </p>
 
         <p>
-            13:22 또 내가 레위인들에게 명하기를 “몸을 깨끗이 하고 와서 성문을
-            지켜 안식일을 거룩하게 하라.” 하였더라. 오 나의 <b>하나님</b>이여,
-            이 일에 관하여서도 나를 기억하시고 주의 크신 자비하심에 따라 나를 아껴
-            주소서.
+            13:22 또 내가 레위인들에게 명하기를 “몸을 깨끗이 하고 와서 성문을 지켜 안식일을 
+            거룩하게 하라.” 하였더라. 오 나의 <b>하나님</b>이여, 이 일에 관하여서도 나를 
+            기억하시고 주의 크신 자비하심에 따라 나를 아껴 주소서.
         </p>
 
         <p>
-            13:23 그 당시에 유대인들이 아스돗과 암몬과 모압의 아내들과 혼인한 것을
-            내가 보았더라.
+            13:23 그 당시에 유대인들이 아스돗과 암몬과 모압의 아내들과 혼인한 것을 내가 보았더라.
         </p>
 
         <p>
@@ -214,8 +248,7 @@
 
         <p>
             13:27 그런데 우리가 너희에게 경청하고 타국의 아내들과 혼인하여 우리
-            <b>하나님</b>을 거슬러 범죄하고 이 모든 큰 악을 행해야 하겠느냐?”
-            하였더라.
+            <b>하나님</b>을 거슬러 범죄하고 이 모든 큰 악을 행해야 하겠느냐?” 하였더라.
         </p>
 
         <p>
@@ -238,18 +271,109 @@
             <b>하나님</b>이여, 선한 것으로 나를 기억하소서.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/16%20Nehemiah%20(느헤미야)/Nehemiah%2012">&#9664;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/17%20Esther%20(에스더)/Esther%200">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
