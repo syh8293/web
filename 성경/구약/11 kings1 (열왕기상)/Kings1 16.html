@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        열왕기상 16 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">열왕기상 16 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+        <div id="bible-content">
 
     <h3>열왕기상 16 장</h3>
 
@@ -98,7 +139,7 @@
                 target="_blank">1ㄱ</a></sup>
         </p>
 
-        <h4>이스라엘에서 엘라의 치리</h4>
+    <h4>이스라엘에서 엘라의 치리</h4>
 
         <p>
             16:8 &#x0039F 유다의 아사왕 제이십육년에 바아사의 아들 엘라가 티르사에서 
@@ -133,7 +174,7 @@
             16:14 엘라의 나머지 행적과 그가 행한 모든 것이 이스라엘 왕들의 역대서에 기록되어 있지 아니하냐?
         </p>
 
-        <h4>이스라엘에서 시므이의 치리</h4>
+    <h4>이스라엘에서 시므이의 치리</h4>
 
         <p>
             16:15 &#x0039F 유다의 아사왕 제이십칠년에 시므리가 티르사에서 칠 일 동안 치리하니라. 
@@ -162,7 +203,7 @@
             16:20 시므리의 나머지 행적과 그가 행한 모반이 이스라엘 왕들의 역대서에 기록되어 있지 아니하냐?
         </p>
 
-        <h4>이스라엘에서 오므리의 치리</h4>
+    <h4>이스라엘에서 오므리의 치리</h4>
 
         <p>
             16:21 &#x0039F 그때 이스라엘 백성이 두 파로 나뉘었으니 백성의 절반은 기낫의 
@@ -203,7 +244,7 @@
             16:28 그리하여 오므리가 그의 조상들과 함께 잠들어 사마리아에 장사되니 그의 아들 아합이 그를 대신하여 왕이 되니라.
         </p>
 
-        <h4>아합과 이세벨 - 적그리스도와 큰 바빌론의 예표</h4>
+    <h4>아합과 이세벨 - 적그리스도와 큰 바빌론의 예표</h4>
 
         <p>
             16:29 &#x0039F 유다의 아사왕 제삼십팔년에 오므리의 아들 아합이 이스라엘을 
@@ -246,18 +287,108 @@
                 target="_blank">3</a></sup> 눈의 아들 여호수아를 통해 하신 주의 말씀대로 되었더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/Kings1%2015">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/11%20kings1%20(열왕기상)/Kings1%2017">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
