@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,12 +47,53 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        열왕기하 15 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">열왕기하 15 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>열왕기하 15 장</h3>
 
@@ -100,7 +141,7 @@
             다윗 성읍에 장사하고 그의 아들 요담이 그를 대신하여 왕이 되니라.
         </p>
 
-        <h4>이스라엘 왕 사카랴의 치리:예후 집안에 대한 심판</h4>
+    <h4>이스라엘 왕 사카랴의 치리:예후 집안에 대한 심판</h4>
 
         <p>
             15:8 &#x0039F 유다의 아사랴왕 제삼십팔년에 여로보암의 아들 사카랴가 사마리아에서 
@@ -126,7 +167,7 @@
             보좌에 사 대까지 앉으리라.” 하셨으며 그대로 되었더라.
         </p>
 
-        <h4>이스라엘 왕 살룸의 치리</h4>
+    <h4>이스라엘 왕 살룸의 치리</h4>
 
         <p>
             15:13 &#x0039F 유다의 웃시야왕 제삼십구년에 야베스의 아들 살룸이 다스리기 시작하여 
@@ -149,7 +190,7 @@
             안에 아이 밴 모든 여인들을 갈랐더라.
         </p>
 
-        <h4>이스라엘 왕 므나헴의 치리</h4>
+    <h4>이스라엘 왕 므나헴의 치리</h4>
 
         <p>
             15:17 유다의 아사랴왕 제삼십구년에<sup><a 
@@ -183,7 +224,7 @@
             15:22 므나헴이 그의 조상들과 함께 잠드니 그의 아들 프카히야가 그를 대신하여 왕이 되니라.
         </p>
 
-        <h4>이스라엘 왕 프카히야의 치리</h4>
+    <h4>이스라엘 왕 프카히야의 치리</h4>
 
         <p>
             15:23 &#x0039F유다의 아사랴왕 제오십년에 므나헴의 아들 프카히야가 사마리아에서 이스라엘을 
@@ -206,7 +247,7 @@
             기록되어 있느니라.
         </p>
 
-        <h4>이스라엘 왕 페카의 치리</h4>
+    <h4>이스라엘 왕 페카의 치리</h4>
 
         <p>
             15:27 &#x0039F유다의 아사랴왕 제오십이년에 르말랴의 아들 페카가 사마리아에서 이스라엘을 
@@ -234,7 +275,7 @@
             있느니라.
         </p>
 
-        <h4>유다 왕 요담의 치리</h4>
+    <h4>유다 왕 요담의 치리</h4>
 
         <p>
             15:32 &#x0039F이스라엘의 왕 르말랴의 아들 페카 제이년에 유다의 웃시야왕의 아들 요담이 치리하기 
@@ -273,18 +314,108 @@
             아들 아하스가 그를 대신하여 왕이 되니라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
                     <a
                         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2014">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/12%20Kings2%20(열왕기하)/Kings2%2016">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
