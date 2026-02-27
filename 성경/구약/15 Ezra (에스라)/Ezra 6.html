@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -47,18 +47,59 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            에스라 6 장
-        </header>
+    <header>
 
-        <h3>에스라 6 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">에스라 6 장</span>
 
-        <h5>B.C.520</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
 
-        <h4>다리오가 코레스의 칙령을 회복함</h4>
+    <div id="bible-content">
+
+    <h3>에스라 6 장</h3>
+
+    <h5>B.C.520</h5>
+
+    <h4>다리오가 코레스의 칙령을 회복함</h4>
 
         <p>
             6:1 그러자 다리오왕이 칙령을 내려 바빌론에 보물이 쌓여 있는 서고를<sup><a
@@ -67,14 +108,12 @@
         </p>
         
         <p>
-            6:2 메데인들의 지방에 있는 궁 악메다에서 한 두루마리가 발견되었는데
-            거기에 이같이 기록되기를
+            6:2 메데인들의 지방에 있는 궁 악메다에서 한 두루마리가 발견되었는데 거기에 이같이 기록되기를
         </p>
         
         <p>
-            6:3 “코레스왕 제일년에 코레스왕이 예루살렘에 있는 <b>하나님</b>의
-            전에 관하여 한 칙령을 내리니라. 사람들이 희생제를 드리던 장소, 즉 전을
-            건축할지니<sup><a
+            6:3 “코레스왕 제일년에 코레스왕이 예루살렘에 있는 <b>하나님</b>의 전에 관하여 한 
+            칙령을 내리니라. 사람들이 희생제를 드리던 장소, 즉 전을 건축할지니<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%206-3.html"
                 target="_blank">1ㄴ</a></sup> 그 기초를 튼튼히 놓고 그 높이는 육십
             큐빗으로 또 그 너비도 육십 큐빗으로 하되
@@ -85,21 +124,20 @@
         </p>
         
         <p>
-            6:5 또 느부캇넷살이 예루살렘에 있는 성전에서 취하여 바빌론으로 가져왔던
-            <b>하나님</b>의 전의 금과 은 기명들을 돌려 주어 예루살렘에 있는 성전으로 
-            다시 가져와서 각각 <b>하나님</b>의 전 안에 있던 자리에 둘지니라.” 하였더라.<sup><a
+            6:5 또 느부캇넷살이 예루살렘에 있는 성전에서 취하여 바빌론으로 가져왔던 <b>하나님</b>의 
+            전의 금과 은 기명들을 돌려 주어 예루살렘에 있는 성전으로 다시 가져와서 각각 <b>하나님</b>의 
+            전 안에 있던 자리에 둘지니라.” 하였더라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%206-5.html"
                 target="_blank">ㄷ</a></sup>
         </p>
         
         <p>
-            6:6 “그러므로 이제 강 저편의 총독 탓내와 스달보스내와 강 저편에 있는
-            아팔삭인들인 너희의 동료들은 그곳으로부터 멀리 있어
+            6:6 “그러므로 이제 강 저편의 총독 탓내와 스달보스내와 강 저편에 있는 아팔삭인들인 너희의 
+            동료들은 그곳으로부터 멀리 있어
         </p>
         
         <p>
-            6:7 이 <b>하나님</b>의 전의 공사를 막지 말고 유대인의 총독과 유대인의 
-            장로들로 이 <b>하나님</b>의 전을<sup><a
+            6:7 이 <b>하나님</b>의 전의 공사를 막지 말고 유대인의 총독과 유대인의 장로들로 이 <b>하나님</b>의 전을<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%206-7.html"
                 target="_blank">ㄹ</a></sup> 그 있던 자리에 건축하게 할지니라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/15%20Ezra%20(에스라)/Ezra%206-7.html"
@@ -201,18 +239,109 @@
             이스라엘의 <b>하나님</b> 전의 노역에 그들의 손을 강하게 하셨음이더라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
+
                     <a
                         href="https://syh8293.github.io/web/성경/구약/15%20Ezra%20(에스라)/Ezra%205">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/15%20Ezra%20(에스라)/Ezra%207">&#9654;</a>
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
