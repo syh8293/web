@@ -21,15 +21,14 @@
         }
 
         p {
-            text-indent: -5px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -42,23 +41,63 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        시편 52
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">시편 52</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>시 편 52</h3>
     
-    <h4>악장에게, 마스킬, 다윗의 시, 에돔인 도엑이 사울에게 가서 
-        고하여 "다윗이 아히멜렉의 집으로 갔나이다."라고 말했을 때.</h4>
+    <h5>악장에게, 마스킬, 다윗의 시, 에돔인 도엑이 사울에게 가서 고하여 "다윗이 아히멜렉의 
+        집으로 갔나이다."라고 말했을 때.</h5>
 
         <p>
-            52:1 오 힘있는 자여, 어찌하여 네가 해악을 스스로
-            자랑하느냐?<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2052-1.html"
-                    target="_blank">ㄱ</a></sup> <b>하나님</b>의 선하심은 항상 지속되도다.
+            52:1 오 힘있는 자여, 어찌하여 네가 해악을 스스로 자랑하느냐?<sup><a
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2052-1.html"
+                target="_blank">ㄱ</a></sup> <b>하나님</b>의 선하심은 항상 지속되도다.
         </p>
         
         <p>
@@ -82,9 +121,8 @@
         </p>
         
         <p>
-            52:5 그와 같이 <b>하나님</b>께서도 너를 영원히 멸하시며 너를 없애
-            버리시리니, 네 처소에서 너를 뽑아 내시며 산 자들의 땅으로부터 뿌리째
-            뽑으시리라.<sup><a
+            52:5 그와 같이 <b>하나님</b>께서도 너를 영원히 멸하시며 너를 없애 버리시리니, 네 처소에서 
+            너를 뽑아 내시며 산 자들의 땅으로부터 뿌리째 뽑으시리라.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2052-5.html"
                 target="_blank">ㅂ</a></sup> 셀라.
         </p>
@@ -94,19 +132,21 @@
         </p>
         
         <p>
-            52:7 보라, 이 사람은 <b>하나님</b>을 자기의 힘으로 삼지 아니하고
-            자기 부의 풍부함을 의지하며 자기 악으로 자신을 힘있게 하던 자라.
+            52:7 보라, 이 사람은 <b>하나님</b>을 자기의 힘으로 삼지 아니하고 자기 부의 풍부함을 
+            의지하며 자기 악으로 자신을 힘있게 하던 자라.
         </p>
         
         <p>
-            52:8 그러나 나는 <b>하나님</b>의 집에 있는 푸른 올리브 나무와
-            같이 <b>하나님</b>의 자비하심을 영원무궁토록 신뢰하는도다.
+            52:8 그러나 나는 <b>하나님</b>의 집에 있는 푸른 올리브 나무와 같이 <b>하나님</b>의 
+            자비하심을 영원무궁토록 신뢰하는도다.
         </p>
         
         <p>
-            52:9 주께서 그것을 행하셨으므로 내가 주를 영원히 찬양할 것이요, 주의
-            이름이 주의 성도들 앞에 선하시므로 내가 주의 이름을 기다리리이다.
+            52:9 주께서 그것을 행하셨으므로 내가 주를 영원히 찬양할 것이요, 주의 이름이 주의 성도들 
+            앞에 선하시므로 내가 주의 이름을 기다리리이다.
         </p>
+
+        </div>
 
             <hr>
 
@@ -114,17 +154,105 @@
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2051.html">&#9664;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%200.html">시편</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2053.html">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
