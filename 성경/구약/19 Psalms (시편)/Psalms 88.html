@@ -21,15 +21,14 @@
         }
 
         p {
-            text-indent: -5px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -42,21 +41,62 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        시편 88
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">시편 88</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>시 편 88</h3>
 
-    <h4>코라의 아들들을 위한 노래 또는 시, 마할랏 르안놋으로 악장에게, 에스라인 헤만의 마스킬.</h4>
+    <h5>코라의 아들들을 위한 노래 또는 시, 마할랏 르안놋으로 악장에게, 에스라인 헤만의 마스킬.</h5>
 
         <p>
             88:1 오 내 구원의 <b>주 하나님</b>이여, 내가 주 앞에서 밤낮으로 부르짖었나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-1.html"
-                    target="_blank">1</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-1.html"
+                target="_blank">1</a></sup>
         </p>
         
         <p>
@@ -78,14 +118,14 @@
         
         <p>
             88:6 주께서는 나를 가장 낮은 구덩이, 어두운 곳,<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-6.html"
-                    target="_blank">ㄱ</a></sup> 깊음들 속에 두셨나이다.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-6.html"
+                target="_blank">ㄱ</a></sup> 깊음들 속에 두셨나이다.
         </p>
         
         <p>
             88:7 주의 진노가 나를 무겁게 눌렀으며 주께서 주의 모든 파도로 내게 고통을 주셨나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-7.html"
-                    target="_blank">ㄴ</a></sup> 셀라.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-7.html"
+                target="_blank">ㄴ</a></sup> 셀라.
         </p>
         
         <p>
@@ -106,20 +146,20 @@
         
         <p>
             88:12 주의 이적들이 어둠 속에서 알려지리이까? 주의 의가 망각의 땅에서 알려지리이까?<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-12.html"
-                    target="_blank">ㄷ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-12.html"
+                target="_blank">ㄷ</a></sup>
         </p>
         
         <p>
             88:13 그러나 오 <b>주</b>여, 내가 주께 부르짖었으니<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-13.html"
-                    target="_blank">ㄹ</a></sup> 아침에 나의 기도가 주 앞에 상달되리이다.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-13.html"
+                target="_blank">ㄹ</a></sup> 아침에 나의 기도가 주 앞에 상달되리이다.
         </p>
         
         <p>
             88:14 <b>주</b>여, 주께서는 어찌하여 내 혼을 버리시며 어찌하여 주의 얼굴을 내게서 숨기시나이까?<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-14.html"
-                    target="_blank">ㅁ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-14.html"
+                target="_blank">ㅁ</a></sup>
         </p>
         
         <p>
@@ -128,21 +168,23 @@
         
         <p>
             88:16 주의 맹렬한 진노가 나를 뒤덮었으며 주의 공포가 나를 끊었나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-16.html"
-                    target="_blank">ㅂ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-16.html"
+                target="_blank">ㅂ</a></sup>
         </p>
         
         <p>
             88:17 그것들이 매일 물같이 나를 에워쌌으며 그것들이 다 함께 나를 둘러쌌나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-17.html"
-                    target="_blank">ㅅ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-17.html"
+                target="_blank">ㅅ</a></sup>
         </p>
         
         <p>
             88:18 주께서는 나의 사랑하는 자와 친구를 나로부터 멀리 떼어놓으시고<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-18.html"
-                    target="_blank">ㅇ</a></sup> 나의 아는 자도 어둠 속에 두셨나이다.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2088-18.html"
+                target="_blank">ㅇ</a></sup> 나의 아는 자도 어둠 속에 두셨나이다.
         </p>
+
+        </div>
 
             <hr>
 
@@ -150,17 +192,105 @@
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2087.html">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%200.html">시편</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2089.html">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
