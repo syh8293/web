@@ -21,15 +21,14 @@
         }
 
         p {
-            text-indent: -5px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -42,21 +41,62 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        시편 100
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">시편 100</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>시 편 100</h3>
 
-    <h4>찬양의 시</h4>
+    <h5>찬양의 시</h5>
 
         <p>
             100:1 너희 온 땅들아, 주께 즐거운 소리를 내어라.<sup><a
-                    href="https://syh8293.github.io/an2/Psalms%20100-1.html"
-                    target="_blank">1</a></sup>
+                href="https://syh8293.github.io/an2/Psalms%20100-1.html"
+                target="_blank">1</a></sup>
         </p>
         
         <p>
@@ -65,10 +105,10 @@
         
         <p>
             100:3 너희는 <b>주</b>, 그가 <b>하나님</b>이심을 알라. 우리를 지으신 분은 우리들 자신이 아니라 그분이시라.<sup><a
-                    href="https://syh8293.github.io/an2/Psalms%20100-3.html"
-                    target="_blank">ㄱ</a></sup> 우리는 그의 백성이요, 그의 초장의 양이로다.<sup><a
-                    href="https://syh8293.github.io/an2/Psalms%20100-3.html"
-                    target="_blank">2</a></sup>
+                href="https://syh8293.github.io/an2/Psalms%20100-3.html"
+                target="_blank">ㄱ</a></sup> 우리는 그의 백성이요, 그의 초장의 양이로다.<sup><a
+                href="https://syh8293.github.io/an2/Psalms%20100-3.html"
+                target="_blank">2</a></sup>
         </p>
         
         <p>
@@ -79,23 +119,113 @@
             100:5 이는 <b>주</b>께서는 선하시고 그의 자비는 영원하며 그의 진리가 모든 세대에 지속되기 때문이라.
         </p>
 
+        </div>
+
             <hr>
 
                 <div id="article">
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2099.html">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%200.html">시편</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%20101.html">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
 </body>
 
