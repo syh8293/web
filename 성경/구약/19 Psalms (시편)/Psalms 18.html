@@ -21,15 +21,14 @@
         }
 
         p {
-            text-indent: -5px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -42,19 +41,60 @@
             padding-left: 20%;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-        <header>
-            시편 18
-        </header>
+    <header>
 
-        <h3>시 편 18</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">시편 18</span>
 
-        <h4>
-            악장에게, 주의 종 다윗의 시, 주께서 다윗을 그의 모든 원수들의 손과
-            사울의 손에서 구해 내신 날에, 그가 이 노랫말로 주께 고하여 말씀드리기를,
-        </h4>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
+    </header>
+
+    <div id="bible-content">
+
+    <h3>시 편 18</h3>
+
+    <h5>
+        악장에게, 주의 종 다윗의 시, 주께서 다윗을 그의 모든 원수들의 손과
+        사울의 손에서 구해 내신 날에, 그가 이 노랫말로 주께 고하여 말씀드리기를,
+    </h5>
 
         <p>
             18:1 오 나의 힘이신 주여, 내가 주를 사랑하리이다.
@@ -126,7 +166,8 @@
         </p>
         
         <p>
-            18:13 <b>주</b>께서 또한 하늘들에서 천둥을 발하셨고 가장 높으신 분이 음성을 내셨으니 우박과 숯불덩이가 내렸도다.<sup><a
+            18:13 <b>주</b>께서 또한 하늘들에서 천둥을 발하셨고 가장 높으신 분이 음성을 내셨으니 우박과 
+            숯불덩이가 내렸도다.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2018-13.html"
                 target="_blank">ㅈ</a></sup>
         </p>
@@ -204,7 +245,8 @@
         </p>
         
         <p>
-            18:29 이는 내가 주를 의지하고 군대 속을 통과해 달렸으며 내 <b>하나님</b>을 의지하고 성벽을 뛰어넘었음이니이다.<sup><a
+            18:29 이는 내가 주를 의지하고 군대 속을 통과해 달렸으며 내 <b>하나님</b>을 의지하고 성벽을 
+            뛰어넘었음이니이다.<sup><a
                 href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%2018-29.html"
                 target="_blank">ㅏ</a></sup>
         </p>
@@ -253,7 +295,8 @@
         </p>
         
         <p>
-            18:39 이는 주께서 힘으로 나를 두르시어 싸우게 하셨으며 주께서 나를 대적하여 일어난 자들을 내 아래 굴복시키셨음이니이다.
+            18:39 이는 주께서 힘으로 나를 두르시어 싸우게 하셨으며 주께서 나를 대적하여 일어난 자들을 내 아래 
+            굴복시키셨음이니이다.
         </p>
         
         <p>
@@ -313,23 +356,113 @@
                 target="_blank">3</a></sup> 이와 다윗과 그의 씨에게 영원토록 자비를 베푸시는도다.
         </p>
 
+        </div>
+
             <hr>
                     
                 <div id="article">
 
                     <a
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2017.html">&#9664;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%200.html">시편</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp
+                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     <a 
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%2019.html">&#9654;</a>
 
                 </div>
+
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script>
 
         
 </body>
