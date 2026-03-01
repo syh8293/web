@@ -16,20 +16,19 @@
             font-size: large;
         }
 
-        h3 {
+        h3, h5 {
             text-align: center;
         }
 
         p {
-            text-indent: -5px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -38,20 +37,63 @@
             color: #f00;
         }
 
-        #article {
-            padding-left: 20%;
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
         }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
-        시편 119
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">시편 119</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>시 편 119</h3>
 
-    <h4>ℵ 알레프</h4>
+    <h5>ℵ 알레프</h5>
 
         <p>
             119:1 <b>주</b>의 법 안에서 행하여 그 길에서 더럽혀지지 않은 자들은 복이 있도다.<sup><a
@@ -87,7 +129,7 @@
             119:8 내가 주의 규례들을 지키리니 오 나를 완전히 버리지 마소서.
         </p>
         
-        <h4>ב 베트</h4>
+        <h5>ב 베트</h5>
 
         <p>
             119:9 청년이 무엇으로 자기 길을 정결케 하리이까? 주의 말씀을 따라 조심할 것이니이다.<sup><a
@@ -123,7 +165,7 @@
             119:16 내가 주의 규례들을 즐거워하며 주의 말씀을 잊지 아니하리이다.
         </p>
         
-        <h4>ג 기멜</h4>
+        <h5>ג 기멜</h5>
 
         <p>
             119:17 주의 종을 후대하시어 나로 살게 하시고 주의 말씀을 지키게 하소서.
@@ -159,7 +201,7 @@
             119:24 주의 증거들은 또한 나의 기쁨이고 나의 상담자들이니이다.
         </p>
         
-        <h4>ר 달레트</h4>
+        <h5>ר 달레트</h5>
 
         <p>
             119:25 내 혼이 진토에 붙어 있으니 주의 말씀대로 나를 소생시키소서.
@@ -193,7 +235,7 @@
             119:32 주께서 내 마음을 넓히시리니 내가 주의 계명들의 길을 달려가리이다.
         </p>
         
-        <h4>ה 헤</h4>
+        <h5>ה 헤</h5>
 
         <p>
             119:33 오 <b>주</b>여, 주의 규례들의 길을 내게 가르치소서. 그리하시면 내가 끝까지 지키겠나이다.
@@ -227,7 +269,7 @@
             119:40 보소서. 내가 주의 법규들을 사모하였으니 주의 의 안에서 나를 소생시키소서.
         </p>
         
-        <h4>ר 와우</h4>
+        <h5>ר 와우</h5>
 
         <p>
             119:41 오 <b>주</b>여, 주의 말씀대로 주의 자비와 주의 구원도 내게 임하게 하소서.
@@ -261,7 +303,7 @@
             119:48 또 내가 사랑하는 주의 계명들에 내 두 손을 들어올릴 것이요, 내가 주의 규례들을 묵상하리이다.
         </p>
         
-        <h4> ז 자인</h4>
+        <h5> ז 자인</h5>
 
         <p>
             119:49 주의 종에게 하신 말씀을 기억하소서. 주께서는 나로 그 말씀 위에서 소망을 갖게 하셨나이다.
@@ -295,7 +337,7 @@
             119:56 내가 가진 것이 이것이니 이는 내가 주의 법규들을 지켰기 때문이니이다.
         </p>
         
-        <h4>ח 헤트</h4>
+        <h5>ח 헤트</h5>
 
         <p>
             119:57 오 <b>주</b>여, 주는 나의 분깃이시니 내가 주의 말씀들을 지키리라고 말하였나이다.
@@ -329,7 +371,7 @@
             119:64 오 <b>주</b>여, 땅이 주의 자비로 충만하오니 주의 규례들을 내게 가르치소서.
         </p>
         
-        <h4>ט 테트</h4>
+        <h5>ט 테트</h5>
 
         <p>
             119:65 오 <b>주</b>여, 주께서는 주의 말씀대로 주의 종을 선대하셨나이다.
@@ -341,8 +383,8 @@
         
         <p>
             119:67 내가 고난을 당하기 전에는 길을 잃었으나 이제는 주의 말씀을 지키나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-71.html"
-                    target="_blank">ㄷ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-71.html"
+                target="_blank">ㄷ</a></sup>
         </p>
         
         <p>
@@ -359,15 +401,15 @@
         
         <p>
             119:71 내가 고난을 당한 것이 내게 좋사오니 이는 내가 주의 규례들을 배우게 되기 때문이니이다. <sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-71.html"
-                    target="_blank">ㄹ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-71.html"
+                target="_blank">ㄹ</a></sup>
         </p>
         
         <p>
             119:72 주의 입의 법이 내게는 수천의 금과 은보다 낫나이다.
         </p>
         
-        <h4>י 요드</h4>
+        <h5>י 요드</h5>
 
         <p>
             119:73 주의 손이 나를 만드셨고 나의 형태를 이루셨으니 내게 명철을 주소서. 그리하시면 내가 주의 계명들을 배우리이다.
@@ -402,7 +444,7 @@
             119:80 주의 규례로 내 마음을 온전케 하소서. 그리하시면 내가 수치를 당하지 아니하리이다.
         </p>
         
-        <h4>כ 카프</h4>
+        <h5>כ 카프</h5>
 
         <p>
             119:81 나의 혼이 주의 구원을 갈망하여 기진하오나 나는 주의 말씀을 바라나이다.
@@ -414,8 +456,8 @@
         
         <p>
             119:83 이는 내가 연기 속의 가죽 부대같이<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-83.html"
-                    target="_blank">2</a></sup> 되었음이나 내가 주의 규례들을 잊지 아니하나이다.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-83.html"
+                target="_blank">2</a></sup> 되었음이나 내가 주의 규례들을 잊지 아니하나이다.
         </p>
         
         <p>
@@ -438,12 +480,12 @@
             119:88 주의 자애하심을 따라 나를 소생시키소서. 그리하시면 내가 주의 입의 증거를 지키리이다.
         </p>
         
-        <h4>ל 라메드</h4>
+        <h5>ל 라메드</h5>
 
         <p>
             119:89 오 <b>주</b>여, 주의 말씀은 영원히 하늘에 세워졌나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-89.html"
-                    target="_blank">ㅁ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-89.html"
+                target="_blank">ㅁ</a></sup>
         </p>
         
         <p>
@@ -474,7 +516,7 @@
             119:96 내가 모든 완전한 것의 끝을 보았으나 주의 계명은 심히 넓으니이다.
         </p>
         
-        <h4>מ 멤</h4>
+        <h5>מ 멤</h5>
 
         <p>
             119:97 오, 내가 얼마나 주의 법을 사랑하는지요! 그것이 종일 나의 묵상이 되나이다.
@@ -486,14 +528,14 @@
         
         <p>
             119:99 내가 나의 모든 스승들보다 더 명철하오니<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-99.html"
-                    target="_blank">3</a></sup> 이는 주의 증거들이 나의 묵상이 됨이니이다.
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-99.html"
+                target="_blank">3</a></sup> 이는 주의 증거들이 나의 묵상이 됨이니이다.
         </p>
         
         <p>
             119:100 내가 노인들보다도 더 깨달았으니 이는 내가 주의 법규들을 지킴이니이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-100.html"
-                    target="_blank">4</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-100.html"
+                target="_blank">4</a></sup>
         </p>
         
         <p>
@@ -512,7 +554,7 @@
             119:104 주의 법규들을 통하여 내가 명철을 얻으오니 그러므로 내가 모든 거짓된 길을 미워하나이다.
         </p>
         
-        <h4>נ 눈</h4>
+        <h5>נ 눈</h5>
 
         <p>
             119:105 주의 말씀은 내 발에 등불이요, 내 길에 빛이니이다.
@@ -546,7 +588,7 @@
             119:112 내가 주의 규례들을 끝까지 행하려고 늘 내 마음을 기울였나이다.
         </p>
         
-        <h4>ס 싸메크</h4>
+        <h5>ס 싸메크</h5>
 
         <p>
             119:113 내가 헛된 생각들을 미워하고 주의 법을 사랑하나이다.
@@ -580,7 +622,7 @@
             119:120 내 육신이 주를 두려워함으로 전율하오며 내가 주의 명령들을 두려워하나이다.
         </p>
         
-        <h4>ע 아인</h4>
+        <h5>ע 아인</h5>
 
         <p>
             119:121 내가 공의와 정의를 행하였으니 나를 압제하는 자들에게 나를 넘기지 마소서.
@@ -613,11 +655,11 @@
         <p>
             119:128 그러므로 내가 모든 것에 관한 주의 법규들을 바른 것으로
             여기며 모든 거짓된 길을 미워하나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-128.html"
-                    target="_blank">ㅂ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-128.html"
+                target="_blank">ㅂ</a></sup>
         </p>
         
-        <h4>פ 페</h4>
+        <h5>פ 페</h5>
 
         <p>
             119:129 주의 증거들이 경이로우므로 내 혼이 그것들을 지키나이다.
@@ -651,7 +693,7 @@
             119:136 그들이 주의 법을 지키지 아니하므로 강물들이 내 눈에서 흘러내리나이다.
         </p>
         
-        <h4>צ 차데</h4>
+        <h5>צ 차데</h5>
 
         <p>
             119:137 오 <b>주</b>여, 주는 의로우시고 주의 명령들은 올바르니이다.
@@ -685,7 +727,7 @@
             119:144 주의 증거들의 의는 영원하니 내게 명철을 주소서. 그리하시면 내가 살리이다.
         </p>
         
-        <h4>ק 코프</h4>
+        <h5>ק 코프</h5>
 
         <p>
             119:145 오 <b>주</b>여, 내가 전심으로 부르짖었사오니 내게 들으소서. 내가 주의 규례들을 지키리이다.
@@ -719,7 +761,7 @@
             119:152 주의 증거들에 관하여는 주께서 그것들을 영원히 세우신 줄을 내가 예로부터 알았나이다.
         </p>
         
-        <h4>ר 레쉬</h4>
+        <h5>ר 레쉬</h5>
 
         <p>
             119:153 나의 고난을 보시고 나를 구하소서. 이는 내가 주의 법을 잊지 아니함이니이다.
@@ -751,11 +793,11 @@
         
         <p>
             119:160 주의 말씀은 처음부터 참되며 모든 주의 의로운 명령들은 영원히 지속되나이다.<sup><a
-                    href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-160.html"
-                    target="_blank">5ㅅ</a></sup>
+                href="https://syh8293.github.io/web/주석/구약/19%20Psalms%20(시편)/Psalms%20119-160.html"
+                target="_blank">5ㅅ</a></sup>
         </p>
         
-        <h4>ש 씬</h4>
+        <h5>ש 씬</h5>
 
         <p>
             119:161 통치자들이 까닭없이 나를 박해하였으나 내 마음은 주의 말씀을 두려워하나이다.
@@ -789,7 +831,7 @@
             119:168 내가 주의 법규들과 주의 증거들을 지켰으니 이는 나의 모든 길이 주 앞에 있음이니이다.
         </p>
         
-        <h4>ת 타우</h4>
+        <h5>ת 타우</h5>
 
         <p>
             119:169 오 <b>주</b>여, 나의 부르짖음이 주 앞에 가까이 이르게 하시고 주의 말씀대로 내게 명철을 주소서.
@@ -823,23 +865,108 @@
             119:176 내가 잃어버린 양같이 길을 잃었으니 주의 종을 찾으소서. 이는 내가 주의 계명들을 잊지 아니함이니이다.
         </p>
 
-            <hr>
+            </div>
 
-                <div id="article">
+                <hr>
 
+                    <nav class="nav">
                     <a
-                        href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%20118.html">&#9664;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
+                        href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%20117.html">&#9664;</a>
                     <a
                         href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
-                    <a 
+                    <a
                         href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%200.html">시편</a>
-                                        &nbsp &nbsp &nbsp &nbsp &nbsp
-                    <a 
-                        href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%20120.html">&#9654;</a>
+                    <a
+                        href="https://syh8293.github.io/web/성경/구약/19%20Psalms%20(시편)/Psalms%20119.html">&#9654;</a>
+                </nav>
 
-                </div>
+    <script>
+        // 1. 글자 크기 변경 함수
+        function changeFontSize(delta) {
+            const content = document
+                .getElementById('bible-content');
+            // 현재 적용된 폰트 크기 가져오기
+            let currentSize = parseInt(window
+                .getComputedStyle(content)
+                .fontSize);
+            let newSize = currentSize + delta;
+
+            // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+            if (newSize >= 12 && newSize <= 40) {
+                content.style.fontSize = newSize +
+                    "px";
+                // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+                localStorage.setItem(
+                    'user_font_size', newSize);
+            }
+        }
+
+        // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+        window.addEventListener('load',
+        function () {
+            // [글자 크기 복구]
+            const savedSize = localStorage
+                .getItem(
+                'user_font_size');
+            if (savedSize) {
+                document.getElementById(
+                        'bible-content')
+                    .style.fontSize =
+                    savedSize + "px";
+            }
+
+            // [스크롤 위치 복구]
+            const savedData = localStorage
+                .getItem(
+                    'bible_scroll_pos');
+            if (savedData) {
+                const data = JSON.parse(
+                    savedData);
+                if (data.url === window
+                    .location.href) {
+                    setTimeout(() =>
+                        window
+                        .scrollTo(0,
+                            data.pos),
+                        100);
+                }
+            }
+        });
+
+        // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+        document.addEventListener('click',
+            function (e) {
+                const anchor = e.target
+                    .closest('a');
+                if (!anchor) return;
+
+                const isFootnote = anchor
+                    .getAttribute(
+                    'target') === '_blank';
+                const isNavigation = anchor
+                    .innerText.includes(
+                    '◀') || anchor.innerText
+                    .includes('▶');
+
+                if (isNavigation) {
+                    // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                    localStorage.removeItem(
+                        'bible_scroll_pos'
+                        );
+                } else if (isFootnote) {
+                    // 각주를 클릭할 때만 현재 위치 저장
+                    localStorage.setItem(
+                        'bible_scroll_pos',
+                        JSON.stringify({
+                            url: window
+                                .location
+                                .href,
+                            pos: window
+                                .scrollY
+                        }));
+                }
+            });
+    </script> 
 
 </body>
 
