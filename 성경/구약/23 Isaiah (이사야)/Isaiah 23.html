@@ -21,20 +21,20 @@
         }
 
         h5 {
-            text-align: unset;
-            margin-left: 80%;
+            text-align:right;
+            margin-left: 60%;
         }
 
         p {
             text-indent: -10px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         header {
             position: fixed;
             top: 0;
-            left: 10;
-            right: 90;
+            left: 10px;
+            right: 90px;
             color: rgb(245, 51, 51)
         }
 
@@ -46,14 +46,60 @@
         #article {
             padding-left: 20%;
         }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 6rem;
+        }
     </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 50px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight:normal;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+            #bible-content {
+            padding-top: 60px;
+            line-height: 1.9;
+        }
+    </style>
+    
 </head>
 
 <body>
-
     <header>
-        이사야 23 장
+
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">A-</button>
+        <span id="header-title">이사야 23 장</span>
+
+        <button class="font-btn"
+            onclick="changeFontSize(2)">A+</button>
     </header>
+
+    <div id="bible-content">
 
     <h3>이사야 23 장</h3>
 
@@ -61,103 +107,192 @@
 
     <h4>투로와 시돈에 대한 예언들</h4>
 
-    <p>
-        23:1 투로에 대한 엄중한 말씀이라. 너희 타시스의 배들아, 통곡하라. 이는 그것이 황폐하게 되어 집이 
-        없고 들어갈 곳이 없음이니 그것이 킷팀 땅으로부터 그들에게 알려졌도다.
-    </p>
-    
-    <p>
-        23:2 너희 섬의 거민들아, 조용히 하라. 너는 바다를 건너는 시돈의 상인들로 다시 채워졌느니라.
-    </p>
-    
-    <p>
-        23:3 큰 물들에 의해서 시홀의 씨앗과 강의 수확이 그녀의 소출이 되었으니 그녀는 민족들의 시장이라.
-    </p>
-    
-    <p>
-        23:4 오 시돈아, 너는 부끄러워하라. 이는 바다, 곧 바다의 힘이 고하여<sup><a
-                href="https://syh8293.github.io/web/주석/구약/23%20Isaiah%20(이사야)/Isaiah%2023-4.html"
-                target="_blank">ㄱ</a></sup> 말하기를 “나는 진통하지 않았고 아이들을 낳지 못하였으며 청년들을 
-                양육하지도 못하였고 처녀들을 길러 내지도 못하였도다.” 하였음이라.
-    </p>
-    
-    <p>
-        23:5 이집트에 관한 소식을 들었던 때와 같이 투로의 소식에도 그들은 몹시 아픔을 당하리라.
-    </p>
-    
-    <p>
-        23:6 너희는 타시스로 건너가라. 너희 섬의 거민들아, 통곡하라.
-    </p>
-    
-    <p>
-        23:7 이것이 옛날부터 있었던 너희의 오래된 기쁨의 성읍이냐? 그녀의 발이 그녀를 멀리 보내어 기거하게 하리라.
-    </p>
-    
-    <p>
-        23:8 면류관을 쓴 성읍, 곧 그 상인들은 통치자들이요, 그 거래자들은 세상의 존귀한 자들인 투로에 대하여 이 계획을 세운 사람은 누구냐?
-    </p>
-    
-    <p>
-        23:9 만군의 <b>주</b>께서 그 일을 계획하셔서 모든 영광의 교만을 얼룩지게 하시며, 땅의 모든 존귀한 자들을 부끄럽게 하셨도다.
-    </p>
-    
-    <p>
-        23:10 오 타시스의 딸이여, 네 땅을 강처럼 통과하라. 더 이상 힘이 없도다.
-    </p>
-    
-    <p>
-        23:11 그가 자기의 손을 바다 위에 펴서 왕국들을 흔드셨으며, <b>주</b>께서 그 장사하는 성읍에 대하여 
-        명령을 내리시어 그 요새들을 멸망하게 하시고
-    </p>
-    
-    <p>
-        23:12 말씀하시기를 “오 너 압제받는 처녀, 시돈의 딸아, 네가 더 이상 즐거워하지 못하리니 일어나서 킷팀으로 건너가라. 
-        거기서도 네가 쉼을 얻지 못하리라.” 하셨도다.
-    </p>
-    
-    <p>
-        23:13 칼데아인들의 땅을 보라. 앗시리아인이 광야에 거하는 자들을 위해 그것을 세울 때까지는 이 백성이 없었도다. 
-        그들이 거기에다 망루들을 세우고 궁전들을 일으켜 세웠으니 그가 그것을 패망케 하셨도다.
-    </p>
-    
-    <p>
-        23:14 너희 타시스의 배들아, 통곡하라. 너희의 요새가 황폐해졌느니라.
-    </p>
-    
-    <p>
-        23:15 그 날에 투로가 한 왕의 날들대로 칠십 년 동안 잊혀질 것이요, 칠십 년이 끝난 뒤에 투로는 창녀같이 노래할 것이라.
-    </p>
-    
-    <p>
-        23:16 너 잊혀졌던 창녀야, 하프를 들고 성읍을 돌아다니며 좋은 곡조로 많은 노래들을 불러서 네가 기억되도록 하라.
-    </p>
-    
-    <p>
-        23:17 &#x0039F 칠십 년이 끝난 뒤에 <b>주</b>께서 투로를 벌하시리니 그러면 그녀가 자기의 삯으로 돌아가서 
-        지면에 있는 세상의 모든 왕국들과 음행할 것이라.<sup><a
-                href="https://syh8293.github.io/web/주석/구약/23%20Isaiah%20(이사야)/Isaiah%2023-17.html"
-                target="_blank">1</a></sup>
-    </p>
-    
-    <p>
-        23:18 그녀의 상품과 삯이 <b>주</b>께 거룩함이 될 것이라. 그것은 저장되거나 쌓아 올려지지 아니하리니 이는 그녀의 
-        상품이 <b>주</b> 앞에 거하는 자들에게 배불리 먹을 것과 좋은 옷이 될 것임이라.
-    </p>
+        <p>
+            23:1 투로에 대한 엄중한 말씀이라. 너희 타시스의 배들아, 통곡하라. 이는 그것이 황폐하게 되어 집이 
+            없고 들어갈 곳이 없음이니 그것이 킷팀 땅으로부터 그들에게 알려졌도다.
+        </p>
+        
+        <p>
+            23:2 너희 섬의 거민들아, 조용히 하라. 너는 바다를 건너는 시돈의 상인들로 다시 채워졌느니라.
+        </p>
+        
+        <p>
+            23:3 큰 물들에 의해서 시홀의 씨앗과 강의 수확이 그녀의 소출이 되었으니 그녀는 민족들의 시장이라.
+        </p>
+        
+        <p>
+            23:4 오 시돈아, 너는 부끄러워하라. 이는 바다, 곧 바다의 힘이 고하여<sup><a
+                    href="https://syh8293.github.io/web/주석/구약/23%20Isaiah%20(이사야)/Isaiah%2023-4.html"
+                    target="_blank">ㄱ</a></sup> 말하기를 “나는 진통하지 않았고 아이들을 낳지 못하였으며 청년들을 
+                    양육하지도 못하였고 처녀들을 길러 내지도 못하였도다.” 하였음이라.
+        </p>
+        
+        <p>
+            23:5 이집트에 관한 소식을 들었던 때와 같이 투로의 소식에도 그들은 몹시 아픔을 당하리라.
+        </p>
+        
+        <p>
+            23:6 너희는 타시스로 건너가라. 너희 섬의 거민들아, 통곡하라.
+        </p>
+        
+        <p>
+            23:7 이것이 옛날부터 있었던 너희의 오래된 기쁨의 성읍이냐? 그녀의 발이 그녀를 멀리 보내어 기거하게 하리라.
+        </p>
+        
+        <p>
+            23:8 면류관을 쓴 성읍, 곧 그 상인들은 통치자들이요, 그 거래자들은 세상의 존귀한 자들인 투로에 대하여 이 계획을 세운 사람은 누구냐?
+        </p>
+        
+        <p>
+            23:9 만군의 <b>주</b>께서 그 일을 계획하셔서 모든 영광의 교만을 얼룩지게 하시며, 땅의 모든 존귀한 자들을 부끄럽게 하셨도다.
+        </p>
+        
+        <p>
+            23:10 오 타시스의 딸이여, 네 땅을 강처럼 통과하라. 더 이상 힘이 없도다.
+        </p>
+        
+        <p>
+            23:11 그가 자기의 손을 바다 위에 펴서 왕국들을 흔드셨으며, <b>주</b>께서 그 장사하는 성읍에 대하여 
+            명령을 내리시어 그 요새들을 멸망하게 하시고
+        </p>
+        
+        <p>
+            23:12 말씀하시기를 “오 너 압제받는 처녀, 시돈의 딸아, 네가 더 이상 즐거워하지 못하리니 일어나서 킷팀으로 건너가라. 
+            거기서도 네가 쉼을 얻지 못하리라.” 하셨도다.
+        </p>
+        
+        <p>
+            23:13 칼데아인들의 땅을 보라. 앗시리아인이 광야에 거하는 자들을 위해 그것을 세울 때까지는 이 백성이 없었도다. 
+            그들이 거기에다 망루들을 세우고 궁전들을 일으켜 세웠으니 그가 그것을 패망케 하셨도다.
+        </p>
+        
+        <p>
+            23:14 너희 타시스의 배들아, 통곡하라. 너희의 요새가 황폐해졌느니라.
+        </p>
+        
+        <p>
+            23:15 그 날에 투로가 한 왕의 날들대로 칠십 년 동안 잊혀질 것이요, 칠십 년이 끝난 뒤에 투로는 창녀같이 노래할 것이라.
+        </p>
+        
+        <p>
+            23:16 너 잊혀졌던 창녀야, 하프를 들고 성읍을 돌아다니며 좋은 곡조로 많은 노래들을 불러서 네가 기억되도록 하라.
+        </p>
+        
+        <p>
+            23:17 &#x0039F 칠십 년이 끝난 뒤에 <b>주</b>께서 투로를 벌하시리니 그러면 그녀가 자기의 삯으로 돌아가서 
+            지면에 있는 세상의 모든 왕국들과 음행할 것이라.<sup><a
+                    href="https://syh8293.github.io/web/주석/구약/23%20Isaiah%20(이사야)/Isaiah%2023-17.html"
+                    target="_blank">1</a></sup>
+        </p>
+        
+        <p>
+            23:18 그녀의 상품과 삯이 <b>주</b>께 거룩함이 될 것이라. 그것은 저장되거나 쌓아 올려지지 아니하리니 이는 그녀의 
+            상품이 <b>주</b> 앞에 거하는 자들에게 배불리 먹을 것과 좋은 옷이 될 것임이라.
+        </p>
 
-        <hr>
+    </div>
 
-            <div id="article">
+      <hr>
+  
+        <nav class="nav">
 
-                <a
-                    href="https://syh8293.github.io/web/성경/구약/23%20Isaiah%20(이사야)/Isaiah%2022">&#9664;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                <a
-                    href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                <a 
-                    href="https://syh8293.github.io/web/성경/구약/23%20Isaiah%20(이사야)/Isaiah%2024">&#9654;</a>
+            <a
+                href="https://syh8293.github.io/web/성경/구약/23%20Isaiah%20(이사야)/Isaiah%2022">&#9664;</a>
+            <a
+                href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
+                
+            <a 
+                href="https://syh8293.github.io/web/성경/구약/23%20Isaiah%20(이사야)/Isaiah%2024">&#9654;</a>
 
-            </div>
+        </nav>
+
+  <script>
+      // 1. 글자 크기 변경 함수
+      function changeFontSize(delta) {
+          const content = document
+              .getElementById('bible-content');
+          // 현재 적용된 폰트 크기 가져오기
+          let currentSize = parseInt(window
+              .getComputedStyle(content)
+              .fontSize);
+          let newSize = currentSize + delta;
+
+          // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+          if (newSize >= 12 && newSize <= 40) {
+              content.style.fontSize = newSize +
+                  "px";
+              // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+              localStorage.setItem(
+                  'user_font_size', newSize);
+          }
+      }
+
+      // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+      window.addEventListener('load',
+      function () {
+          // [글자 크기 복구]
+          const savedSize = localStorage
+              .getItem(
+              'user_font_size');
+          if (savedSize) {
+              document.getElementById(
+                      'bible-content')
+                  .style.fontSize =
+                  savedSize + "px";
+          }
+
+          // [스크롤 위치 복구]
+          const savedData = localStorage
+              .getItem(
+                  'bible_scroll_pos');
+          if (savedData) {
+              const data = JSON.parse(
+                  savedData);
+              if (data.url === window
+                  .location.href) {
+                  setTimeout(() =>
+                      window
+                      .scrollTo(0,
+                          data.pos),
+                      100);
+              }
+          }
+      });
+
+      // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+      document.addEventListener('click',
+          function (e) {
+              const anchor = e.target
+                  .closest('a');
+              if (!anchor) return;
+
+              const isFootnote = anchor
+                  .getAttribute(
+                  'target') === '_blank';
+              const isNavigation = anchor
+                  .innerText.includes(
+                  '◀') || anchor.innerText
+                  .includes('▶');
+
+              if (isNavigation) {
+                  // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                  localStorage.removeItem(
+                      'bible_scroll_pos'
+                      );
+              } else if (isFootnote) {
+                  // 각주를 클릭할 때만 현재 위치 저장
+                  localStorage.setItem(
+                      'bible_scroll_pos',
+                      JSON.stringify({
+                          url: window
+                              .location
+                              .href,
+                          pos: window
+                              .scrollY
+                      }));
+              }
+          });
+  </script> 
 
 </body>
 
