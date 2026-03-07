@@ -5,106 +5,95 @@
   <title>구약 후기</title>
   <meta charset="utf-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+      content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="style.css" type="text/css">
   <style media="screen">
-    body {
-      background-color: whitesmoke;
-      text-align: justify;
-      margin-right: 10px;
-      font-size: large;
-    }
+      body {
+          background-color: whitesmoke;
+          text-align: justify;
+          margin-left: 7px;
+          margin-right: 10px;
+          font-size: large;
+      }
 
-    h3 {
-      border-bottom: 1px solid gray;
-      padding: 20px;
-      margin: auto;
-      text-align: center;
-    }
+      h3 {
+          border-bottom: 2px solid gray;
+          padding: 20px;
+          margin: auto;
+          text-align: center;
+      }
 
-    h4 {
-      text-align: center;
-    }
+      p {
+          line-height: 1.9;
+          text-align: justify;
+      }
 
-    p {
-      text-indent: justify;
-      line-height: 1.9;
-    }
+      header {
+          position: fixed;
+          top: 0;
+          left: 10px;
+          right: 90px;
+          color: rgb(245, 51, 51)
+      }
 
-    #article {
-      margin-left: 10px;
-      padding-left: 1px;
-      line-height: 1.9;
-    }
+      a {
+          text-decoration: none;
+      }
 
-    header {
-            position: fixed;
-            top: 0;
-            left: 10;
-            right: 90;
-            color: rgb(245, 51, 51)
-    }
-
-    a {
-        text-decoration: none;
-    }
-    
-    a:link {
-        text-decoration: none;
-    }
-
-    a:visited {
-        color:black;
-        text-decoration: none;
-    }
+      .nav {
+          display: flex;
+          justify-content: center;
+          gap: 6rem;
+      }
   </style>
 
   <style>
-        /* 헤더에 버튼 공간 확보 */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-            height: 50px;
-            /* 높이 고정 */
-            background-color: white;
-            border-bottom: 1px solid #ddd;
-            z-index: 1000;
-        }
+      /* 헤더에 버튼 공간 확보 */
+      header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 10px;
+          height: 50px;
+          /* 높이 고정 */
+          background-color: white;
+          border-bottom: 1px solid #ddd;
+          z-index: 1000;
+      }
 
-        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
-        .font-btn {
-            background: white;
-            border: 1px solid #f53333;
-            color: #f53333;
-            border-radius: 5px;
-            padding: 5px 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+      /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+      .font-btn {
+          background: white;
+          border: 1px solid #f53333;
+          color: #f53333;
+          border-radius: 5px;
+          padding: 5px 12px;
+          font-weight: normal;
+          cursor: pointer;
+      }
 
-        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
-            #bible-content {
-            padding-top: 60px;
-            line-height: 1.8;
-        }
-    </style>
-    
-</head>
+      /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+      #bible-content {
+          padding-top: 60px;
+          line-height: 1.9;
+      }
+  </style>
 
-<body>
-    <header>
+  </head>
+
+  <body>
+
+      <header>
 
         <button class="font-btn"
-            onclick="changeFontSize(-2)">A-</button>
+          onclick="changeFontSize(-2)">가-</button>
         <span id="header-title">구약 후기</span>
 
         <button class="font-btn"
-            onclick="changeFontSize(2)">A+</button>
-    </header>
+          onclick="changeFontSize(2)">가+</button>
+      </header>
 
-    <div id="bible-content">
+      <div id="bible-content">
 
       <h3>구약 후기</h3>
 
@@ -161,73 +150,77 @@
             이후로 조금도 바뀌지 않았다.
         </p>
 
-  </div>
+      </div>
 
-          <hr>
+      </div>
 
-            <h4>
-              <a
-                  href="https://syh8293.github.io/web/성경/구약/39%20Malachi%20(말라키)/Malachi%204">&#9664;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-              <a
-                  href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-              <a
-                  href="https://syh8293.github.io/web/성경/신약/신약%20서론.html">&#9654;</a>
-          </h4>
-      <script>
-        // 1. 페이지 로드 시 실행 (0.1초 지연으로 렌더링 대기)
-        window.addEventListener('load',
-        function () {
-          const savedData = localStorage
-            .getItem('bible_scroll_pos');
-          if (savedData) {
-            const data = JSON.parse(
-            savedData);
-            // 현재 주소가 저장된 주소와 정확히 일치할 때만 스크롤 이동
-            if (data.url === window.location
-              .href) {
-              setTimeout(function () {
-                window.scrollTo(0, data
-                  .pos);
-              }, 100);
-            }
-          }
-        });
+      <hr>
+    
+        <nav class="nav">
 
-        // 2. 모든 클릭 이벤트 감시
-        document.addEventListener('click',
-          function (e) {
-            const anchor = e.target.closest(
-            'a');
-            if (!anchor) return;
+            <a
+                href="https://syh8293.github.io/web/성경/구약/39%20Malachi%20(말라키)/Malachi%202.html">&#9664;</a>
 
-            // 각주 링크(새 창으로 열리는 링크)인지 확인
-            const isFootnote = anchor
-              .getAttribute('target') ===
-              '_blank';
-            // 다음/이전 페이지 화살표 링크인지 확인
-            const isNavigation = anchor
-              .innerText.includes('◀') || anchor
-              .innerText.includes('▶') || anchor
-              .innerText.includes('⌂');
+            <a
+                href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
 
-            if (isNavigation) {
-              // [중요] 다음/이전 페이지로 갈 때는 저장된 위치 정보를 완전히 삭제
-              localStorage.removeItem(
-                'bible_scroll_pos');
-            } else if (isFootnote) {
-              // 각주를 볼 때는 현재 주소와 스크롤 위치를 저장
-              const scrollData = {
-                url: window.location.href,
-                pos: window.scrollY
-              };
-              localStorage.setItem(
-                'bible_scroll_pos', JSON
-                .stringify(scrollData));
-            }
-          });
-      </script>
+          <a
+              href="https://syh8293.github.io/web/성경/신약/신약%20서론.html">&#9654;</a>
+      </h4>
+      
+  <script>
+    // 1. 페이지 로드 시 실행 (0.1초 지연으로 렌더링 대기)
+    window.addEventListener('load',
+    function () {
+      const savedData = localStorage
+        .getItem('bible_scroll_pos');
+      if (savedData) {
+        const data = JSON.parse(
+        savedData);
+        // 현재 주소가 저장된 주소와 정확히 일치할 때만 스크롤 이동
+        if (data.url === window.location
+          .href) {
+          setTimeout(function () {
+            window.scrollTo(0, data
+              .pos);
+          }, 100);
+        }
+      }
+    });
+
+    // 2. 모든 클릭 이벤트 감시
+    document.addEventListener('click',
+      function (e) {
+        const anchor = e.target.closest(
+        'a');
+        if (!anchor) return;
+
+        // 각주 링크(새 창으로 열리는 링크)인지 확인
+        const isFootnote = anchor
+          .getAttribute('target') ===
+          '_blank';
+        // 다음/이전 페이지 화살표 링크인지 확인
+        const isNavigation = anchor
+          .innerText.includes('◀') || anchor
+          .innerText.includes('▶') || anchor
+          .innerText.includes('⌂');
+
+        if (isNavigation) {
+          // [중요] 다음/이전 페이지로 갈 때는 저장된 위치 정보를 완전히 삭제
+          localStorage.removeItem(
+            'bible_scroll_pos');
+        } else if (isFootnote) {
+          // 각주를 볼 때는 현재 주소와 스크롤 위치를 저장
+          const scrollData = {
+            url: window.location.href,
+            pos: window.scrollY
+          };
+          localStorage.setItem(
+            'bible_scroll_pos', JSON
+            .stringify(scrollData));
+        }
+      });
+  </script>
   
 </body>
 
