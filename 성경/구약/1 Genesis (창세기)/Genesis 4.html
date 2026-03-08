@@ -47,6 +47,12 @@
          #article {
              padding-left: 20%;
          }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 6rem;
+        }
      </style>
 
      <style>
@@ -87,11 +93,11 @@
          <header>
 
              <button class="font-btn"
-                 onclick="changeFontSize(-2)">A-</button>
+                 onclick="changeFontSize(-2)">가-</button>
              <span id="header-title">창세기 4 장</span>
 
              <button class="font-btn"
-                 onclick="changeFontSize(2)">A+</button>
+                 onclick="changeFontSize(2)">가+</button>
          </header>
 
          <div id="bible-content">
@@ -266,16 +272,16 @@
 
         <hr>
 
-            <div id="article">
+             <nav class="nav">
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%203.html">&#9664;</a>
-                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
                 <a
                     href="https://syh8293.github.io/web/성경/구약/B.html">&#9751;</a>
-                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
                 <a
                     href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%205.html">&#9654;</a>
-            </div>
+             </nav>
 
     <script>
         // 1. 글자 크기 변경 함수
