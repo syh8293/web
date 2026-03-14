@@ -44,7 +44,9 @@ const bibleData = {
     "Matthew": { type: "신약", folder: "1 Matthew (마태복음)", chapters: 28 },
     "Mark": { type: "신약", folder: "2 Mark (마가복음)", chapters: 16 },
     "Luke": { type: "신약", folder: "3 Luke (누가복음)", chapters: 24 },
-    "John": { type: "신약", folder: "4 John (요한복음)", chapters: 21 }
+    "John": { type: "신약", folder: "4 John (요한복음)", chapters: 21 },
+    "Acts": {type: "신약", folder: "5 Acts (사도행전)", chapters: 28},
+
     // ... 나머지 신약 목록도 여기에 추가하세요!
 };
 
