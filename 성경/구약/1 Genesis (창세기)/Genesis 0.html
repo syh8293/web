@@ -114,11 +114,10 @@
 
 <body>
         <header>
+
                 <button class="font-btn" onclick="changeFontSize(-2)">가-</button>
-                
-                <button id="resume-btn" class="font-btn" style="display:none;" onclick="resumeReading()">이어 읽기</button>
-                
                 <span id="header-title">창세기</span>
+
                 <button class="font-btn" onclick="changeFontSize(2)">가+</button>
         </header>
 
@@ -329,46 +328,6 @@
                                 href="https://syh8293.github.io/web/성경/구약/1%20Genesis%20(창세기)/Genesis%201.html">&#9654;</a>
                 
         </div>
-
-        <script>
-                // 이어 읽기 기능을 실행하는 함수
-                function resumeReading() {
-                        const lastUrl = localStorage.getItem('last_read_bible_url');
-                if (lastUrl) {
-                        location.href = lastUrl;
-                        }
-                }
-
-                // 페이지 로드 시 저장된 기록이 있는지 확인
-                window.addEventListener('load', function() {
-                        const lastUrl =
-                        localStorage.getItem('last_read_bible_url');
-                        const lastTitle =
-                        localStorage.getItem('last_read_bible_title');
-                        const btn = document.getElementById('resume-btn');
-
-                if (lastUrl && btn) {
-                        btn.style.display ='inline-block'; // 기록이 있으면 버튼을 보여줌
-                        btn.innerText = `이어 읽기(${lastTitle})`; // 어디인지 표시
-                }
-                });
-        </script>
-
-        <script>
-                
-
-                // 페이지가 열리면 현재 주소를 '마지막 읽은 곳'으로 저장
-                window.addEventListener('load',
-                function() {
-                localStorage.setItem('last_read_bible_url',
-                window.location.href);
-                // 현재 보고 있는 책과 장 이름도 저장하면 버튼에 표시할 수 있습니다.
-                const title = document.title ||
-                "마지막 읽은 곳";
-                localStorage.setItem('last_read_bible_title',
-                title);
-                });
-        </script>
 
         <script>
         // 1. 글자 크기 변경 함수
