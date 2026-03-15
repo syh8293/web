@@ -98,8 +98,9 @@
     src="about:blank"></iframe>
 
   <script>
-    // 똑비가 채워넣은 성경 데이터 (모든 권수 포함)
+    // 1. 성경 전체 66권 데이터 (똑비가 하나도 빠짐없이 다 넣었습니다!)
     const bibleData = {
+      // 구약 (39권)
       "Genesis": {
         name: "창세기",
         type: "구약",
@@ -119,10 +120,94 @@
         chapters: 27
       },
       "Numbers": {
-        name: "미누기",
+        name: "민수기",
         type: "구약",
         folder: "4 Numbers (민수기)",
         chapters: 36
+      },
+      "Deuteronomy": {
+        name: "신명기",
+        type: "구약",
+        folder: "5 Deuteronomy (신명기)",
+        chapters: 34
+      },
+      "Joshua": {
+        name: "여호수아",
+        type: "구약",
+        folder: "6 Joshua (여호수아)",
+        chapters: 24
+      },
+      "Judges": {
+        name: "재판관기",
+        type: "구약",
+        folder: "7 Judges (재판관기)",
+        chapters: 21
+      },
+      "Ruth": {
+        name: "룻기",
+        type: "구약",
+        folder: "8 Ruth (룻기)",
+        chapters: 4
+      },
+      "Samuel1": {
+        name: "사무엘상",
+        type: "구약",
+        folder: "9 Samuel1 (사무엘상)",
+        chapters: 31
+      },
+      "Samuel2": {
+        name: "사무엘하",
+        type: "구약",
+        folder: "10 Samuel2 (사무엘하)",
+        chapters: 24
+      },
+      "Kings1": {
+        name: "열왕기상",
+        type: "구약",
+        folder: "11 kings1 (열왕기상)",
+        chapters: 22
+      },
+      "Kings2": {
+        name: "열왕기하",
+        type: "구약",
+        folder: "12 Kings2 (열왕기하)",
+        chapters: 25
+      },
+      "Chronicles1": {
+        name: "역대기상",
+        type: "구약",
+        folder: "13 Chronicles1 (역대기상)",
+        chapters: 29
+      },
+      "Chronicles2": {
+        name: "역대기하",
+        type: "구약",
+        folder: "14 Chronicles2 (역대기하)",
+        chapters: 36
+      },
+      "Ezra": {
+        name: "에스라",
+        type: "구약",
+        folder: "15 Ezra (에스라)",
+        chapters: 10
+      },
+      "Nehemiah": {
+        name: "느헤미야",
+        type: "구약",
+        folder: "16 Nehemiah (느헤미야)",
+        chapters: 13
+      },
+      "Esther": {
+        name: "에스더",
+        type: "구약",
+        folder: "17 Esther (에스더)",
+        chapters: 10
+      },
+      "Job": {
+        name: "욥기",
+        type: "구약",
+        folder: "18 Job (욥기)",
+        chapters: 42
       },
       "Psalms": {
         name: "시편",
@@ -130,11 +215,144 @@
         folder: "19 Psalms (시편)",
         chapters: 150
       },
+      "Proverbs": {
+        name: "잠언",
+        type: "구약",
+        folder: "20 Proverbs (잠언)",
+        chapters: 31
+      },
+      "Ecclesiastes": {
+        name: "전도서",
+        type: "구약",
+        folder: "21 Ecclesiastes (전도서)",
+        chapters: 12
+      },
+      "Solomon": {
+        name: "솔로몬의 노래",
+        type: "구약",
+        folder: "22 Song of Solomon (솔로몬의 노래)",
+        chapters: 8
+      },
+      "Isaiah": {
+        name: "이사야",
+        type: "구약",
+        folder: "23 Isaiah (이사야)",
+        chapters: 66
+      },
+      "Jeremiah": {
+        name: "예레미야",
+        type: "구약",
+        folder: "24 Jeremiah (예레미야)",
+        chapters: 52
+      },
+      "Lamentations": {
+        name: "애가",
+        type: "구약",
+        folder: "25 Lamentations (애가)",
+        chapters: 5
+      },
+      "Ezekiel": {
+        name: "에스겔",
+        type: "구약",
+        folder: "26 Ezekiel (에스겔)",
+        chapters: 48
+      },
+      "Daniel": {
+        name: "다니엘",
+        type: "구약",
+        folder: "27 Daniel (다니엘)",
+        chapters: 12
+      },
+      "Hosea": {
+        name: "호세아",
+        type: "구약",
+        folder: "28 Hosea (호세아)",
+        chapters: 14
+      },
+      "Joel": {
+        name: "요엘",
+        type: "구약",
+        folder: "29 Joel (요엘)",
+        chapters: 3
+      },
+      "Amos": {
+        name: "아모스",
+        type: "구약",
+        folder: "30 Amos (아모스)",
+        chapters: 9
+      },
+      "Obadiah": {
+        name: "오바댜",
+        type: "구약",
+        folder: "31 Obadiah (오바댜)",
+        chapters: 1
+      },
+      "Jonah": {
+        name: "요나",
+        type: "구약",
+        folder: "32 Jonah (요나)",
+        chapters: 4
+      },
+      "Micah": {
+        name: "미카",
+        type: "구약",
+        folder: "33 Micah (미카)",
+        chapters: 7
+      },
+      "Nahum": {
+        name: "나훔",
+        type: "구약",
+        folder: "34 Nahum (나훔)",
+        chapters: 3
+      },
+      "Habakkuk": {
+        name: "하박국",
+        type: "구약",
+        folder: "35 Habakuk (하박국)",
+        chapters: 3
+      },
+      "Zephaniah": {
+        name: "스파냐",
+        type: "구약",
+        folder: "36 Zephaniah (스파냐)",
+        chapters: 3
+      },
+      "Haggai": {
+        name: "학개",
+        type: "구약",
+        folder: "37 Haggai (학개)",
+        chapters: 2
+      },
+      "Zechariah": {
+        name: "스카랴",
+        type: "구약",
+        folder: "38 Zechariah (스카랴)",
+        chapters: 14
+      },
+      "Malachi": {
+        name: "말라키",
+        type: "구약",
+        folder: "39 Malachi (말라키)",
+        chapters: 4
+      },
+      // 신약 (27권)
       "Matthew": {
         name: "마태복음",
         type: "신약",
         folder: "1 Matthew (마태복음)",
         chapters: 28
+      },
+      "Mark": {
+        name: "마가복음",
+        type: "신약",
+        folder: "2 Mark (마가복음)",
+        chapters: 16
+      },
+      "Luke": {
+        name: "누가복음",
+        type: "신약",
+        folder: "3 Luke (누가복음)",
+        chapters: 24
       },
       "John": {
         name: "요한복음",
@@ -142,13 +360,144 @@
         folder: "4 John (요한복음)",
         chapters: 21
       },
+      "Acts": {
+        name: "사도행전",
+        type: "신약",
+        folder: "5 Acts (사도행전)",
+        chapters: 28
+      },
+      "Romans": {
+        name: "로마서",
+        type: "신약",
+        folder: "6 Romans (로마서)",
+        chapters: 16
+      },
+      "Corinthians1": {
+        name: "고린도전서",
+        type: "신약",
+        folder: "7 Corinthians 1 (고린도전서)",
+        chapters: 16
+      },
+      "Corinthians2": {
+        name: "고린도후서",
+        type: "신약",
+        folder: "8 Corinthians 2 (고린도후서)",
+        chapters: 13
+      },
+      "Galatians": {
+        name: "갈라디아서",
+        type: "신약",
+        folder: "9 Galatians (갈라디아서)",
+        chapters: 6
+      },
+      "Epheians": {
+        name: "에베소서",
+        type: "신약",
+        folder: "10 Epheians (에베소서)",
+        chapters: 6
+      },
+      "Philippians": {
+        name: "빌립보서",
+        type: "신약",
+        folder: "11 Philippians (빌립보서)",
+        chapters: 4
+      },
+      "Colossians": {
+        name: "골로새서",
+        type: "신약",
+        folder: "12 Colossians (골로새서)",
+        chapters: 4
+      },
+      "Thessalonians1": {
+        name: "데살로니가전서",
+        type: "신약",
+        folder: "13 Thessalonians 1 (데살로니가전서)",
+        chapters: 5
+      },
+      "Thessalonians2": {
+        name: "데살로니가후서",
+        type: "신약",
+        folder: "14 Thessalonians 2 (데살로니가후서)",
+        chapters: 3
+      },
+      "Timotyh1": {
+        name: "디모데전서",
+        type: "신약",
+        folder: "15 Timotyh 1 (디모데전서)",
+        chapters: 6
+      },
+      "Timotyh2": {
+        name: "디모데후서",
+        type: "신약",
+        folder: "16 Timotyh 2 (디모데후서)",
+        chapters: 4
+      },
+      "Titus": {
+        name: "디도서",
+        type: "신약",
+        folder: "17 Titus (디도서)",
+        chapters: 3
+      },
+      "Philemon": {
+        name: "빌레몬서",
+        type: "신약",
+        folder: "18 Philemon (빌레몬서)",
+        chapters: 1
+      },
+      "Hebrews": {
+        name: "히브리서",
+        type: "신약",
+        folder: "19 Hebrews (히브리서)",
+        chapters: 13
+      },
+      "James": {
+        name: "야고보서",
+        type: "신약",
+        folder: "20 James (야고보서)",
+        chapters: 5
+      },
+      "Peter1": {
+        name: "베드로전서",
+        type: "신약",
+        folder: "21 Peter 1 (베드로전서)",
+        chapters: 5
+      },
+      "Peter2": {
+        name: "베드로후서",
+        type: "신약",
+        folder: "22 Peter 2 (베드로후서)",
+        chapters: 3
+      },
+      "John1": {
+        name: "요한일서",
+        type: "신약",
+        folder: "23 John 1 (요한일서)",
+        chapters: 5
+      },
+      "John2": {
+        name: "요한이서",
+        type: "신약",
+        folder: "24 John2 (요한이서)",
+        chapters: 1
+      },
+      "John3": {
+        name: "요한삼서",
+        type: "신약",
+        folder: "25 John3 (요한삼서)",
+        chapters: 1
+      },
+      "Jude": {
+        name: "유다서",
+        type: "신약",
+        folder: "26 Jude (유다서)",
+        chapters: 1
+      },
       "Revelation": {
         name: "요한계시록",
         type: "신약",
         folder: "27 Revelation (요한계시록)",
         chapters: 22
       }
-      // (데이터가 너무 길어 핵심만 넣었습니다. 실제 파일에는 똑비가 66권 다 넣어드릴게요!)
     };
 
     const bookSelect = document.getElementById(
