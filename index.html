@@ -544,71 +544,69 @@
     // 똑비의 핵심 기능: 음성 낭독 (TTS)
 
     // 1. 숫자를 '일, 이, 삼... 십일, 십이'로 바꿔주는 똑비의 변환기
-function toSinoKorean(num) {
-    const units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
-    const tens = ["", "십", "백"]; 
-    let n = parseInt(num);
-    if (n === 0) return "영";
-    let result = "";
+  function toSinoKorean(num) {
+      const units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+      const tens = ["", "십", "백"]; 
+      let n = parseInt(num);
+      if (n === 0) return "영";
+      let result = "";
 
-    // 백 단위 (시편 150장 대응)
-    if (n >= 100) {
-        result += (Math.floor(n / 100) === 1 ? "" : units[Math.floor(n / 100)]) + "백";
-        n %= 100;
+      // 백 단위 (시편 150장 대응)
+      if (n >= 100) {
+          result += (Math.floor(n / 100) === 1 ? "" : units[Math.floor(n / 100)]) + "백";
+          n %= 100;
+      }
+      // 십 단위
+      if (n >= 10) {
+          let tenDigit = Math.floor(n / 10);
+          result += (tenDigit === 1 ? "" : units[tenDigit]) + "십";
+          n %= 10;
+      }
+      // 일 단위
+      result += units[n];
+      return result;
+  }
+
+    // 2. 낭독 엔진 (대장님의 '오미크론 삭제' 및 '정석 발음' 요청 반영)
+    function speakBible() {
+      window.speechSynthesis.cancel();
+      const frameDoc = frame.contentWindow.document;
+      const tempDiv = frameDoc.body.cloneNode(true);
+      
+      // 주석 및 불필요한 요소 제거
+      const junk = tempDiv.querySelectorAll('sup, a, script, style, button, .header');
+      junk.forEach(j => j.remove());
+
+      let rawText = tempDiv.innerText;
+
+      // [발음 및 텍스트 세탁 필터]
+      let cleanText = rawText
+          // 1. "오미크론"이라는 단어가 있으면 아예 삭제 (대장님 요청사항)
+          .replace(/오미크론/g, "") 
+          
+          // 2. "1장", "2장" 등을 "일 장", "이 장"으로 강제 교정
+          .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
+          
+          // 3. "1:1" 형태를 "일 장 일 절"로 변환하고 한 템포 휴식
+          .replace(/(\d+):(\d+)/g, (m, p1, p2) => toSinoKorean(p1) + "장 " + toSinoKorean(p2) + "절. ")
+          
+          // 4. 문장 처음에 나오는 숫자(장 번호) 교정
+          .replace(/^\s*(\d+)\s*$/gm, (m, p1) => toSinoKorean(p1) + " 장. ")
+
+          // 5. UI 기호 제거
+          .replace(/[A-Z][+-]/g, "");
+
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.85; 
+      
+      const voices = window.speechSynthesis.getVoices();
+      const bestVoice = voices.find(v => v.name.includes('Yuna') || v.name.includes('Google 한국어')) || voices[0];
+      utterance.voice = bestVoice;
+
+      window.speechSynthesis.speak(utterance);
     }
-    // 십 단위
-    if (n >= 10) {
-        let tenDigit = Math.floor(n / 10);
-        result += (tenDigit === 1 ? "" : units[tenDigit]) + "십";
-        n %= 10;
-    }
-    // 일 단위
-    result += units[n];
-    return result;
-}
-
-// 2. 낭독 엔진 ('일 장, 이 장' 발음 요청 완벽 반영)
-function speakBible() {
-    window.speechSynthesis.cancel();
-    const frameDoc = frame.contentWindow.document;
-    
-    // 원본은 건드리지 않고 복사본으로 작업합니다 (절대 수정 금지 원칙!)
-    const tempDiv = frameDoc.body.cloneNode(true);
-    
-    // 주석, 링크, 버튼 등 불필요한 요소 싹 제거
-    const junk = tempDiv.querySelectorAll('sup, a, script, style, button, .header');
-    junk.forEach(j => j.remove());
-
-    let rawText = tempDiv.innerText;
-
-    // [발음 교정 마스터 필터]
-    let cleanText = rawText
-        // 1. "창세기 1" 혹은 "1장" 처럼 숫자가 보이면 무조건 한자어(일, 이...)로 변환
-        // 특히 장(Chapter) 앞에 오는 숫자를 '일 장, 이 장'으로 강제 교정합니다.
-        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
-        
-        // 2. "1:1" 형태를 "일 장 일 절"로 변환하고 한 템포 쉽니다.
-        .replace(/(\d+):(\d+)/g, (m, p1, p2) => toSinoKorean(p1) + "장 " + toSinoKorean(p2) + "절. ")
-        
-        // 3. 혹시 문장 처음에 나오는 숫자(장 번호)들도 교정
-        .replace(/^\s*(\d+)\s*$/gm, (m, p1) => toSinoKorean(p1) + " 장. ")
-
-        // 4. UI 기호 제거 (A+, A- 등)
-        .replace(/[A-Z][+-]/g, "");
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    
-    // 한국어 설정 및 자연스러운 속도
-    utterance.lang = 'ko-KR';
-    utterance.rate = 0.75; // 0.8~0.9 사이가 가장 경건합니다.
-    
-    // 브라우저가 제공하는 가장 좋은 한국어 목소리 자동 선택
-    const voices = window.speechSynthesis.getVoices();
-    const bestVoice = voices.find(v => v.name.includes('Yuna') || v.name.includes('Google 한국어')) || voices[0];
-    utterance.voice = bestVoice;
-
-    window.speechSynthesis.speak(utterance);
-}
 
     function stopBible() {
       window.speechSynthesis.cancel();
