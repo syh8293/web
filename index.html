@@ -79,15 +79,16 @@
       <select id="book-select"
         onchange="updateChapters()"></select>
       <select id="chapter-select"></select>
-      <button onclick="loadBible()">이동</button>
+      <button onclick="loadBible()">바로가기</button>
     </div>
     <div class="tts-controls">
-      <button class="btn-play"
-        onclick="speakBible()">▶️ 읽어주기</button>
-      <button class="btn-stop"
-        onclick="stopBible()">■ 정지</button>
       <button
         onclick="changeFontSize(2)">A+</button>
+      <button class="btn-play"
+        onclick="speakBible()">▶️ 읽기</button>
+      <button class="btn-stop"
+        onclick="stopBible()">■ 정지</button>
+      
       <button
         onclick="changeFontSize(-2)">A-</button>
     </div>
