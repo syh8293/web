@@ -568,6 +568,7 @@
   }
 
     // 2. 낭독 엔진 (대장님의 '오미크론 삭제' 및 '정석 발음' 요청 반영)
+
     function speakBible() {
       window.speechSynthesis.cancel();
       const frameDoc = frame.contentWindow.document;
@@ -581,8 +582,8 @@
 
       // [발음 및 텍스트 세탁 필터]
       let cleanText = rawText
-          // 1. "오미크론"이라는 단어가 있으면 아예 삭제 (대장님 요청사항)
-          .replace(/오미크론/g, "") 
+          // 1. 그리스 대문자 오미크론(Ο, U+039F) 및 소문자(ο) 삭제
+          .replace(/[\u039F\u03BF]/g, "") 
           
           // 2. "1장", "2장" 등을 "일 장", "이 장"으로 강제 교정
           .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
