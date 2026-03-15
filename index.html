@@ -81,16 +81,11 @@
       <select id="chapter-select"></select>
       <button onclick="loadBible()">바로가기</button>
     </div>
-    <div class="tts-controls">
-      <button
-        onclick="changeFontSize(2)">가+</button>
+    <div class="tts-controls">      
       <button class="btn-play"
         onclick="speakBible()">▶️ 읽기</button>
       <button class="btn-stop"
         onclick="stopBible()">■ 정지</button>
-      
-      <button
-        onclick="changeFontSize(-2)">가-</button>
     </div>
   </div>
 
@@ -98,7 +93,7 @@
     src="about:blank"></iframe>
 
   <script>
-    // 1. 성경 전체 66권 데이터 (똑비가 하나도 빠짐없이 다 넣었습니다!)
+    // 1. 성경 전체 66권 데이터 
     const bibleData = {
       // 구약 (39권)
       "Genesis": {
