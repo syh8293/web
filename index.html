@@ -197,33 +197,64 @@
     }
 
     // 똑비의 핵심 기능: 음성 낭독 (TTS)
-    function speakBible() {
+
+    // 1. 숫자를 '일, 이, 삼... 십일, 십이'로 바꿔주는 똑비의 변환기
+function toSinoKorean(num) {
+    const units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+    const tens = ["", "십", "백"]; 
+    let n = parseInt(num);
+    if (n === 0) return "영";
+    let result = "";
+
+    // 백 단위 (시편 150장 대응)
+    if (n >= 100) {
+        result += (Math.floor(n / 100) === 1 ? "" : units[Math.floor(n / 100)]) + "백";
+        n %= 100;
+    }
+    // 십 단위
+    if (n >= 10) {
+        let tenDigit = Math.floor(n / 10);
+        result += (tenDigit === 1 ? "" : units[tenDigit]) + "십";
+        n %= 10;
+    }
+    // 일 단위
+    result += units[n];
+    return result;
+}
+
+// 2. 업그레이드된 낭독 함수
+function speakBible() {
     window.speechSynthesis.cancel(); 
 
     const frameDoc = frame.contentWindow.document;
     const tempDiv = frameDoc.body.cloneNode(true);
     
-    // 주석 및 불필요한 태그 제거
-    const junkTags = tempDiv.querySelectorAll('sup, a, script, style, .comment, .note');
+    // 주석(sup, a) 및 불필요한 UI 요소 완벽 제거
+    const junkTags = tempDiv.querySelectorAll('sup, a, script, style, button, .header');
     junkTags.forEach(tag => tag.remove());
 
     let rawText = tempDiv.innerText;
 
-    // [발음 교정] 대장님의 지침대로 '정석' 발음 적용
+    // [발음 및 템포 교정]
     let cleanText = rawText
-        .replace(/(\d+):(\d+)/g, "$1장 $2절") // '1:1' -> '1장 1절'
-        .replace(/1장/g, "일 장")            // '1장' -> '일 장' (수정 완료!)
-        .replace(/2장/g, "이 장")            // '2장' -> '이 장'
-        .replace(/3장/g, "삼 장")            // '3장' -> '삼 장'
-        .replace(/[A-Z][+-]/g, "");         // UI 문자 제거
+        // 1:1 -> "일 장 일 절. (마침표로 한 템포 쉬기)"
+        .replace(/(\d+):(\d+)/g, function(match, p1, p2) {
+            return toSinoKorean(p1) + "장 " + toSinoKorean(p2) + "절. "; 
+        })
+        // 숫자 뒤에 '장'이 붙은 경우 (예: 제목의 1장)
+        .replace(/(\d+)장/g, function(match, p1) {
+            return toSinoKorean(p1) + "장. ";
+        })
+        // A+, A- 같은 UI 잔재 제거
+        .replace(/[A-Z][+-]/g, "");
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.85; // 낭독 속도 (대장님 취향에 맞게 0.8~0.9 추천)
+    utterance.rate = 0.85; // 대장님을 위한 최적의 차분한 속도
     utterance.pitch = 1.0; 
 
-    // 가장 부드러운 목소리 선택
+    // 기기에서 가장 좋은 목소리 찾기
     const voices = window.speechSynthesis.getVoices();
     const preferredVoice = voices.find(v => v.name.includes('Yuna') || v.name.includes('Google 한국어'));
     if (preferredVoice) utterance.voice = preferredVoice;
