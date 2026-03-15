@@ -5,104 +5,95 @@
   <title>신약 서론</title>
   <meta charset="utf-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1, user-scalable=no">
+      content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="style.css" type="text/css">
   <style media="screen">
-    body {
-      background-color: whitesmoke;
-      text-align: justify;
-      margin-right: 10px;
-      font-size: large;
-    }
+      body {
+          background-color: whitesmoke;
+          text-align: justify;
+          margin-left: 7px;
+          margin-right: 10px;
+          font-size: large;
+      }
 
-    h3 {
-      border-bottom: 1px solid gray;
-      padding: 20px;
-      margin: auto;
-      text-align: center;
-    }
+      h3 {
+          border-bottom: 2px solid gray;
+          padding: 20px;
+          margin: auto;
+          text-align: center;
+      }
 
-    h4 {   
-      text-align: center;   
-      color: red;
-    }
+      p {
+          line-height: 1.9;
+          text-align: justify;
+      }
 
-    p {
-      text-indent: 17px;
-      line-height: 1.9;
-    }
+      header {
+          position: fixed;
+          top: 0;
+          left: 10px;
+          right: 90px;
+          color: rgb(245, 51, 51)
+      }
 
-    #article {
-      margin-left: 10px;
-      padding-left: 1px;
-      line-height: 1.9;
-    }
+      a {
+          text-decoration: none;
+      }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 10;
-      right: 90;
-      color: rgb(245, 51, 51)
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .vertical {
-      vertical-align:super;
-      font-size:12px;
-    }
-
+      .nav {
+          display: flex;
+          justify-content: center;
+          gap: 6rem;
+      }
   </style>
-  
+
   <style>
-    /* 헤더에 버튼 공간 확보 */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 10px;
-        height: 50px;
-        /* 높이 고정 */
-        background-color: white;
-        border-bottom: 1px solid #ddd;
-        z-index: 1000;
-    }
+      /* 헤더에 버튼 공간 확보 */
+      header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 10px;
+          height: 50px;
+          /* 높이 고정 */
+          background-color: white;
+          border-bottom: 1px solid #ddd;
+          z-index: 1000;
+      }
 
-    /* 버튼 스타일: 깔끔하고 누르기 편하게 */
-    .font-btn {
-        background: white;
-        border: 1px solid #f53333;
-        color: #f53333;
-        border-radius: 5px;
-        padding: 5px 12px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+      /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+      .font-btn {
+          background: white;
+          border: 1px solid #f53333;
+          color: #f53333;
+          border-radius: 5px;
+          padding: 5px 12px;
+          font-weight: normal;
+          cursor: pointer;
+      }
 
-    /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
-        #bible-content {
-        padding-top: 60px;
-        line-height: 1.8;
-    }
+      /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+      #bible-content {
+          padding-top: 60px;
+          line-height: 1.9;
+      }
   </style>
-    
-</head>
 
-<body>
-    <header>
+  </head>
+
+  <body>
+
+      <header>
 
         <button class="font-btn"
-            onclick="changeFontSize(-2)">A-</button>
+          onclick="changeFontSize(-2)">가-</button>
         <span id="header-title">신약 서론</span>
 
         <button class="font-btn"
-            onclick="changeFontSize(2)">A+</button>
-    </header>
+          onclick="changeFontSize(2)">가+</button>
+      </header>
 
-    <div id="bible-content">
+      <div id="bible-content">
 
       <h3>신약 서론</h3>
 
@@ -235,18 +226,21 @@
         </p>
 
   </div>
+
+  </div>
+
         <hr>
 
-          <h4>
-            <a
-                href="https://syh8293.github.io/web/성경/구약/서문%2C%20후기/Epilogue.html">&#9664;</a>
-                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-            <a
-                href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-            <a
-                href="https://syh8293.github.io/web/성경/신약/1%20Matthew%20(마태복음)/Matthew%200.html">&#9654;</a>
-        </h4>
+            <nav class="nav">
+
+                <a
+                    href="https://syh8293.github.io/web/성경/구약/서문%2C%20후기/Epilogue.html">&#9664;</a>
+                <a
+                    href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
+                <a
+                    href="https://syh8293.github.io/web/성경/신약/1%20Matthew%20(마태복음)/Matthew%200.html">&#9654;</a>
+                    
+            </nav>
 
     <script>
         // 1. 글자 크기 변경 함수
