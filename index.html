@@ -567,42 +567,45 @@ function toSinoKorean(num) {
     return result;
 }
 
-// 2. 업그레이드된 낭독 함수
+// 2. 낭독 엔진 ('일 장, 이 장' 발음 요청 완벽 반영)
 function speakBible() {
-    window.speechSynthesis.cancel(); 
-
+    window.speechSynthesis.cancel();
     const frameDoc = frame.contentWindow.document;
+    
+    // 원본은 건드리지 않고 복사본으로 작업합니다 (절대 수정 금지 원칙!)
     const tempDiv = frameDoc.body.cloneNode(true);
     
-    // 주석(sup, a) 및 불필요한 UI 요소 완벽 제거
-    const junkTags = tempDiv.querySelectorAll('sup, a, script, style, button, .header');
-    junkTags.forEach(tag => tag.remove());
+    // 주석, 링크, 버튼 등 불필요한 요소 싹 제거
+    const junk = tempDiv.querySelectorAll('sup, a, script, style, button, .header');
+    junk.forEach(j => j.remove());
 
     let rawText = tempDiv.innerText;
 
-    // [발음 및 템포 교정]
+    // [발음 교정 마스터 필터]
     let cleanText = rawText
-        // 1:1 -> "일 장 일 절. (마침표로 한 템포 쉬기)"
-        .replace(/(\d+):(\d+)/g, function(match, p1, p2) {
-            return toSinoKorean(p1) + "장 " + toSinoKorean(p2) + "절. "; 
-        })
-        // 숫자 뒤에 '장'이 붙은 경우 (예: 제목의 1장)
-        .replace(/(\d+)장/g, function(match, p1) {
-            return toSinoKorean(p1) + "장. ";
-        })
-        // A+, A- 같은 UI 잔재 제거
+        // 1. "창세기 1" 혹은 "1장" 처럼 숫자가 보이면 무조건 한자어(일, 이...)로 변환
+        // 특히 장(Chapter) 앞에 오는 숫자를 '일 장, 이 장'으로 강제 교정합니다.
+        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
+        
+        // 2. "1:1" 형태를 "일 장 일 절"로 변환하고 한 템포 쉽니다.
+        .replace(/(\d+):(\d+)/g, (m, p1, p2) => toSinoKorean(p1) + "장 " + toSinoKorean(p2) + "절. ")
+        
+        // 3. 혹시 문장 처음에 나오는 숫자(장 번호)들도 교정
+        .replace(/^\s*(\d+)\s*$/gm, (m, p1) => toSinoKorean(p1) + " 장. ")
+
+        // 4. UI 기호 제거 (A+, A- 등)
         .replace(/[A-Z][+-]/g, "");
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
+    // 한국어 설정 및 자연스러운 속도
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.70; // 대장님을 위한 최적의 차분한 속도
-    utterance.pitch = 0.8; 
-
-    // 기기에서 가장 좋은 목소리 찾기
+    utterance.rate = 0.75; // 0.8~0.9 사이가 가장 경건합니다.
+    
+    // 브라우저가 제공하는 가장 좋은 한국어 목소리 자동 선택
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v => v.name.includes('Yuna') || v.name.includes('Google 한국어'));
-    if (preferredVoice) utterance.voice = preferredVoice;
+    const bestVoice = voices.find(v => v.name.includes('Yuna') || v.name.includes('Google 한국어')) || voices[0];
+    utterance.voice = bestVoice;
 
     window.speechSynthesis.speak(utterance);
 }
