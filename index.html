@@ -596,8 +596,8 @@ function speakBible() {
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.75; // 대장님을 위한 최적의 차분한 속도
-    utterance.pitch = 0.9; 
+    utterance.rate = 0.70; // 대장님을 위한 최적의 차분한 속도
+    utterance.pitch = 0.8; 
 
     // 기기에서 가장 좋은 목소리 찾기
     const voices = window.speechSynthesis.getVoices();
