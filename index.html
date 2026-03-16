@@ -7,57 +7,100 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>한글 킹제임스 성경</title>
   <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: sans-serif;
-    }
-
-    /* 상단 고정 메뉴 */
-    /* 헤더 전체 컨테이너 */
-#app-header {
+    /* 기본 설정: 화면 전체를 꽉 채우고 스크롤 방지 */
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
     background-color: #2c3e50;
-    padding: 15px 10px 10px 10px; /* 위쪽 여유를 줘서 상태바에 안 가려지게 함 */
+}
+
+/* 1단: 헤더 (노치 대응 + 세로 쌓기) */
+#app-header {
+    padding-top: env(safe-area-inset-top, 20px); /* 아이폰 노치만큼 띄우기 */
+    background-color: #2c3e50;
     color: white;
     display: flex;
-    flex-direction: column; /* 세로로 쌓기 */
-    gap: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 10px;
+    z-index: 100;
 }
 
-/* 1단: 성경 선택창 라인 */
+/* 성경 선택 줄 */
 .selection-line {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
     gap: 5px;
-    flex-wrap: nowrap; /* 한 줄 유지 */
 }
 
-/* 선택창과 바로가기 버튼 크기 조절 */
-select { padding: 8px; border-radius: 5px; font-size: 14px; flex: 1; max-width: 120px; }
-.btn-go { 
-    background-color: #95a5a6; 
-    color: white; 
-    border: none; 
-    padding: 8px 12px; 
-    border-radius: 5px; 
+.selection-line select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+}
+
+.btn-go {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
     font-weight: bold;
-    white-space: nowrap; /* 글자 줄바꿈 방지 */
 }
 
-/* 2단: 재생 컨트롤 라인 (똑비가 어제 드린 코드) */
+/* 2단: 재생 컨트롤 (유튜브 스타일) */
 .tts-controls {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background: #34495e;
-    padding: 10px;
-    border-radius: 10px;
+    gap: 15px;
+    padding: 5px 10px;
+}
+
+.btn-main {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px; /* 둥근 버튼 */
+    font-size: 16px;
+    font-weight: bold;
+    flex: 1;
+    max-width: 150px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-stop {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+/* 상태 표시줄: 겹치지 않게 독립된 공간 확보 */
+#status-display {
+    background-color: #34495e;
+    text-align: center;
+    padding: 5px;
+    font-size: 13px;
+    color: #2ecc71;
+    min-height: 20px;
+}
+
+/* 3단: 성경 본문 (나머지 공간 전부 차지) */
+#bible-frame {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background-color: white;
 }
   </style>
 
@@ -107,24 +150,23 @@ select { padding: 8px; border-radius: 5px; font-size: 14px; flex: 1; max-width: 
 
 <body>
 
-  <div id="app-header">
-    <div class="selection-line">
-        <select id="book-select" onchange="updateChapters()"></select>
-        <select id="chapter-select"></select>
-        <button class="btn-go" onclick="loadBible()">바로가기</button>
+  <body>
+    <div id="app-header">
+        <div class="selection-line">
+            <select id="book-select" onchange="updateChapters()"></select>
+            <select id="chapter-select"></select>
+            <button class="btn-go" onclick="loadBible()">이동</button>
+        </div>
+
+        <div class="tts-controls">
+            <button id="main-play-btn" class="btn-main" onclick="togglePlay()">▶ 시작</button>
+            <button class="btn-stop" onclick="stopBible()">■ 정지</button>
+        </div>
+
+        <div id="status-display">말씀을 선택해 주세요</div>
     </div>
 
-    <div class="tts-controls">
-        <button id="main-play-btn" class="btn-main" onclick="togglePlay()">▶ 시작</button>
-        <button class="btn-stop" onclick="stopBible()">■ 정지</button>
-    </div>
-    
-    <div id="status-display">말씀을 선택해 주세요</div>
-</div>
-  </div>
-
-  <iframe id="bible-frame"
-    src="about:blank"></iframe>
+    <iframe id="bible-frame" src=""></iframe>
 
   <script>
   // 1. [데이터] 성경 66권 목록 (대장님의 소중한 데이터 보존)
