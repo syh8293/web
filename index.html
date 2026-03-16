@@ -346,7 +346,7 @@ function speakBible() {
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.85;
+    utterance.rate = 0.75;
 
     utterance.onend = function() {
         if (!isPaused && autoNext) {
