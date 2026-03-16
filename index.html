@@ -70,6 +70,55 @@
       border: none;
     }
   </style>
+
+  <style>
+    /* 컨트롤러 전체 박스 */
+    .tts-controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background: #34495e; /* 헤더보다 살짝 밝은 네이비 */
+        border-radius: 12px;
+        margin: 5px 10px;
+    }
+
+    /* 공통 버튼 스타일 */
+    .tts-controls button {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 18px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: transform 0.1s, background 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .tts-controls button:active { transform: scale(0.95); }
+
+    /* 버튼별 색상 정의 */
+    .btn-start { background-color: #27ae60; } /* 녹색: 시작 */
+    .btn-pause { background-color: #f39c12; } /* 주황: 일시정지 */
+    .btn-resume { background-color: #2980b9; } /* 파랑: 계속하기 */
+    .btn-stop { background-color: #c0392b; }  /* 빨강: 정지 */
+
+    /* 현재 읽기 상태 표시창 */
+    #status-display {
+        width: 100%;
+        text-align: center;
+        font-size: 13px;
+        color: #ecf0f1;
+        margin-top: 5px;
+        font-style: italic;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -81,11 +130,18 @@
       <select id="chapter-select"></select>
       <button onclick="loadBible()">바로가기</button>
     </div>
-    <div class="tts-controls">      
-      <button class="btn-play"
-        onclick="speakBible()">▶️ 읽기</button>
+
+    <div class="tts-controls">
+      <button class="btn-start"
+        onclick="speakBible()">▶ 시작</button>
+      <button class="btn-pause"
+        onclick="pauseBible()">⏸ 일시정지</button>
+      <button class="btn-resume"
+        onclick="resumeBible()">⏯ 계속</button>
       <button class="btn-stop"
         onclick="stopBible()">■ 정지</button>
+
+      <div id="status-display">준비 완료</div>
     </div>
   </div>
 
@@ -227,37 +283,70 @@
       }
   }
 
-  function speakBible() {
-      window.speechSynthesis.cancel();
-      isPaused = false;
+  const statusDisplay = document.getElementById('status-display');
 
-      const frameDoc = frame.contentWindow.document;
-      const tempDiv = frameDoc.body.cloneNode(true);
-      
-      // 주석, 버튼 등 제거
-      const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
-      junk.forEach(j => j.remove());
+function speakBible() {
+    window.speechSynthesis.cancel();
+    isPaused = false;
+    
+    // 1. 현재 읽고 있는 장을 상태바에 표시
+    const book = bibleData[bookSelect.value];
+    statusDisplay.innerText = `🎙️ ${book.name} ${chapterSelect.value}장을 읽고 있습니다...`;
+    statusDisplay.style.color = "#2ecc71"; // 읽을 때는 녹색
 
-      let rawText = tempDiv.innerText;
+    const frameDoc = frame.contentWindow.document;
+    const tempDiv = frameDoc.body.cloneNode(true);
+    
+    // UI 및 불필요 요소 제거
+    const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
+    junk.forEach(j => j.remove());
 
-      // 대장님의 요청: 절 번호 삭제 + 오미크론 삭제 + 장 발음 교정
-      let cleanText = rawText
-          .replace(/[\u039F\u03BF]/g, "") // 오미크론 제거
-          .replace(/\d+:\d+/g, "")        // "1:1" 형태 낭독 생략
-          .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
-          .replace(/[A-Z][+-]/g, "");
+    let rawText = tempDiv.innerText;
 
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = 'ko-KR';
-      utterance.rate = 0.85;
+    // 대장님의 필터: 절 삭제 + 오미크론 삭제 + 장 발음 교정
+    let cleanText = rawText
+        .replace(/[\u039F\u03BF]/g, "") 
+        .replace(/\d+:\d+/g, "")        
+        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
+        .replace(/[A-Z][+-]/g, "");
 
-      // 낭독이 끝나면 자동으로 다음 장 실행
-      utterance.onend = function() {
-          if (!isPaused && autoNext) moveToNextAndPlay();
-      };
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.75;
 
-      window.speechSynthesis.speak(utterance);
-  }
+    utterance.onend = function() {
+        if (!isPaused && autoNext) {
+            statusDisplay.innerText = "다음 장으로 이동 중...";
+            moveToNextAndPlay();
+        }
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+function pauseBible() {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        statusDisplay.innerText = "⏸ 잠시 멈춤";
+        statusDisplay.style.color = "#f39c12";
+    }
+}
+
+function resumeBible() {
+    if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        const book = bibleData[bookSelect.value];
+        statusDisplay.innerText = `🎙️ ${book.name} ${chapterSelect.value}장을 다시 읽습니다...`;
+        statusDisplay.style.color = "#2ecc71";
+    }
+}
+
+function stopBible() { 
+    isPaused = true;
+    window.speechSynthesis.cancel(); 
+    statusDisplay.innerText = "■ 낭독 정지";
+    statusDisplay.style.color = "#e74c3c";
+}
 
   function stopBible() { 
       isPaused = true;
