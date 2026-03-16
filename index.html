@@ -55,13 +55,10 @@
       gap: 10px;
     }
 
-    .btn-play {
-      background: #28a745;
-    }
-
-    .btn-stop {
-      background: #dc3545;
-    }
+    .btn-main { background-color: #e74c3c; width:
+    120px; font-size: 16px; } /* 유튜브 느낌의 빨간색 */
+    .btn-stop { background-color: #7f8c8d; width:
+    80px; }
 
     /* 성경 본문이 나오는 창 */
     #bible-frame {
@@ -132,16 +129,12 @@
     </div>
 
     <div class="tts-controls">
-      <button class="btn-start"
-        onclick="speakBible()">▶ 시작</button>
-      <button class="btn-pause"
-        onclick="pauseBible()">⏸ 일시정지</button>
-      <button class="btn-resume"
-        onclick="resumeBible()">⏯ 계속</button>
+      <button id="main-play-btn" class="btn-main"
+        onclick="togglePlay()">▶ 시작</button>
       <button class="btn-stop"
         onclick="stopBible()">■ 정지</button>
 
-      <div id="status-display">준비 완료</div>
+      <div id="status-display">말씀을 선택해 주세요</div>
     </div>
   </div>
 
@@ -149,229 +142,221 @@
     src="about:blank"></iframe>
 
   <script>
-  // 1. 성경 전체 66권 데이터 (대장님의 소중한 자산!)
-    const bibleData = {
-      "Genesis": { name: "창세기", type: "구약", folder: "1 Genesis (창세기)", chapters: 50 },
-      "Exodus": { name: "출애굽기", type: "구약", folder: "2 Exodus (출애굽기)", chapters: 40 },
-      "Leviticus": { name: "레위기", type: "구약", folder: "3 Leviticus (레위기)", chapters: 27 },
-      "Numbers": { name: "민수기", type: "구약", folder: "4 Numbers (민수기)", chapters: 36 },
-      "Deuteronomy": { name: "신명기", type: "구약", folder: "5 Deuteronomy (신명기)", chapters: 34 },
-      "Joshua": { name: "여호수아", type: "구약", folder: "6 Joshua (여호수아)", chapters: 24 },
-      "Judges": { name: "재판관기", type: "구약", folder: "7 Judges (재판관기)", chapters: 21 },
-      "Ruth": { name: "룻기", type: "구약", folder: "8 Ruth (룻기)", chapters: 4 },
-      "Samuel1": { name: "사무엘상", type: "구약", folder: "9 Samuel1 (사무엘상)", chapters: 31 },
-      "Samuel2": { name: "사무엘하", type: "구약", folder: "10 Samuel2 (사무엘하)", chapters: 24 },
-      "Kings1": { name: "열왕기상", type: "구약", folder: "11 kings1 (열왕기상)", chapters: 22 },
-      "Kings2": { name: "열왕기하", type: "구약", folder: "12 Kings2 (열왕기하)", chapters: 25 },
-      "Chronicles1": { name: "역대기상", type: "구약", folder: "13 Chronicles1 (역대기상)", chapters: 29 },
-      "Chronicles2": { name: "역대기하", type: "구약", folder: "14 Chronicles2 (역대기하)", chapters: 36 },
-      "Ezra": { name: "에스라", type: "구약", folder: "15 Ezra (에스라)", chapters: 10 },
-      "Nehemiah": { name: "느헤미야", type: "구약", folder: "16 Nehemiah (느헤미야)", chapters: 13 },
-      "Esther": { name: "에스더", type: "구약", folder: "17 Esther (에스더)", chapters: 10 },
-      "Job": { name: "욥기", type: "구약", folder: "18 Job (욥기)", chapters: 42 },
-      "Psalms": { name: "시편", type: "구약", folder: "19 Psalms (시편)", chapters: 150 },
-      "Proverbs": { name: "잠언", type: "구약", folder: "20 Proverbs (잠언)", chapters: 31 },
-      "Ecclesiastes": { name: "전도서", type: "구약", folder: "21 Ecclesiastes (전도서)", chapters: 12 },
-      "Solomon": { name: "솔로몬의 노래", type: "구약", folder: "22 Song of Solomon (솔로몬의 노래)", chapters: 8 },
-      "Isaiah": { name: "이사야", type: "구약", folder: "23 Isaiah (이사야)", chapters: 66 },
-      "Jeremiah": { name: "예레미야", type: "구약", folder: "24 Jeremiah (예레미야)", chapters: 52 },
-      "Lamentations": { name: "애가", type: "구약", folder: "25 Lamentations (애가)", chapters: 5 },
-      "Ezekiel": { name: "에스겔", type: "구약", folder: "26 Ezekiel (에스겔)", chapters: 48 },
-      "Daniel": { name: "다니엘", type: "구약", folder: "27 Daniel (다니엘)", chapters: 12 },
-      "Hosea": { name: "호세아", type: "구약", folder: "28 Hosea (호세아)", chapters: 14 },
-      "Joel": { name: "요엘", type: "구약", folder: "29 Joel (요엘)", chapters: 3 },
-      "Amos": { name: "아모스", type: "구약", folder: "30 Amos (아모스)", chapters: 9 },
-      "Obadiah": { name: "오바댜", type: "구약", folder: "31 Obadiah (오바댜)", chapters: 1 },
-      "Jonah": { name: "요나", type: "구약", folder: "32 Jonah (요나)", chapters: 4 },
-      "Micah": { name: "미카", type: "구약", folder: "33 Micah (미카)", chapters: 7 },
-      "Nahum": { name: "나훔", type: "구약", folder: "34 Nahum (나훔)", chapters: 3 },
-      "Habakkuk": { name: "하박국", type: "구약", folder: "35 Habakuk (하박국)", chapters: 3 },
-      "Zephaniah": { name: "스파냐", type: "구약", folder: "36 Zephaniah (스파냐)", chapters: 3 },
-      "Haggai": { name: "학개", type: "구약", folder: "37 Haggai (학개)", chapters: 2 },
-      "Zechariah": { name: "스카랴", type: "구약", folder: "38 Zechariah (스카랴)", chapters: 14 },
-      "Malachi": { name: "말라키", type: "구약", folder: "39 Malachi (말라키)", chapters: 4 },
-      "Matthew": { name: "마태복음", type: "신약", folder: "1 Matthew (마태복음)", chapters: 28 },
-      "Mark": { name: "마가복음", type: "신약", folder: "2 Mark (마가복음)", chapters: 16 },
-      "Luke": { name: "누가복음", type: "신약", folder: "3 Luke (누가복음)", chapters: 24 },
-      "John": { name: "요한복음", type: "신약", folder: "4 John (요한복음)", chapters: 21 },
-      "Acts": { name: "사도행전", type: "신약", folder: "5 Acts (사도행전)", chapters: 28 },
-      "Romans": { name: "로마서", type: "신약", folder: "6 Romans (로마서)", chapters: 16 },
-      "Corinthians1": { name: "고린도전서", type: "신약", folder: "7 Corinthians 1 (고린도전서)", chapters: 16 },
-      "Corinthians2": { name: "고린도후서", type: "신약", folder: "8 Corinthians 2 (고린도후서)", chapters: 13 },
-      "Galatians": { name: "갈라디아서", type: "신약", folder: "9 Galatians (갈라디아서)", chapters: 6 },
-      "Epheians": { name: "에베소서", type: "신약", folder: "10 Epheians (에베소서)", chapters: 6 },
-      "Philippians": { name: "빌립보서", type: "신약", folder: "11 Philippians (빌립보서)", chapters: 4 },
-      "Colossians": { name: "골로새서", type: "신약", folder: "12 Colossians (골로새서)", chapters: 4 },
-      "Thessalonians1": { name: "데살로니가전서", type: "신약", folder: "13 Thessalonians 1 (데살로니가전서)", chapters: 5 },
-      "Thessalonians2": { name: "데살로니가후서", type: "신약", folder: "14 Thessalonians 2 (데살로니가후서)", chapters: 3 },
-      "Timotyh1": { name: "디모데전서", type: "신약", folder: "15 Timotyh 1 (디모데전서)", chapters: 6 },
-      "Timotyh2": { name: "디모데후서", type: "신약", folder: "16 Timotyh 2 (디모데후서)", chapters: 4 },
-      "Titus": { name: "디도서", type: "신약", folder: "17 Titus (디도서)", chapters: 3 },
-      "Philemon": { name: "빌레몬서", type: "신약", folder: "18 Philemon (빌레몬서)", chapters: 1 },
-      "Hebrews": { name: "히브리서", type: "신약", folder: "19 Hebrews (히브리서)", chapters: 13 },
-      "James": { name: "야고보서", type: "신약", folder: "20 James (야고보서)", chapters: 5 },
-      "Peter1": { name: "베드로전서", type: "신약", folder: "21 Peter 1 (베드로전서)", chapters: 5 },
-      "Peter2": { name: "베드로후서", type: "신약", folder: "22 Peter 2 (베드로후서)", chapters: 3 },
-      "John1": { name: "요한 1서", type: "신약", folder: "23 John 1 (요한 1서)", chapters: 5 },
-      "John2": { name: "요한이서", type: "신약", folder: "24 John2 (요한이서)", chapters: 1 },
-      "John3": { name: "요한삼서", type: "신약", folder: "25 John3 (요한삼서)", chapters: 1 },
-      "Jude": { name: "유다서", type: "신약", folder: "26 Jude (유다서)", chapters: 1 },
-      "Revelation": { name: "요한계시록", type: "신약", folder: "27 Revelation (요한계시록)", chapters: 22 }
-  };
+  // 1. [데이터] 성경 66권 목록 (대장님의 소중한 데이터 보존)
+const bibleData = {
+    "Genesis": { name: "창세기", type: "구약", folder: "1 Genesis (창세기)", chapters: 50 },
+    "Exodus": { name: "출애굽기", type: "구약", folder: "2 Exodus (출애굽기)", chapters: 40 },
+    "Leviticus": { name: "레위기", type: "구약", folder: "3 Leviticus (레위기)", chapters: 27 },
+    "Numbers": { name: "민수기", type: "구약", folder: "4 Numbers (민수기)", chapters: 36 },
+    "Deuteronomy": { name: "신명기", type: "구약", folder: "5 Deuteronomy (신명기)", chapters: 34 },
+    "Joshua": { name: "여호수아", type: "구약", folder: "6 Joshua (여호수아)", chapters: 24 },
+    "Judges": { name: "재판관기", type: "구약", folder: "7 Judges (재판관기)", chapters: 21 },
+    "Ruth": { name: "룻기", type: "구약", folder: "8 Ruth (룻기)", chapters: 4 },
+    "Samuel1": { name: "사무엘상", type: "구약", folder: "9 Samuel1 (사무엘상)", chapters: 31 },
+    "Samuel2": { name: "사무엘하", type: "구약", folder: "10 Samuel2 (사무엘하)", chapters: 24 },
+    "Kings1": { name: "열왕기상", type: "구약", folder: "11 kings1 (열왕기상)", chapters: 22 },
+    "Kings2": { name: "열왕기하", type: "구약", folder: "12 Kings2 (열왕기하)", chapters: 25 },
+    "Chronicles1": { name: "역대기상", type: "구약", folder: "13 Chronicles1 (역대기상)", chapters: 29 },
+    "Chronicles2": { name: "역대기하", type: "구약", folder: "14 Chronicles2 (역대기하)", chapters: 36 },
+    "Ezra": { name: "에스라", type: "구약", folder: "15 Ezra (에스라)", chapters: 10 },
+    "Nehemiah": { name: "느헤미야", type: "구약", folder: "16 Nehemiah (느헤미야)", chapters: 13 },
+    "Esther": { name: "에스더", type: "구약", folder: "17 Esther (에스더)", chapters: 10 },
+    "Job": { name: "욥기", type: "구약", folder: "18 Job (욥기)", chapters: 42 },
+    "Psalms": { name: "시편", type: "구약", folder: "19 Psalms (시편)", chapters: 150 },
+    "Proverbs": { name: "잠언", type: "구약", folder: "20 Proverbs (잠언)", chapters: 31 },
+    "Ecclesiastes": { name: "전도서", type: "구약", folder: "21 Ecclesiastes (전도서)", chapters: 12 },
+    "Solomon": { name: "솔로몬의 노래", type: "구약", folder: "22 Song of Solomon (솔로몬의 노래)", chapters: 8 },
+    "Isaiah": { name: "이사야", type: "구약", folder: "23 Isaiah (이사야)", chapters: 66 },
+    "Jeremiah": { name: "예레미야", type: "구약", folder: "24 Jeremiah (예레미야)", chapters: 52 },
+    "Lamentations": { name: "애가", type: "구약", folder: "25 Lamentations (애가)", chapters: 5 },
+    "Ezekiel": { name: "에스겔", type: "구약", folder: "26 Ezekiel (에스겔)", chapters: 48 },
+    "Daniel": { name: "다니엘", type: "구약", folder: "27 Daniel (다니엘)", chapters: 12 },
+    "Hosea": { name: "호세아", type: "구약", folder: "28 Hosea (호세아)", chapters: 14 },
+    "Joel": { name: "요엘", type: "구약", folder: "29 Joel (요엘)", chapters: 3 },
+    "Amos": { name: "아모스", type: "구약", folder: "30 Amos (아모스)", chapters: 9 },
+    "Obadiah": { name: "오바댜", type: "구약", folder: "31 Obadiah (오바댜)", chapters: 1 },
+    "Jonah": { name: "요나", type: "구약", folder: "32 Jonah (요나)", chapters: 4 },
+    "Micah": { name: "미카", type: "구약", folder: "33 Micah (미카)", chapters: 7 },
+    "Nahum": { name: "나훔", type: "구약", folder: "34 Nahum (나훔)", chapters: 3 },
+    "Habakkuk": { name: "하박국", type: "구약", folder: "35 Habakuk (하박국)", chapters: 3 },
+    "Zephaniah": { name: "스파냐", type: "구약", folder: "36 Zephaniah (스파냐)", chapters: 3 },
+    "Haggai": { name: "학개", type: "구약", folder: "37 Haggai (학개)", chapters: 2 },
+    "Zechariah": { name: "스카랴", type: "구약", folder: "38 Zechariah (스카랴)", chapters: 14 },
+    "Malachi": { name: "말라키", type: "구약", folder: "39 Malachi (말라키)", chapters: 4 },
+    "Matthew": { name: "마태복음", type: "신약", folder: "1 Matthew (마태복음)", chapters: 28 },
+    "Mark": { name: "마가복음", type: "신약", folder: "2 Mark (마가복음)", chapters: 16 },
+    "Luke": { name: "누가복음", type: "신약", folder: "3 Luke (누가복음)", chapters: 24 },
+    "John": { name: "요한복음", type: "신약", folder: "4 John (요한복음)", chapters: 21 },
+    "Acts": { name: "사도행전", type: "신약", folder: "5 Acts (사도행전)", chapters: 28 },
+    "Romans": { name: "로마서", type: "신약", folder: "6 Romans (로마서)", chapters: 16 },
+    "Corinthians1": { name: "고린도전서", type: "신약", folder: "7 Corinthians 1 (고린도전서)", chapters: 16 },
+    "Corinthians2": { name: "고린도후서", type: "신약", folder: "8 Corinthians 2 (고린도후서)", chapters: 13 },
+    "Galatians": { name: "갈라디아서", type: "신약", folder: "9 Galatians (갈라디아서)", chapters: 6 },
+    "Epheians": { name: "에베소서", type: "신약", folder: "10 Epheians (에베소서)", chapters: 6 },
+    "Philippians": { name: "빌립보서", type: "신약", folder: "11 Philippians (빌립보서)", chapters: 4 },
+    "Colossians": { name: "골로새서", type: "신약", folder: "12 Colossians (골로새서)", chapters: 4 },
+    "Thessalonians1": { name: "데살로니가전서", type: "신약", folder: "13 Thessalonians 1 (데살로니가전서)", chapters: 5 },
+    "Thessalonians2": { name: "데살로니가후서", type: "신약", folder: "14 Thessalonians 2 (데살로니가후서)", chapters: 3 },
+    "Timotyh1": { name: "디모데전서", type: "신약", folder: "15 Timotyh 1 (디모데전서)", chapters: 6 },
+    "Timotyh2": { name: "디모데후서", type: "신약", folder: "16 Timotyh 2 (디모데후서)", chapters: 4 },
+    "Titus": { name: "디도서", type: "신약", folder: "17 Titus (디도서)", chapters: 3 },
+    "Philemon": { name: "빌레몬서", type: "신약", folder: "18 Philemon (빌레몬서)", chapters: 1 },
+    "Hebrews": { name: "히브리서", type: "신약", folder: "19 Hebrews (히브리서)", chapters: 13 },
+    "James": { name: "야고보서", type: "신약", folder: "20 James (야고보서)", chapters: 5 },
+    "Peter1": { name: "베드로전서", type: "신약", folder: "21 Peter 1 (베드로전서)", chapters: 5 },
+    "Peter2": { name: "베드로후서", type: "신약", folder: "22 Peter 2 (베드로후서)", chapters: 3 },
+    "John1": { name: "요한 1서", type: "신약", folder: "23 John 1 (요한 1서)", chapters: 5 },
+    "John2": { name: "요한이서", type: "신약", folder: "24 John2 (요한이서)", chapters: 1 },
+    "John3": { name: "요한삼서", type: "신약", folder: "25 John3 (요한삼서)", chapters: 1 },
+    "Jude": { name: "유다서", type: "신약", folder: "26 Jude (유다서)", chapters: 1 },
+    "Revelation": { name: "요한계시록", type: "신약", folder: "27 Revelation (요한계시록)", chapters: 22 }
+};
 
-  const bookSelect = document.getElementById('book-select');
-  const chapterSelect = document.getElementById('chapter-select');
-  const frame = document.getElementById('bible-frame');
-  let isPaused = false;
-  let autoNext = true; // 자동으로 다음 장 넘기기 활성화
+// 2. [전역 변수] 앱 상태 관리
+const bookSelect = document.getElementById('book-select');
+const chapterSelect = document.getElementById('chapter-select');
+const frame = document.getElementById('bible-frame');
+const statusDisplay = document.getElementById('status-display');
+const mainBtn = document.getElementById('main-play-btn');
 
-  function toSinoKorean(num) {
-      const units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
-      const tens = ["", "십", "백"]; 
-      let n = parseInt(num);
-      if (n === 0) return "영";
-      let result = "";
-      if (n >= 100) { result += (Math.floor(n / 100) === 1 ? "" : units[Math.floor(n / 100)]) + "백"; n %= 100; }
-      if (n >= 10) { let d = Math.floor(n / 10); result += (d === 1 ? "" : units[d]) + "십"; n %= 10; }
-      result += units[n];
-      return result;
-  }
+let isPaused = false;
+let autoNext = true;
+let wakeLock = null;
 
-  function init() {
-      for (let key in bibleData) {
-          let opt = document.createElement('option');
-          opt.value = key;
-          opt.innerText = bibleData[key].name;
-          bookSelect.appendChild(opt);
-      }
-      updateChapters();
-      const lastUrl = localStorage.getItem('last_bible_url');
-      if (lastUrl) frame.src = lastUrl;
-  }
+// 3. [유틸리티] 한글 발음 및 화면 꺼짐 방지
+function toSinoKorean(num) {
+    const units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+    const tens = ["", "십", "백"]; 
+    let n = parseInt(num);
+    if (n === 0) return "영";
+    let result = "";
+    if (n >= 100) { result += (Math.floor(n / 100) === 1 ? "" : units[Math.floor(n / 100)]) + "백"; n %= 100; }
+    if (n >= 10) { let d = Math.floor(n / 10); result += (d === 1 ? "" : units[d]) + "십"; n %= 10; }
+    result += units[n];
+    return result;
+}
 
-  function updateChapters() {
-      const book = bibleData[bookSelect.value];
-      chapterSelect.innerHTML = "";
-      for (let i = 1; i <= book.chapters; i++) {
-          let opt = document.createElement('option');
-          opt.value = i;
-          opt.innerText = i + "장";
-          chapterSelect.appendChild(opt);
-      }
-  }
+async function requestWakeLock() {
+    try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); }
+    catch (err) { console.log("WakeLock failed:", err); }
+}
 
-  function loadBible() {
-      const book = bibleData[bookSelect.value];
-      const chapter = chapterSelect.value;
-      const url = `https://syh8293.github.io/web/성경/${book.type}/${encodeURIComponent(book.folder)}/${bookSelect.value}%20${chapter}.html`;
-      frame.src = url;
-      localStorage.setItem('last_bible_url', url);
-  }
+function releaseWakeLock() {
+    if (wakeLock) { wakeLock.release(); wakeLock = null; }
+}
 
-  // 다음 장으로 자동 이동 로직
-  function moveToNextAndPlay() {
-      let currentChapter = parseInt(chapterSelect.value);
-      const book = bibleData[bookSelect.value];
+// 4. [핵심 로직] 초기화 및 로딩
+function init() {
+    for (let key in bibleData) {
+        let opt = document.createElement('option');
+        opt.value = key;
+        opt.innerText = bibleData[key].name;
+        bookSelect.appendChild(opt);
+    }
+    updateChapters();
+}
 
-      if (currentChapter < book.chapters) {
-          chapterSelect.value = currentChapter + 1;
-          loadBible();
-          // 페이지가 완전히 로딩된 후 낭독 시작 (1.5초 여유)
-          setTimeout(() => speakBible(), 1500);
-      } else {
-          alert("해당 성경 권을 모두 읽었습니다!");
-      }
-  }
+function updateChapters() {
+    const book = bibleData[bookSelect.value];
+    chapterSelect.innerHTML = "";
+    for (let i = 1; i <= book.chapters; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = i + "장";
+        chapterSelect.appendChild(opt);
+    }
+}
 
-  const statusDisplay = document.getElementById('status-display');
+function loadBible() {
+    const book = bibleData[bookSelect.value];
+    const chapter = chapterSelect.value;
+    const url = `https://syh8293.github.io/web/성경/${book.type}/${encodeURIComponent(book.folder)}/${bookSelect.value}%20${chapter}.html`;
+    frame.src = url;
+}
+
+// 5. [낭독 엔진] 유튜브 스타일 재생/일시정지
+function togglePlay() {
+    if (!window.speechSynthesis.speaking) {
+        speakBible();
+        mainBtn.innerText = "⏸ 일시정지";
+        requestWakeLock();
+    } else if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        mainBtn.innerText = "⏸ 일시정지";
+    } else {
+        window.speechSynthesis.pause();
+        mainBtn.innerText = "▶ 계속하기";
+        releaseWakeLock();
+    }
+}
 
 function speakBible() {
     window.speechSynthesis.cancel();
     isPaused = false;
-    
-    // 1. 현재 읽고 있는 장을 상태바에 표시
+
     const book = bibleData[bookSelect.value];
-    statusDisplay.innerText = `🎙️ ${book.name} ${chapterSelect.value}장을 읽고 있습니다...`;
-    statusDisplay.style.color = "#2ecc71"; // 읽을 때는 녹색
+    const chapter = chapterSelect.value;
+    
+    // 잠금 화면 메타데이터 설정
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: `${book.name} ${chapter}장`,
+            artist: '성경 통독 똑비',
+            album: '킹제임스'
+        });
+    }
 
     const frameDoc = frame.contentWindow.document;
     const tempDiv = frameDoc.body.cloneNode(true);
-    
-    // UI 및 불필요 요소 제거
     const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
     junk.forEach(j => j.remove());
 
-    let rawText = tempDiv.innerText;
-
-    // 대장님의 필터: 절 삭제 + 오미크론 삭제 + 장 발음 교정
-    let cleanText = rawText
-        .replace(/[\u039F\u03BF]/g, "") 
-        .replace(/\d+:\d+/g, "")        
-        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
+    let cleanText = tempDiv.innerText
+        .replace(/[\u039F\u03BF]/g, "") // 오미크론 제거
+        .replace(/\d+:\d+/g, "")        // 절 번호 생략
+        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") // 장 발음 교정
         .replace(/[A-Z][+-]/g, "");
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.75;
+    utterance.rate = 0.85;
 
     utterance.onend = function() {
         if (!isPaused && autoNext) {
-            statusDisplay.innerText = "다음 장으로 이동 중...";
             moveToNextAndPlay();
+        } else {
+            stopBible();
         }
     };
 
     window.speechSynthesis.speak(utterance);
+    statusDisplay.innerText = `🎙️ ${book.name} ${chapter}장 읽는 중...`;
+    statusDisplay.style.color = "#2ecc71";
 }
 
-function pauseBible() {
-    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-        window.speechSynthesis.pause();
-        statusDisplay.innerText = "⏸ 잠시 멈춤";
-        statusDisplay.style.color = "#f39c12";
+function moveToNextAndPlay() {
+    let currentChapter = parseInt(chapterSelect.value);
+    const book = bibleData[bookSelect.value];
+    if (currentChapter < book.chapters) {
+        chapterSelect.value = currentChapter + 1;
+        loadBible();
+        setTimeout(() => speakBible(), 1500); // 로딩 대기
+    } else {
+        alert("해당 권을 완독하셨습니다!");
+        stopBible();
     }
 }
 
-function resumeBible() {
-    if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-        const book = bibleData[bookSelect.value];
-        statusDisplay.innerText = `🎙️ ${book.name} ${chapterSelect.value}장을 다시 읽습니다...`;
-        statusDisplay.style.color = "#2ecc71";
-    }
-}
-
-function stopBible() { 
+function stopBible() {
     isPaused = true;
-    window.speechSynthesis.cancel(); 
+    window.speechSynthesis.cancel();
+    releaseWakeLock();
+    mainBtn.innerText = "▶ 시작";
     statusDisplay.innerText = "■ 낭독 정지";
     statusDisplay.style.color = "#e74c3c";
 }
 
-  function stopBible() { 
-      isPaused = true;
-      window.speechSynthesis.cancel(); 
-  }
-
-  function pauseBible() {
-      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-          window.speechSynthesis.pause();
-      }
-  }
-
-  function resumeBible() {
-      if (window.speechSynthesis.paused) {
-          window.speechSynthesis.resume();
-      }
-  }
-
-  let currentSize = 20;
-  function changeFontSize(delta) {
-      currentSize += delta;
-      frame.contentWindow.document.body.style.fontSize = currentSize + "px";
-  }
-
-  init();
+init();
   </script>
 
 </body>
