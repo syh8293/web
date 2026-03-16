@@ -17,55 +17,48 @@
     }
 
     /* 상단 고정 메뉴 */
-    #app-header {
-      height: 110px;
-      background: #343a40;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      z-index: 100;
-    }
+    /* 헤더 전체 컨테이너 */
+#app-header {
+    background-color: #2c3e50;
+    padding: 15px 10px 10px 10px; /* 위쪽 여유를 줘서 상태바에 안 가려지게 함 */
+    color: white;
+    display: flex;
+    flex-direction: column; /* 세로로 쌓기 */
+    gap: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
-    .controls {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 10px;
-    }
+/* 1단: 성경 선택창 라인 */
+.selection-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: nowrap; /* 한 줄 유지 */
+}
 
-    select,
-    button {
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-      font-size: 14px;
-    }
+/* 선택창과 바로가기 버튼 크기 조절 */
+select { padding: 8px; border-radius: 5px; font-size: 14px; flex: 1; max-width: 120px; }
+.btn-go { 
+    background-color: #95a5a6; 
+    color: white; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    font-weight: bold;
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+}
 
-    button {
-      background: #495057;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .tts-controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-main { background-color: #e74c3c; width:
-    120px; font-size: 16px; } /* 유튜브 느낌의 빨간색 */
-    .btn-stop { background-color: #7f8c8d; width:
-    80px; }
-
-    /* 성경 본문이 나오는 창 */
-    #bible-frame {
-      width: 100%;
-      height: calc(100% - 110px);
-      border: none;
-    }
+/* 2단: 재생 컨트롤 라인 (똑비가 어제 드린 코드) */
+.tts-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #34495e;
+    padding: 10px;
+    border-radius: 10px;
+}
   </style>
 
   <style>
@@ -99,12 +92,6 @@
 
     .tts-controls button:active { transform: scale(0.95); }
 
-    /* 버튼별 색상 정의 */
-    .btn-start { background-color: #27ae60; } /* 녹색: 시작 */
-    .btn-pause { background-color: #f39c12; } /* 주황: 일시정지 */
-    .btn-resume { background-color: #2980b9; } /* 파랑: 계속하기 */
-    .btn-stop { background-color: #c0392b; }  /* 빨강: 정지 */
-
     /* 현재 읽기 상태 표시창 */
     #status-display {
         width: 100%;
@@ -121,21 +108,19 @@
 <body>
 
   <div id="app-header">
-    <div class="controls">
-      <select id="book-select"
-        onchange="updateChapters()"></select>
-      <select id="chapter-select"></select>
-      <button onclick="loadBible()">바로가기</button>
+    <div class="selection-line">
+        <select id="book-select" onchange="updateChapters()"></select>
+        <select id="chapter-select"></select>
+        <button class="btn-go" onclick="loadBible()">바로가기</button>
     </div>
 
     <div class="tts-controls">
-      <button id="main-play-btn" class="btn-main"
-        onclick="togglePlay()">▶ 시작</button>
-      <button class="btn-stop"
-        onclick="stopBible()">■ 정지</button>
-
-      <div id="status-display">말씀을 선택해 주세요</div>
+        <button id="main-play-btn" class="btn-main" onclick="togglePlay()">▶ 시작</button>
+        <button class="btn-stop" onclick="stopBible()">■ 정지</button>
     </div>
+    
+    <div id="status-display">말씀을 선택해 주세요</div>
+</div>
   </div>
 
   <iframe id="bible-frame"
