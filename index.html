@@ -102,6 +102,15 @@ body {
     border: none;
     background-color: white;
 }
+
+/* iframe 내부의 하이라이트 스타일 (자바스크립트로 주입하거나 iframe 로드시 적용) */
+.highlight {
+    background-color: yellow !important;
+    color: black !important;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
   </style>
 
   <style>
@@ -323,42 +332,85 @@ function speakBible() {
 
     const book = bibleData[bookSelect.value];
     const chapter = chapterSelect.value;
-    
-    // 잠금 화면 메타데이터 설정
-    if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-            title: `${book.name} ${chapter}장`,
-            artist: '성경 통독 똑비',
-            album: '킹제임스'
-        });
-    }
-
     const frameDoc = frame.contentWindow.document;
+
+    // 1. [하이라이트 준비] 본문의 글자들을 단어 단위로 쪼개어 감쌉니다.
+    // 기존 텍스트를 건드리지 않고 추적하기 위해 단어마다 <span>태그를 입히는 과정입니다.
+    prepareHighlight(frameDoc);
+
     const tempDiv = frameDoc.body.cloneNode(true);
     const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
     junk.forEach(j => j.remove());
 
+    // 2. [자연스러운 호흡] 문장 부호 뒤에 미세한 쉼표 추가
     let cleanText = tempDiv.innerText
-        .replace(/[\u039F\u03BF]/g, "") // 오미크론 제거
-        .replace(/\d+:\d+/g, "")        // 절 번호 생략
-        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") // 장 발음 교정
+        .replace(/[\u039F\u03BF]/g, "") 
+        .replace(/\d+:\d+/g, "")        
+        .replace(/\. /g, ".  ") // 마침표 뒤에 공백 추가로 호흡 조절
+        .replace(/, /g, ",  ")  // 쉼표 뒤에 공백 추가
+        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
         .replace(/[A-Z][+-]/g, "");
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.75;
+    utterance.rate = 0.85;
+
+    // 3. [고품질 목소리 선택] 시스템에서 가장 좋은 목소리 자동 매칭
+    const voices = window.speechSynthesis.getVoices();
+    const premiumVoice = voices.find(v => v.name.includes('Google') && v.lang === 'ko-KR') || voices.find(v => v.lang === 'ko-KR');
+    if (premiumVoice) utterance.voice = premiumVoice;
+
+    // 4. [하이라이트 & 자동 스크롤 핵심 로직]
+    utterance.onboundary = function(event) {
+        if (event.name === 'word') {
+            const charIndex = event.charIndex;
+            highlightWord(frameDoc, charIndex);
+        }
+    };
 
     utterance.onend = function() {
-        if (!isPaused && autoNext) {
-            moveToNextAndPlay();
-        } else {
-            stopBible();
-        }
+        if (!isPaused && autoNext) moveToNextAndPlay();
+        else stopBible();
     };
 
     window.speechSynthesis.speak(utterance);
     statusDisplay.innerText = `🎙️ ${book.name} ${chapter}장 읽는 중...`;
-    statusDisplay.style.color = "#2ecc71";
+}
+
+// 본문 텍스트를 추적 가능하게 준비하는 함수
+function prepareHighlight(doc) {
+    const body = doc.body;
+    // 이미 작업이 되어있다면 패스
+    if (body.querySelector('.tts-word')) return;
+
+    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    const textNodes = [];
+    while (node = walker.nextNode()) textNodes.push(node);
+
+    textNodes.forEach(node => {
+        const span = doc.createElement('span');
+        // 단어 단위로 분할하여 클래스 부여
+        span.innerHTML = node.nodeValue.replace(/(\S+)/g, '<span class="tts-word">$1</span>');
+        node.parentNode.replaceChild(span, node);
+    });
+}
+
+// 읽고 있는 단어에 형광펜 칠하고 스크롤하는 함수
+function highlightWord(doc, charIndex) {
+    const allWords = doc.querySelectorAll('.tts-word');
+    // 이전 하이라이트 제거
+    doc.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
+
+    // 대략적인 위치의 단어를 찾아 하이라이트 (TTS 인덱스와 매칭)
+    // ※ 웹 환경 특성상 100% 정확한 매칭은 어려우나 가장 근접한 요소를 찾아 강조합니다.
+    const target = allWords[Math.floor(charIndex / 5)]; // 평균 단어 길이를 고려한 추정치
+    if (target) {
+        target.classList.add('highlight');
+        
+        // [자동 스크롤] 하이라이트된 단어가 화면 중앙에 오도록 부드럽게 이동
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 function moveToNextAndPlay() {
