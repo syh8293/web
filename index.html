@@ -390,7 +390,7 @@ function speakBible() {
 function prepareHighlight(doc) {
     const body = doc.body;
     
-    // 1. [담장 넘기기] iframe 내부에 하이라이트용 스타일 시트 주입
+    // 1. [스타일 주입] 본문 스타일을 해치지 않도록 최소한의 설정만 추가
     if (!doc.getElementById('tts-style')) {
         const style = doc.createElement('style');
         style.id = 'tts-style';
@@ -399,26 +399,53 @@ function prepareHighlight(doc) {
                 background-color: yellow !important;
                 color: black !important;
                 font-weight: bold;
-                border-radius: 4px;
-                display: inline-block;
+                border-radius: 2px;
+                /* 글자 겹침 방지를 위한 핵심 설정 */
+                display: inline !important; 
+                line-height: inherit !important;
+                letter-spacing: normal !important;
             }
-            .tts-word { display: inline-block; transition: background-color 0.2s; }
+            .tts-word { 
+                display: inline !important; 
+                line-height: inherit !important;
+            }
         `;
         doc.head.appendChild(style);
     }
 
+    // 이미 단어 분리 작업이 되어 있다면 중단
     if (body.querySelector('.tts-word')) return;
 
+    // 2. [안전한 단어 분리] 기존 레이아웃을 파괴하지 않도록 정규식 수정
     const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
     let node;
     const textNodes = [];
-    while (node = walker.nextNode()) textNodes.push(node);
+    while (node = walker.nextNode()) {
+        // 부모가 이미 tts-word인 경우는 제외
+        if (node.parentNode.classList.contains('tts-word')) continue;
+        textNodes.push(node);
+    }
 
     textNodes.forEach(node => {
-        const span = doc.createElement('span');
-        // 단어 단위로 쪼개기
-        span.innerHTML = node.nodeValue.replace(/(\S+)/g, '<span class="tts-word">$1</span>');
-        node.parentNode.replaceChild(span, node);
+        const text = node.nodeValue;
+        if (text.trim().length === 0) return;
+
+        const fragment = doc.createDocumentFragment();
+        // 단어별로 쪼개되, 공백은 그대로 유지하여 겹침 방지
+        const words = text.split(/(\s+)/); 
+        
+        words.forEach(word => {
+            if (word.trim().length > 0) {
+                const span = doc.createElement('span');
+                span.className = 'tts-word';
+                span.textContent = word;
+                fragment.appendChild(span);
+            } else {
+                // 공백 노드는 그대로 둡니다 (이게 없으면 글자가 붙어버림)
+                fragment.appendChild(doc.createTextNode(word));
+            }
+        });
+        node.parentNode.replaceChild(fragment, node);
     });
 }
 
