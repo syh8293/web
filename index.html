@@ -389,7 +389,24 @@ function speakBible() {
 // 본문 텍스트를 추적 가능하게 준비하는 함수
 function prepareHighlight(doc) {
     const body = doc.body;
-    // 이미 작업이 되어있다면 패스
+    
+    // 1. [담장 넘기기] iframe 내부에 하이라이트용 스타일 시트 주입
+    if (!doc.getElementById('tts-style')) {
+        const style = doc.createElement('style');
+        style.id = 'tts-style';
+        style.innerHTML = `
+            .highlight {
+                background-color: yellow !important;
+                color: black !important;
+                font-weight: bold;
+                border-radius: 4px;
+                display: inline-block;
+            }
+            .tts-word { display: inline-block; transition: background-color 0.2s; }
+        `;
+        doc.head.appendChild(style);
+    }
+
     if (body.querySelector('.tts-word')) return;
 
     const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
@@ -399,7 +416,7 @@ function prepareHighlight(doc) {
 
     textNodes.forEach(node => {
         const span = doc.createElement('span');
-        // 단어 단위로 분할하여 클래스 부여
+        // 단어 단위로 쪼개기
         span.innerHTML = node.nodeValue.replace(/(\S+)/g, '<span class="tts-word">$1</span>');
         node.parentNode.replaceChild(span, node);
     });
@@ -408,16 +425,19 @@ function prepareHighlight(doc) {
 // 읽고 있는 단어에 형광펜 칠하고 스크롤하는 함수
 function highlightWord(doc, charIndex) {
     const allWords = doc.querySelectorAll('.tts-word');
-    // 이전 하이라이트 제거
+    if (allWords.length === 0) return;
+
+    // 이전 하이라이트 모두 지우기
     doc.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
 
-    // 대략적인 위치의 단어를 찾아 하이라이트 (TTS 인덱스와 매칭)
-    // ※ 웹 환경 특성상 100% 정확한 매칭은 어려우나 가장 근접한 요소를 찾아 강조합니다.
-    const target = allWords[Math.floor(charIndex / 5)]; // 평균 단어 길이를 고려한 추정치
+    // 글자 위치(charIndex)를 기준으로 현재 읽는 단어 계산 (보통 5~6글자당 한 단어)
+    let index = Math.floor(charIndex / 5.5); 
+    if (index >= allWords.length) index = allWords.length - 1;
+
+    const target = allWords[index];
     if (target) {
         target.classList.add('highlight');
-        
-        // [자동 스크롤] 하이라이트된 단어가 화면 중앙에 오도록 부드럽게 이동
+        // 자동 스크롤 (이미 잘 된다고 하셨으니 유지!)
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
