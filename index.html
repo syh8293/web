@@ -389,92 +389,74 @@ function speakBible() {
 // 본문 텍스트를 추적 가능하게 준비하는 함수
 function prepareHighlight(doc) {
     const body = doc.body;
-    
     if (!doc.getElementById('tts-style')) {
         const style = doc.createElement('style');
         style.id = 'tts-style';
         style.innerHTML = `
-            .highlight {
-                background-color: yellow !important;
-                color: black !important;
+            .highlight-verse { 
+                background-color: #fff176 !important; /* 부드러운 노란색 */
+                color: black !important; 
                 font-weight: bold;
-                font-size: 1.15em; /* 강조를 위해 조금 더 키움 */
-                border-radius: 4px;
-                display: inline !important;
+                border-radius: 8px;
+                padding: 2px 5px;
+                display: inline;
+                transition: background-color 0.3s;
             }
-            .tts-word { display: inline !important; }
+            /* 읽지 않는 부분(헤더, h5 등)은 아예 투명하게 */
+            header, h5, sup, .ignore { user-select: none; }
         `;
         doc.head.appendChild(style);
     }
+    
+    if (body.querySelector('.tts-verse')) return;
 
-    if (body.querySelector('.tts-word')) return;
-
-    // [중요] 읽지 않을 태그들: header, h5, sup, a, button 등
-    const ignoreTags = ['header', 'h5', 'sup', 'a', 'button', 'style', 'script'];
-
-    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
-        acceptNode: function(node) {
-            let parent = node.parentNode;
-            while (parent && parent !== body) {
-                if (ignoreTags.includes(parent.tagName.toLowerCase())) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                parent = parent.parentNode;
-            }
-            // 숫자만 있는 노드(절 번호 등) 거르기
-            if (/^\d+[:]?\d*$/.test(node.nodeValue.trim())) return NodeFilter.FILTER_REJECT;
-            return NodeFilter.FILTER_ACCEPT;
-        }
-    }, false);
-
-    let node;
+    // 절 번호(예: 1:, 2:)를 기준으로 문장을 찾아 <span>으로 감쌉니다.
+    // 이 작업은 대장님의 성경 본문 HTML 구조에 따라 정교하게 매칭됩니다.
     const textNodes = [];
-    while (node = walker.nextNode()) textNodes.push(node);
+    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+        // 부모가 header, h5, sup인 경우 제외
+        const tagName = node.parentNode.tagName.toLowerCase();
+        if (['header', 'h5', 'sup', 'a', 'button'].includes(tagName)) continue;
+        textNodes.push(node);
+    }
 
+    let globalIndex = 0;
     textNodes.forEach(node => {
         const text = node.nodeValue;
-        const fragment = doc.createDocumentFragment();
-        const words = text.split(/(\s+)/); 
+        const span = doc.createElement('span');
+        span.className = 'tts-verse';
+        span.dataset.start = globalIndex;
+        span.dataset.end = globalIndex + text.length;
+        span.textContent = text;
         
-        words.forEach(word => {
-            if (word.trim().length > 0) {
-                const span = doc.createElement('span');
-                span.className = 'tts-word';
-                // 나중에 찾기 쉽게 글자 위치 정보를 데이터로 살짝 저장합니다.
-                span.textContent = word;
-                fragment.appendChild(span);
-            } else {
-                fragment.appendChild(doc.createTextNode(word));
-            }
-        });
-        node.parentNode.replaceChild(fragment, node);
+        globalIndex += text.length + 1;
+        node.parentNode.replaceChild(span, node);
     });
 }
 
 // 읽고 있는 단어에 형광펜 칠하고 스크롤하는 함수
 function highlightWord(doc, charIndex) {
-    const allWords = doc.querySelectorAll('.tts-word');
-    if (allWords.length === 0) return;
+    const verses = doc.querySelectorAll('.tts-verse');
+    let targetVerse = null;
 
-    let currentPos = 0;
-    let targetElement = null;
-
-    // 모든 단어를 돌며 TTS가 알려준 charIndex 위치에 있는 단어를 찾습니다.
-    for (let word of allWords) {
-        let len = word.textContent.length;
-        if (charIndex >= currentPos && charIndex < currentPos + len + 1) {
-            targetElement = word;
+    for (let verse of verses) {
+        const start = parseInt(verse.dataset.start);
+        const end = parseInt(verse.dataset.end);
+        
+        if (charIndex >= start && charIndex <= end) {
+            targetVerse = verse;
             break;
         }
-        currentPos += len + 1; // 단어 길이 + 공백(1)
     }
 
-    if (targetElement && !targetElement.classList.contains('highlight')) {
-        doc.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
-        targetElement.classList.add('highlight');
+    if (targetVerse && !targetVerse.classList.contains('highlight-verse')) {
+        doc.querySelectorAll('.highlight-verse').forEach(el => el.classList.remove('highlight-verse'));
+        targetVerse.classList.add('highlight-verse');
         
-        // 자동 스크롤
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 절 단위이므로 스크롤도 훨씬 부드럽게 작동합니다.
+        targetVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
