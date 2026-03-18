@@ -390,7 +390,6 @@ function speakBible() {
 function prepareHighlight(doc) {
     const body = doc.body;
     
-    // 1. [스타일 주입] 본문 스타일을 해치지 않도록 최소한의 설정만 추가
     if (!doc.getElementById('tts-style')) {
         const style = doc.createElement('style');
         style.id = 'tts-style';
@@ -399,39 +398,36 @@ function prepareHighlight(doc) {
                 background-color: yellow !important;
                 color: black !important;
                 font-weight: bold;
-                border-radius: 2px;
-                /* 글자 겹침 방지를 위한 핵심 설정 */
-                display: inline !important; 
-                line-height: inherit !important;
-                letter-spacing: normal !important;
+                font-size: 1.1em; /* 노란색 부분 글씨 크게 */
+                border-radius: 4px;
+                display: inline !important;
+                transition: all 0.1s ease;
             }
-            .tts-word { 
-                display: inline !important; 
-                line-height: inherit !important;
-            }
+            .tts-word { display: inline !important; }
         `;
         doc.head.appendChild(style);
     }
 
-    // 이미 단어 분리 작업이 되어 있다면 중단
     if (body.querySelector('.tts-word')) return;
 
-    // 2. [안전한 단어 분리] 기존 레이아웃을 파괴하지 않도록 정규식 수정
-    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    // 각주(sup), 링크(a), 버튼(button) 등 읽지 않는 요소는 제외하고 텍스트만 찾음
+    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+            // 부모가 sup, a, button이거나 숫자만 있는 노드는 거름
+            const parent = node.parentNode.tagName.toLowerCase();
+            if (['sup', 'a', 'button', 'style', 'script'].includes(parent)) return NodeFilter.FILTER_REJECT;
+            if (/^\d+[:]?\d*$/.test(node.nodeValue.trim())) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    }, false);
+
     let node;
     const textNodes = [];
-    while (node = walker.nextNode()) {
-        // 부모가 이미 tts-word인 경우는 제외
-        if (node.parentNode.classList.contains('tts-word')) continue;
-        textNodes.push(node);
-    }
+    while (node = walker.nextNode()) textNodes.push(node);
 
     textNodes.forEach(node => {
         const text = node.nodeValue;
-        if (text.trim().length === 0) return;
-
         const fragment = doc.createDocumentFragment();
-        // 단어별로 쪼개되, 공백은 그대로 유지하여 겹침 방지
         const words = text.split(/(\s+)/); 
         
         words.forEach(word => {
@@ -441,7 +437,6 @@ function prepareHighlight(doc) {
                 span.textContent = word;
                 fragment.appendChild(span);
             } else {
-                // 공백 노드는 그대로 둡니다 (이게 없으면 글자가 붙어버림)
                 fragment.appendChild(doc.createTextNode(word));
             }
         });
@@ -454,17 +449,24 @@ function highlightWord(doc, charIndex) {
     const allWords = doc.querySelectorAll('.tts-word');
     if (allWords.length === 0) return;
 
-    // 이전 하이라이트 모두 지우기
-    doc.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
+    // 현재까지의 글자 수를 합산하며 TTS의 charIndex와 가장 가까운 단어 찾기
+    let currentTotalLength = 0;
+    let targetIndex = 0;
 
-    // 글자 위치(charIndex)를 기준으로 현재 읽는 단어 계산 (보통 5~6글자당 한 단어)
-    let index = Math.floor(charIndex / 5.5); 
-    if (index >= allWords.length) index = allWords.length - 1;
+    for (let i = 0; i < allWords.length; i++) {
+        currentTotalLength += allWords[i].textContent.length + 1; // +1은 공백 계산
+        if (currentTotalLength >= charIndex) {
+            targetIndex = i;
+            break;
+        }
+    }
 
-    const target = allWords[index];
-    if (target) {
+    const target = allWords[targetIndex];
+    if (target && !target.classList.contains('highlight')) {
+        doc.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
         target.classList.add('highlight');
-        // 자동 스크롤 (이미 잘 된다고 하셨으니 유지!)
+        
+        // 자동 스크롤
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
