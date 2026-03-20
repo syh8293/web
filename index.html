@@ -462,22 +462,25 @@ function prepareHighlight(doc) {
 
 // 읽고 있는 단어에 형광펜 칠하고 스크롤하는 함수
 function highlightWord(doc, charIndex) {
-    const containers = doc.querySelectorAll('.verse-container');
-    let activeContainer = null;
+    const verses = doc.querySelectorAll('.tts-verse');
+    let targetVerse = null;
 
-    for (let c of containers) {
-        const start = parseInt(c.dataset.start);
-        const end = parseInt(c.dataset.end);
+    for (let verse of verses) {
+        const start = parseInt(verse.dataset.start);
+        const end = parseInt(verse.dataset.end);
+        
         if (charIndex >= start && charIndex <= end) {
-            activeContainer = c;
+            targetVerse = verse;
             break;
         }
     }
 
-    if (activeContainer && !activeContainer.classList.contains('highlight-verse')) {
+    if (targetVerse && !targetVerse.classList.contains('highlight-verse')) {
         doc.querySelectorAll('.highlight-verse').forEach(el => el.classList.remove('highlight-verse'));
-        activeContainer.classList.add('highlight-verse');
-        activeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetVerse.classList.add('highlight-verse');
+        
+        // 절 단위이므로 스크롤도 훨씬 부드럽게 작동합니다.
+        targetVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
