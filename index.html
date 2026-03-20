@@ -343,6 +343,48 @@ function speakBible() {
     const chapter = chapterSelect.value;
     const frameDoc = frame.contentWindow.document;
 
+    // 1. 기존 텍스트를 건드리지 않고 추적하기 위해 단어마다 <span>태그를 입히는 과정입니다.
+    prepareHighlight(frameDoc);
+
+    const tempDiv = frameDoc.body.cloneNode(true);
+    const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
+    junk.forEach(j => j.remove());
+
+    // 2. [자연스러운 호흡] 문장 부호 뒤에 미세한 쉼표 추가
+    let cleanText = tempDiv.innerText
+        .replace(/[\u039F\u03BF]/g, "") 
+        .replace(/\d+:\d+/g, "")        
+        .replace(/\. /g, ".  ") // 마침표 뒤에 공백 추가로 호흡 조절
+        .replace(/, /g, ",  ")  // 쉼표 뒤에 공백 추가
+        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
+        .replace(/[A-Z][+-]/g, "");
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.75;
+
+    // 3. [고품질 목소리 선택] 시스템에서 가장 좋은 목소리 자동 매칭
+    const voices = window.speechSynthesis.getVoices();
+    const premiumVoice = voices.find(v => v.name.includes('Google') && v.lang === 'ko-KR') || voices.find(v => v.lang === 'ko-KR');
+    if (premiumVoice) utterance.voice = premiumVoice;
+
+    // 4. [하이라이트 & 자동 스크롤 핵심 로직]
+    utterance.onboundary = function(event) {
+        if (event.name === 'word') {
+            const charIndex = event.charIndex;
+            highlightWord(frameDoc, charIndex);
+        }
+    };
+
+    utterance.onend = function() {
+        if (!isPaused && autoNext) moveToNextAndPlay();
+        else stopBible();
+    };
+
+    window.speechSynthesis.speak(utterance);
+    statusDisplay.innerText = `🎙️ ${book.name} ${chapter}장 읽는 중...`;
+}
+
 // 본문 텍스트를 추적 가능하게 준비하는 함수
 function prepareHighlight(doc) {
     const body = doc.body;
