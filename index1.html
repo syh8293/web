@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>한글 킹제임스 성경</title>
+  <style>
+    /* 기본 설정: 화면 전체를 꽉 채우고 스크롤 방지 */
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+    background-color: #2c3e50;
+}
+
+/* 1단: 헤더 (노치 대응 + 세로 쌓기) */
+#app-header {
+    padding-top: env(safe-area-inset-top, 20px); /* 아이폰 노치만큼 띄우기 */
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 10px;
+    z-index: 100;
+}
+
+/* 성경 선택 줄 */
+.selection-line {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    gap: 5px;
+}
+
+.selection-line select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+}
+
+.btn-go {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* 2단: 재생 컨트롤 (유튜브 스타일) */
+.tts-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 5px 10px;
+}
+
+.btn-main {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px; /* 둥근 버튼 */
+    font-size: 16px;
+    font-weight: bold;
+    flex: 1;
+    max-width: 150px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-stop {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+/* 상태 표시줄: 겹치지 않게 독립된 공간 확보 */
+#status-display {
+    background-color: #34495e;
+    text-align: center;
+    padding: 5px;
+    font-size: 13px;
+    color: #2ecc71;
+    min-height: 20px;
+}
+
+/* 3단: 성경 본문 (나머지 공간 전부 차지) */
+#bible-frame {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background-color: white;
+}
+
+/* iframe 내부의 하이라이트 스타일 (자바스크립트로 주입하거나 iframe 로드시 적용) */
+.highlight {
+    background-color: yellow !important;
+    color: black !important;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+  </style>
+
+  <style>
+    /* 컨트롤러 전체 박스 */
+    .tts-controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background: #34495e; /* 헤더보다 살짝 밝은 네이비 */
+        border-radius: 12px;
+        margin: 5px 10px;
+    }
+
+    /* 공통 버튼 스타일 */
+    .tts-controls button {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 18px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: transform 0.1s, background 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .tts-controls button:active { transform: scale(0.95); }
+
+    /* 현재 읽기 상태 표시창 */
+    #status-display {
+        width: 100%;
+        text-align: center;
+        font-size: 13px;
+        color: #ecf0f1;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    /* iframe 내부의 하이라이트 스타일 (자바스크립트로 주입하거나 iframe 로드시 적용) */
+.highlight {
+    background-color: yellow !important;
+    color: black !important;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+  </style>
+
+</head>
+
+<body>
+
+  <body>
+    <div id="app-header">
+        <div class="selection-line">
+            <select id="book-select" onchange="updateChapters()"></select>
+            <select id="chapter-select"></select>
+            <button class="btn-go" onclick="loadBible()">이동</button>
+        </div>
+
+        <div class="tts-controls">
+            <button id="main-play-btn" class="btn-main" onclick="togglePlay()">▶ 시작</button>
+            <button class="btn-stop" onclick="stopBible()">■ 정지</button>
+        </div>
+
+        <div id="status-display">말씀을 선택해 주세요</div>
+    </div>
+
+    <iframe id="bible-frame" src=""></iframe>
+    
+    <script>
+    // 1. 성경 66권 마스터 데이터 (오타 완벽 교정 및 0장 지원)
+const bibleData = {
+    "Genesis": { name: "창세기", type: "구약", folder: "1 Genesis (창세기)", chapters: 50 },
+    "Exodus": { name: "출애굽기", type: "구약", folder: "2 Exodus (출애굽기)", chapters: 40 },
+    "Leviticus": { name: "레위기", type: "구약", folder: "3 Leviticus (레위기)", chapters: 27 },
+    "Numbers": { name: "민수기", type: "구약", folder: "4 Numbers (민수기)", chapters: 36 },
+    "Deuteronomy": { name: "신명기", type: "구약", folder: "5 Deuteronomy (신명기)", chapters: 34 },
+    "Joshua": { name: "여호수아", type: "구약", folder: "6 Joshua (여호수아)", chapters: 24 },
+    "Judges": { name: "사사기", type: "구약", folder: "7 Judges (사사기)", chapters: 21 },
+    "Ruth": { name: "룻기", type: "구약", folder: "8 Ruth (룻기)", chapters: 4 },
+    "1Samuel": { name: "사무엘상", type: "구약", folder: "9 1 Samuel (사무엘상)", chapters: 31 },
+    "2Samuel": { name: "사무엘하", type: "구약", folder: "10 2 Samuel (사무엘하)", chapters: 24 },
+    "1Kings": { name: "열왕기상", type: "구약", folder: "11 1 Kings (열왕기상)", chapters: 22 },
+    "2Kings": { name: "열왕기하", type: "구약", folder: "12 2 Kings (열왕기하)", chapters: 25 },
+    "1Chronicles": { name: "역대기상", type: "구약", folder: "13 1 Chronicles (역대기상)", chapters: 29 },
+    "2Chronicles": { name: "역대기하", type: "구약", folder: "14 2 Chronicles (역대기하)", chapters: 36 },
+    "Ezra": { name: "에스라", type: "구약", folder: "15 Ezra (에스라)", chapters: 10 },
+    "Nehemiah": { name: "느헤미야", type: "구약", folder: "16 Nehemiah (느헤미야)", chapters: 13 },
+    "Esther": { name: "에스더", type: "구약", folder: "17 Esther (에스더)", chapters: 10 },
+    "Job": { name: "욥기", type: "구약", folder: "18 Job (욥기)", chapters: 42 },
+    "Psalms": { name: "시편", type: "구약", folder: "19 Psalms (시편)", chapters: 150 },
+    "Proverbs": { name: "잠언", type: "구약", folder: "20 Proverbs (잠언)", chapters: 31 },
+    "Ecclesiastes": { name: "전도서", type: "구약", folder: "21 Ecclesiastes (전도서)", chapters: 12 },
+    "SongOfSolomon": { name: "아가", type: "구약", folder: "22 Song of Solomon (아가)", chapters: 8 },
+    "Isaiah": { name: "이사야", type: "구약", folder: "23 Isaiah (이사야)", chapters: 66 },
+    "Jeremiah": { name: "예레미야", type: "구약", folder: "24 Jeremiah (예레미야)", chapters: 52 },
+    "Lamentations": { name: "예레미야 애가", type: "구약", folder: "25 Lamentations (애가)", chapters: 5 },
+    "Ezekiel": { name: "에스겔", type: "구약", folder: "26 Ezekiel (에스겔)", chapters: 48 },
+    "Daniel": { name: "다니엘", type: "구약", folder: "27 Daniel (다니엘)", chapters: 12 },
+    "Hosea": { name: "호세아", type: "구약", folder: "28 Hosea (호세아)", chapters: 14 },
+    "Joel": { name: "요엘", type: "구약", folder: "29 Joel (요엘)", chapters: 3 },
+    "Amos": { name: "아모스", type: "구약", folder: "30 Amos (아모스)", chapters: 9 },
+    "Obadiah": { name: "오바댜", type: "구약", folder: "31 Obadiah (오바댜)", chapters: 1 },
+    "Jonah": { name: "요나", type: "구약", folder: "32 Jonah (요나)", chapters: 4 },
+    "Micah": { name: "미가", type: "구약", folder: "33 Micah (미가)", chapters: 7 },
+    "Nahum": { name: "나훔", type: "구약", folder: "34 Nahum (나훔)", chapters: 3 },
+    "Habakkuk": { name: "하박국", type: "구약", folder: "35 Habakkuk (하박국)", chapters: 3 },
+    "Zephaniah": { name: "스바냐", type: "구약", folder: "36 Zephaniah (스파냐)", chapters: 3 },
+    "Haggai": { name: "학개", type: "구약", folder: "37 Haggai (학개)", chapters: 2 },
+    "Zechariah": { name: "스가랴", type: "구약", folder: "38 Zechariah (스카랴)", chapters: 14 },
+    "Malachi": { name: "말라기", type: "구약", folder: "39 Malachi (말라키)", chapters: 4 },
+    "Matthew": { name: "마태복음", type: "신약", folder: "1 Matthew (마태복음)", chapters: 28 },
+    "Mark": { name: "마가복음", type: "신약", folder: "2 Mark (마가복음)", chapters: 16 },
+    "Luke": { name: "누가복음", type: "신약", folder: "3 Luke (누가복음)", chapters: 24 },
+    "John": { name: "요한복음", type: "신약", folder: "4 John (요한복음)", chapters: 21 },
+    "Acts": { name: "사도행전", type: "신약", folder: "5 Acts (사도행전)", chapters: 28 },
+    "Romans": { name: "로마서", type: "신약", folder: "6 Romans (로마서)", chapters: 16 },
+    "1Corinthians": { name: "고린도전서", type: "신약", folder: "7 1 Corinthians (고린도전서)", chapters: 16 },
+    "2Corinthians": { name: "고린도후서", type: "신약", folder: "8 2 Corinthians (고린도후서)", chapters: 13 },
+    "Galatians": { name: "갈라디아서", type: "신약", folder: "9 Galatians (갈라디아서)", chapters: 6 },
+    "Ephesians": { name: "에베소서", type: "신약", folder: "10 Ephesians (에베소서)", chapters: 6 },
+    "Philippians": { name: "빌립보서", type: "신약", folder: "11 Philippians (빌립보서)", chapters: 4 },
+    "Colossians": { name: "골로새서", type: "신약", folder: "12 Colossians (골로새서)", chapters: 4 },
+    "1Thessalonians": { name: "데살로니가전서", type: "신약", folder: "13 1 Thessalonians (데살로니가전서)", chapters: 5 },
+    "2Thessalonians": { name: "데살로니가후서", type: "신약", folder: "14 2 Thessalonians (데살로니가후서)", chapters: 3 },
+    "1Timothy": { name: "디모데전서", type: "신약", folder: "15 1 Timothy (디모데전서)", chapters: 6 },
+    "2Timothy": { name: "디모데후서", type: "신약", folder: "16 2 Timothy (디모데후서)", chapters: 4 },
+    "Titus": { name: "디도서", type: "신약", folder: "17 Titus (디도서)", chapters: 3 },
+    "Philemon": { name: "빌레몬서", type: "신약", folder: "18 Philemon (빌레몬서)", chapters: 1 },
+    "Hebrews": { name: "히브리서", type: "신약", folder: "19 Hebrews (히브리서)", chapters: 13 },
+    "James": { name: "야고보서", type: "신약", folder: "20 James (야고보서)", chapters: 5 },
+    "1Peter": { name: "베드로전서", type: "신약", folder: "21 1 Peter (베드로전서)", chapters: 5 },
+    "2Peter": { name: "베드로후서", type: "신약", folder: "22 2 Peter (베드로후서)", chapters: 3 },
+    "1John": { name: "요한1서", type: "신약", folder: "23 1 John (요한1서)", chapters: 5 },
+    "2John": { name: "요한2서", type: "신약", folder: "24 2 John (요한이서)", chapters: 1 },
+    "3John": { name: "요한3서", type: "신약", folder: "25 3 John (요한삼서)", chapters: 1 },
+    "Jude": { name: "유다서", type: "신약", folder: "26 Jude (유다서)", chapters: 1 },
+    "Revelation": { name: "요한계시록", type: "신약", folder: "27 Revelation (요한계시록)", chapters: 22 }
+};
+
+const bookSelect = document.getElementById('book-select');
+const chapterSelect = document.getElementById('chapter-select');
+const frame = document.getElementById('bible-frame');
+
+// 초기화: 성경 목록 채우기
+function init() {
+    for (let key in bibleData) {
+        let opt = document.createElement('option');
+        opt.value = key;
+        opt.innerText = bibleData[key].name;
+        bookSelect.appendChild(opt);
+    }
+    updateChapters();
+}
+
+// 장 목록 업데이트 (0장부터)
+function updateChapters() {
+    const book = bibleData[bookSelect.value];
+    chapterSelect.innerHTML = "";
+    for (let i = 0; i <= book.chapters; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = i + "장";
+        chapterSelect.appendChild(opt);
+    }
+}
+
+// 성경 파일 로드
+function loadBible() {
+    const book = bibleData[bookSelect.value];
+    const chapter = chapterSelect.value;
+    const path = `${book.folder}/${chapter}.html`;
+    frame.src = path;
+}
+
+// TTS & 하이라이트 제어
+function speakBible() {
+    window.speechSynthesis.cancel();
+    const frameDoc = frame.contentWindow.document;
+    prepareHighlight(frameDoc);
+
+    // TTS용 클린 텍스트 추출 (헤더, h5 등 제외)
+    const tempDiv = frameDoc.body.cloneNode(true);
+    const junk = tempDiv.querySelectorAll('header, h5, sup, a, b, script, style, button');
+    junk.forEach(j => j.remove());
+    
+    let cleanText = tempDiv.innerText
+        .replace(/\d+:\d+/g, "") // 절 번호 제거
+        .replace(/\. /g, ".  ")  // 마침표 뒤 휴지기
+        .trim();
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.8; // 대장님이 요청하신 여유로운 속도
+
+    utterance.onboundary = (event) => {
+        if (event.name === 'word') {
+            highlightWord(frameDoc, event.charIndex);
+        }
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// 하이라이트 그릇 만들기 (절 단위 통합)
+function prepareHighlight(doc) {
+    const body = doc.body;
+    if (!doc.getElementById('tts-style')) {
+        const style = doc.createElement('style');
+        style.id = 'tts-style';
+        style.innerHTML = `
+            .highlight-verse { background-color: #FFF59D !important; border-radius: 4px; transition: background-color 0.2s; }
+            .verse-container { display: inline; }
+            .verse-num { background-color: transparent !important; color: #888; font-weight: normal; }
+        `;
+        doc.head.appendChild(style);
+    }
+    if (body.querySelector('.verse-container')) return;
+
+    const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    let globalIndex = 0;
+    const nodes = [];
+    while(node = walker.nextNode()) nodes.push(node);
+
+    nodes.forEach(node => {
+        const parent = node.parentNode;
+        if (['header', 'h5', 'script', 'style'].includes(parent.tagName.toLowerCase())) return;
+
+        const text = node.nodeValue;
+        const match = text.match(/^(\s*\d+:\d*\s*)(.*)/);
+
+        if (match) {
+            const container = doc.createElement('span');
+            container.className = 'verse-container';
+            container.dataset.start = globalIndex;
+            
+            const numSpan = doc.createElement('span');
+            numSpan.className = 'verse-num';
+            numSpan.textContent = match[1];
+            
+            const contentText = doc.createTextNode(match[2]);
+            container.appendChild(numSpan);
+            container.appendChild(contentText);
+            node.parentNode.replaceChild(container, node);
+            
+            globalIndex += match[2].length;
+            container.dataset.end = globalIndex;
+        } else {
+            // 태그 내부 텍스트(b, a, sup 등)를 현재 절 컨테이너에 귀속
+            let p = node.parentNode;
+            while(p && p !== body) {
+                if(p.classList.contains('verse-container')) {
+                    globalIndex += text.length;
+                    p.dataset.end = globalIndex;
+                    break;
+                }
+                p = p.parentNode;
+            }
+        }
+    });
+}
+
+// 하이라이트 매칭 및 자동 스크롤
+function highlightWord(doc, charIndex) {
+    const containers = doc.querySelectorAll('.verse-container');
+    let activeContainer = null;
+
+    for (let c of containers) {
+        const start = parseInt(c.dataset.start);
+        const end = parseInt(c.dataset.end);
+        if (charIndex >= start && charIndex <= end) {
+            activeContainer = c;
+            break;
+        }
+    }
+
+    if (activeContainer && !activeContainer.classList.contains('highlight-verse')) {
+        doc.querySelectorAll('.highlight-verse').forEach(el => el.classList.remove('highlight-verse'));
+        activeContainer.classList.add('highlight-verse');
+        activeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// 시작
+init();
+</script>
+
+</body>
+</html>
