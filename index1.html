@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -167,8 +168,6 @@ body {
 </head>
 
 <body>
-
-  <body>
     <div id="app-header">
         <div class="selection-line">
             <select id="book-select" onchange="updateChapters()"></select>
@@ -185,83 +184,84 @@ body {
     </div>
 
     <iframe id="bible-frame" src=""></iframe>
-    
-    <script>
-    // 1. 성경 66권 마스터 데이터 (오타 완벽 교정 및 0장 지원)
+
+<script>
+// [과거 기억 1] 66권 마스터 데이터 (오타 교정 완료)
 const bibleData = {
-    "Genesis": { name: "창세기", type: "구약", folder: "1 Genesis (창세기)", chapters: 50 },
-    "Exodus": { name: "출애굽기", type: "구약", folder: "2 Exodus (출애굽기)", chapters: 40 },
-    "Leviticus": { name: "레위기", type: "구약", folder: "3 Leviticus (레위기)", chapters: 27 },
-    "Numbers": { name: "민수기", type: "구약", folder: "4 Numbers (민수기)", chapters: 36 },
-    "Deuteronomy": { name: "신명기", type: "구약", folder: "5 Deuteronomy (신명기)", chapters: 34 },
-    "Joshua": { name: "여호수아", type: "구약", folder: "6 Joshua (여호수아)", chapters: 24 },
-    "Judges": { name: "사사기", type: "구약", folder: "7 Judges (사사기)", chapters: 21 },
-    "Ruth": { name: "룻기", type: "구약", folder: "8 Ruth (룻기)", chapters: 4 },
-    "1Samuel": { name: "사무엘상", type: "구약", folder: "9 1 Samuel (사무엘상)", chapters: 31 },
-    "2Samuel": { name: "사무엘하", type: "구약", folder: "10 2 Samuel (사무엘하)", chapters: 24 },
-    "1Kings": { name: "열왕기상", type: "구약", folder: "11 1 Kings (열왕기상)", chapters: 22 },
-    "2Kings": { name: "열왕기하", type: "구약", folder: "12 2 Kings (열왕기하)", chapters: 25 },
-    "1Chronicles": { name: "역대기상", type: "구약", folder: "13 1 Chronicles (역대기상)", chapters: 29 },
-    "2Chronicles": { name: "역대기하", type: "구약", folder: "14 2 Chronicles (역대기하)", chapters: 36 },
-    "Ezra": { name: "에스라", type: "구약", folder: "15 Ezra (에스라)", chapters: 10 },
-    "Nehemiah": { name: "느헤미야", type: "구약", folder: "16 Nehemiah (느헤미야)", chapters: 13 },
-    "Esther": { name: "에스더", type: "구약", folder: "17 Esther (에스더)", chapters: 10 },
-    "Job": { name: "욥기", type: "구약", folder: "18 Job (욥기)", chapters: 42 },
-    "Psalms": { name: "시편", type: "구약", folder: "19 Psalms (시편)", chapters: 150 },
-    "Proverbs": { name: "잠언", type: "구약", folder: "20 Proverbs (잠언)", chapters: 31 },
-    "Ecclesiastes": { name: "전도서", type: "구약", folder: "21 Ecclesiastes (전도서)", chapters: 12 },
-    "SongOfSolomon": { name: "아가", type: "구약", folder: "22 Song of Solomon (아가)", chapters: 8 },
-    "Isaiah": { name: "이사야", type: "구약", folder: "23 Isaiah (이사야)", chapters: 66 },
-    "Jeremiah": { name: "예레미야", type: "구약", folder: "24 Jeremiah (예레미야)", chapters: 52 },
-    "Lamentations": { name: "예레미야 애가", type: "구약", folder: "25 Lamentations (애가)", chapters: 5 },
-    "Ezekiel": { name: "에스겔", type: "구약", folder: "26 Ezekiel (에스겔)", chapters: 48 },
-    "Daniel": { name: "다니엘", type: "구약", folder: "27 Daniel (다니엘)", chapters: 12 },
-    "Hosea": { name: "호세아", type: "구약", folder: "28 Hosea (호세아)", chapters: 14 },
-    "Joel": { name: "요엘", type: "구약", folder: "29 Joel (요엘)", chapters: 3 },
-    "Amos": { name: "아모스", type: "구약", folder: "30 Amos (아모스)", chapters: 9 },
-    "Obadiah": { name: "오바댜", type: "구약", folder: "31 Obadiah (오바댜)", chapters: 1 },
-    "Jonah": { name: "요나", type: "구약", folder: "32 Jonah (요나)", chapters: 4 },
-    "Micah": { name: "미가", type: "구약", folder: "33 Micah (미가)", chapters: 7 },
-    "Nahum": { name: "나훔", type: "구약", folder: "34 Nahum (나훔)", chapters: 3 },
-    "Habakkuk": { name: "하박국", type: "구약", folder: "35 Habakkuk (하박국)", chapters: 3 },
-    "Zephaniah": { name: "스바냐", type: "구약", folder: "36 Zephaniah (스파냐)", chapters: 3 },
-    "Haggai": { name: "학개", type: "구약", folder: "37 Haggai (학개)", chapters: 2 },
-    "Zechariah": { name: "스가랴", type: "구약", folder: "38 Zechariah (스카랴)", chapters: 14 },
-    "Malachi": { name: "말라기", type: "구약", folder: "39 Malachi (말라키)", chapters: 4 },
-    "Matthew": { name: "마태복음", type: "신약", folder: "1 Matthew (마태복음)", chapters: 28 },
-    "Mark": { name: "마가복음", type: "신약", folder: "2 Mark (마가복음)", chapters: 16 },
-    "Luke": { name: "누가복음", type: "신약", folder: "3 Luke (누가복음)", chapters: 24 },
-    "John": { name: "요한복음", type: "신약", folder: "4 John (요한복음)", chapters: 21 },
-    "Acts": { name: "사도행전", type: "신약", folder: "5 Acts (사도행전)", chapters: 28 },
-    "Romans": { name: "로마서", type: "신약", folder: "6 Romans (로마서)", chapters: 16 },
-    "1Corinthians": { name: "고린도전서", type: "신약", folder: "7 1 Corinthians (고린도전서)", chapters: 16 },
-    "2Corinthians": { name: "고린도후서", type: "신약", folder: "8 2 Corinthians (고린도후서)", chapters: 13 },
-    "Galatians": { name: "갈라디아서", type: "신약", folder: "9 Galatians (갈라디아서)", chapters: 6 },
-    "Ephesians": { name: "에베소서", type: "신약", folder: "10 Ephesians (에베소서)", chapters: 6 },
-    "Philippians": { name: "빌립보서", type: "신약", folder: "11 Philippians (빌립보서)", chapters: 4 },
-    "Colossians": { name: "골로새서", type: "신약", folder: "12 Colossians (골로새서)", chapters: 4 },
-    "1Thessalonians": { name: "데살로니가전서", type: "신약", folder: "13 1 Thessalonians (데살로니가전서)", chapters: 5 },
-    "2Thessalonians": { name: "데살로니가후서", type: "신약", folder: "14 2 Thessalonians (데살로니가후서)", chapters: 3 },
-    "1Timothy": { name: "디모데전서", type: "신약", folder: "15 1 Timothy (디모데전서)", chapters: 6 },
-    "2Timothy": { name: "디모데후서", type: "신약", folder: "16 2 Timothy (디모데후서)", chapters: 4 },
-    "Titus": { name: "디도서", type: "신약", folder: "17 Titus (디도서)", chapters: 3 },
-    "Philemon": { name: "빌레몬서", type: "신약", folder: "18 Philemon (빌레몬서)", chapters: 1 },
-    "Hebrews": { name: "히브리서", type: "신약", folder: "19 Hebrews (히브리서)", chapters: 13 },
-    "James": { name: "야고보서", type: "신약", folder: "20 James (야고보서)", chapters: 5 },
-    "1Peter": { name: "베드로전서", type: "신약", folder: "21 1 Peter (베드로전서)", chapters: 5 },
-    "2Peter": { name: "베드로후서", type: "신약", folder: "22 2 Peter (베드로후서)", chapters: 3 },
-    "1John": { name: "요한1서", type: "신약", folder: "23 1 John (요한1서)", chapters: 5 },
-    "2John": { name: "요한2서", type: "신약", folder: "24 2 John (요한이서)", chapters: 1 },
-    "3John": { name: "요한3서", type: "신약", folder: "25 3 John (요한삼서)", chapters: 1 },
-    "Jude": { name: "유다서", type: "신약", folder: "26 Jude (유다서)", chapters: 1 },
-    "Revelation": { name: "요한계시록", type: "신약", folder: "27 Revelation (요한계시록)", chapters: 22 }
+    "Genesis": { name: "창세기", folder: "1 Genesis (창세기)", chapters: 50 },
+    "Exodus": { name: "출애굽기", folder: "2 Exodus (출애굽기)", chapters: 40 },
+    "Leviticus": { name: "레위기", folder: "3 Leviticus (레위기)", chapters: 27 },
+    "Numbers": { name: "민수기", folder: "4 Numbers (민수기)", chapters: 36 },
+    "Deuteronomy": { name: "신명기", folder: "5 Deuteronomy (신명기)", chapters: 34 },
+    "Joshua": { name: "여호수아", folder: "6 Joshua (여호수아)", chapters: 24 },
+    "Judges": { name: "사사기", folder: "7 Judges (사사기)", chapters: 21 },
+    "Ruth": { name: "룻기", folder: "8 Ruth (룻기)", chapters: 4 },
+    "1Samuel": { name: "사무엘상", folder: "9 1 Samuel (사무엘상)", chapters: 31 },
+    "2Samuel": { name: "사무엘하", folder: "10 2 Samuel (사무엘하)", chapters: 24 },
+    "1Kings": { name: "열왕기상", folder: "11 1 Kings (열왕기상)", chapters: 22 },
+    "2Kings": { name: "열왕기하", folder: "12 2 Kings (열왕기하)", chapters: 25 },
+    "1Chronicles": { name: "역대기상", folder: "13 1 Chronicles (역대기상)", chapters: 29 },
+    "2Chronicles": { name: "역대기하", folder: "14 2 Chronicles (역대기하)", chapters: 36 },
+    "Ezra": { name: "에스라", folder: "15 Ezra (에스라)", chapters: 10 },
+    "Nehemiah": { name: "느헤미야", folder: "16 Nehemiah (느헤미야)", chapters: 13 },
+    "Esther": { name: "에스더", folder: "17 Esther (에스더)", chapters: 10 },
+    "Job": { name: "욥기", folder: "18 Job (욥기)", chapters: 42 },
+    "Psalms": { name: "시편", folder: "19 Psalms (시편)", chapters: 150 },
+    "Proverbs": { name: "잠언", folder: "20 Proverbs (잠언)", chapters: 31 },
+    "Ecclesiastes": { name: "전도서", folder: "21 Ecclesiastes (전도서)", chapters: 12 },
+    "SongOfSolomon": { name: "아가", folder: "22 Song of Solomon (아가)", chapters: 8 },
+    "Isaiah": { name: "이사야", folder: "23 Isaiah (이사야)", chapters: 66 },
+    "Jeremiah": { name: "예레미야", folder: "24 Jeremiah (예레미야)", chapters: 52 },
+    "Lamentations": { name: "예레미야 애가", folder: "25 Lamentations (애가)", chapters: 5 },
+    "Ezekiel": { name: "에스겔", folder: "26 Ezekiel (에스겔)", chapters: 48 },
+    "Daniel": { name: "다니엘", folder: "27 Daniel (다니엘)", chapters: 12 },
+    "Hosea": { name: "호세아", folder: "28 Hosea (호세아)", chapters: 14 },
+    "Joel": { name: "요엘", folder: "29 Joel (요엘)", chapters: 3 },
+    "Amos": { name: "아모스", folder: "30 Amos (아모스)", chapters: 9 },
+    "Obadiah": { name: "오바댜", folder: "31 Obadiah (오바댜)", chapters: 1 },
+    "Jonah": { name: "요나", folder: "32 Jonah (요나)", chapters: 4 },
+    "Micah": { name: "미가", folder: "33 Micah (미가)", chapters: 7 },
+    "Nahum": { name: "나훔", folder: "34 Nahum (나훔)", chapters: 3 },
+    "Habakkuk": { name: "하박국", folder: "35 Habakkuk (하박국)", chapters: 3 },
+    "Zephaniah": { name: "스바냐", folder: "36 Zephaniah (스파냐)", chapters: 3 },
+    "Haggai": { name: "학개", folder: "37 Haggai (학개)", chapters: 2 },
+    "Zechariah": { name: "스가랴", folder: "38 Zechariah (스카랴)", chapters: 14 },
+    "Malachi": { name: "말라기", folder: "39 Malachi (말라키)", chapters: 4 },
+    "Matthew": { name: "마태복음", folder: "1 Matthew (마태복음)", chapters: 28 },
+    "Mark": { name: "마가복음", folder: "2 Mark (마가복음)", chapters: 16 },
+    "Luke": { name: "누가복음", folder: "3 Luke (누가복음)", chapters: 24 },
+    "John": { name: "요한복음", folder: "4 John (요한복음)", chapters: 21 },
+    "Acts": { name: "사도행전", folder: "5 Acts (사도행전)", chapters: 28 },
+    "Romans": { name: "로마서", folder: "6 Romans (로마서)", chapters: 16 },
+    "1Corinthians": { name: "고린도전서", folder: "7 1 Corinthians (고린도전서)", chapters: 16 },
+    "2Corinthians": { name: "고린도후서", folder: "8 2 Corinthians (고린도후서)", chapters: 13 },
+    "Galatians": { name: "갈라디아서", folder: "9 Galatians (갈라디아서)", chapters: 6 },
+    "Ephesians": { name: "에베소서", folder: "10 Ephesians (에베소서)", chapters: 6 },
+    "Philippians": { name: "빌립보서", folder: "11 Philippians (빌립보서)", chapters: 4 },
+    "Colossians": { name: "골로새서", folder: "12 Colossians (골로새서)", chapters: 4 },
+    "1Thessalonians": { name: "데살로니가전서", folder: "13 1 Thessalonians (데살로니가전서)", chapters: 5 },
+    "2Thessalonians": { name: "데살로니가후서", folder: "14 2 Thessalonians (데살로니가후서)", chapters: 3 },
+    "1Timothy": { name: "디모데전서", folder: "15 1 Timothy (디모데전서)", chapters: 6 },
+    "2Timothy": { name: "디모데후서", folder: "16 2 Timothy (디모데후서)", chapters: 4 },
+    "Titus": { name: "디도서", folder: "17 Titus (디도서)", chapters: 3 },
+    "Philemon": { name: "빌레몬서", folder: "18 Philemon (빌레몬서)", chapters: 1 },
+    "Hebrews": { name: "히브리서", folder: "19 Hebrews (히브리서)", chapters: 13 },
+    "James": { name: "야고보서", folder: "20 James (야고보서)", chapters: 5 },
+    "1Peter": { name: "베드로전서", folder: "21 1 Peter (베드로전서)", chapters: 5 },
+    "2Peter": { name: "베드로후서", folder: "22 2 Peter (베드로후서)", chapters: 3 },
+    "1John": { name: "요한1서", folder: "23 1 John (요한1서)", chapters: 5 },
+    "2John": { name: "요한2서", folder: "24 2 John (요한이서)", chapters: 1 },
+    "3John": { name: "요한3서", folder: "25 3 John (요한삼서)", chapters: 1 },
+    "Jude": { name: "유다서", folder: "26 Jude (유다서)", chapters: 1 },
+    "Revelation": { name: "요한계시록", folder: "27 Revelation (요한계시록)", chapters: 22 }
 };
 
 const bookSelect = document.getElementById('book-select');
 const chapterSelect = document.getElementById('chapter-select');
 const frame = document.getElementById('bible-frame');
+let isSpeaking = false;
 
-// 초기화: 성경 목록 채우기
+// [과거 기억 2] 0장부터 시작하는 장 선택 로직
 function init() {
     for (let key in bibleData) {
         let opt = document.createElement('option');
@@ -272,106 +272,116 @@ function init() {
     updateChapters();
 }
 
-// 장 목록 업데이트 (0장부터)
 function updateChapters() {
     const book = bibleData[bookSelect.value];
     chapterSelect.innerHTML = "";
     for (let i = 0; i <= book.chapters; i++) {
         let opt = document.createElement('option');
         opt.value = i;
-        opt.innerText = i + "장";
+        opt.innerText = (i === 0) ? "개요(0장)" : i + "장";
         chapterSelect.appendChild(opt);
+    }
+    loadBible();
+}
+
+function loadBible() {
+    const book = bibleData[bookSelect.value];
+    const path = `${book.folder}/${chapterSelect.value}.html`;
+    frame.src = path;
+    stopSpeak(); // 새로운 장 로드 시 TTS 중단
+}
+
+// [과거 기억 3] TTS 최적화 (헤더 무시, 일시정지 지원, 부드러운 하이라이트)
+function toggleSpeak() {
+    if (window.speechSynthesis.speaking) {
+        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+        else window.speechSynthesis.pause();
+    } else {
+        startSpeak();
     }
 }
 
-// 성경 파일 로드
-function loadBible() {
-    const book = bibleData[bookSelect.value];
-    const chapter = chapterSelect.value;
-    const path = `${book.folder}/${chapter}.html`;
-    frame.src = path;
-}
-
-// TTS & 하이라이트 제어
-function speakBible() {
+function startSpeak() {
     window.speechSynthesis.cancel();
     const frameDoc = frame.contentWindow.document;
+    
+    // 하이라이트 주머니 만들기 (절 단위 통합 & 태그 무시)
     prepareHighlight(frameDoc);
 
-    // TTS용 클린 텍스트 추출 (헤더, h5 등 제외)
     const tempDiv = frameDoc.body.cloneNode(true);
-    const junk = tempDiv.querySelectorAll('header, h5, sup, a, b, script, style, button');
-    junk.forEach(j => j.remove());
+    // [과거 기억 4] header, h5, sup 등 절대 읽지 않도록 제거
+    tempDiv.querySelectorAll('header, h5, sup, script, style, a, b').forEach(el => el.remove());
     
-    let cleanText = tempDiv.innerText
-        .replace(/\d+:\d+/g, "") // 절 번호 제거
-        .replace(/\. /g, ".  ")  // 마침표 뒤 휴지기
+    let textToRead = tempDiv.innerText
+        .replace(/\d+:\d+/g, "") // 절 번호 무시
+        .replace(/(\d+)\s*장/g, "$1 장") // '일 장'으로 자연스럽게 읽기
         .trim();
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
+    const utterance = new SpeechSynthesisUtterance(textToRead);
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.8; // 대장님이 요청하신 여유로운 속도
+    utterance.rate = 0.8; // 대장님의 여유로운 속도
 
     utterance.onboundary = (event) => {
-        if (event.name === 'word') {
-            highlightWord(frameDoc, event.charIndex);
-        }
+        if (event.name === 'word') highlightVerse(frameDoc, event.charIndex);
     };
 
+    utterance.onend = () => { isSpeaking = false; };
     window.speechSynthesis.speak(utterance);
+    isSpeaking = true;
 }
 
-// 하이라이트 그릇 만들기 (절 단위 통합)
+function stopSpeak() {
+    window.speechSynthesis.cancel();
+    isSpeaking = false;
+}
+
+// [과거 기억 5] 하이라이트 '통합 주머니' 및 '절 번호 보호'
 function prepareHighlight(doc) {
     const body = doc.body;
     if (!doc.getElementById('tts-style')) {
         const style = doc.createElement('style');
         style.id = 'tts-style';
         style.innerHTML = `
-            .highlight-verse { background-color: #FFF59D !important; border-radius: 4px; transition: background-color 0.2s; }
-            .verse-container { display: inline; }
-            .verse-num { background-color: transparent !important; color: #888; font-weight: normal; }
+            .v-container { display: inline; transition: 0.3s; padding: 2px 0; }
+            .v-num { background: transparent !important; color: #888; font-weight: normal; }
+            .highlight-active { background: #FFF59D !important; border-radius: 4px; box-shadow: 0 0 5px #FFF59D; }
         `;
         doc.head.appendChild(style);
     }
-    if (body.querySelector('.verse-container')) return;
+    if (body.querySelector('.v-container')) return;
 
     const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
     let node;
-    let globalIndex = 0;
+    let index = 0;
     const nodes = [];
     while(node = walker.nextNode()) nodes.push(node);
 
-    nodes.forEach(node => {
-        const parent = node.parentNode;
+    nodes.forEach(n => {
+        const parent = n.parentNode;
         if (['header', 'h5', 'script', 'style'].includes(parent.tagName.toLowerCase())) return;
 
-        const text = node.nodeValue;
-        const match = text.match(/^(\s*\d+:\d*\s*)(.*)/);
-
+        const match = n.nodeValue.match(/^(\s*\d+:\d*\s*)(.*)/);
         if (match) {
-            const container = doc.createElement('span');
-            container.className = 'verse-container';
-            container.dataset.start = globalIndex;
+            const span = doc.createElement('span');
+            span.className = 'v-container';
+            span.dataset.start = index;
             
-            const numSpan = doc.createElement('span');
-            numSpan.className = 'verse-num';
-            numSpan.textContent = match[1];
+            const num = doc.createElement('span');
+            num.className = 'v-num';
+            num.textContent = match[1];
             
-            const contentText = doc.createTextNode(match[2]);
-            container.appendChild(numSpan);
-            container.appendChild(contentText);
-            node.parentNode.replaceChild(container, node);
-            
-            globalIndex += match[2].length;
-            container.dataset.end = globalIndex;
+            const content = doc.createTextNode(match[2]);
+            span.appendChild(num);
+            span.appendChild(content);
+            n.parentNode.replaceChild(span, n);
+            index += match[2].length;
+            span.dataset.end = index;
         } else {
-            // 태그 내부 텍스트(b, a, sup 등)를 현재 절 컨테이너에 귀속
-            let p = node.parentNode;
+            let p = n.parentNode;
             while(p && p !== body) {
-                if(p.classList.contains('verse-container')) {
-                    globalIndex += text.length;
-                    p.dataset.end = globalIndex;
+                if(p.classList.contains('v-container')) {
+                    index += n.nodeValue.length;
+                    p.dataset.end = index;
                     break;
                 }
                 p = p.parentNode;
@@ -380,29 +390,23 @@ function prepareHighlight(doc) {
     });
 }
 
-// 하이라이트 매칭 및 자동 스크롤
-function highlightWord(doc, charIndex) {
-    const containers = doc.querySelectorAll('.verse-container');
-    let activeContainer = null;
-
-    for (let c of containers) {
+function highlightVerse(doc, charIndex) {
+    const containers = doc.querySelectorAll('.v-container');
+    containers.forEach(c => {
         const start = parseInt(c.dataset.start);
         const end = parseInt(c.dataset.end);
         if (charIndex >= start && charIndex <= end) {
-            activeContainer = c;
-            break;
+            if (!c.classList.contains('highlight-active')) {
+                doc.querySelectorAll('.highlight-active').forEach(el => el.classList.remove('highlight-active'));
+                c.classList.add('highlight-active');
+                // [과거 기억 6] 아이폰에서도 부드러운 스크롤 중앙 정렬
+                c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
-    }
-
-    if (activeContainer && !activeContainer.classList.contains('highlight-verse')) {
-        doc.querySelectorAll('.highlight-verse').forEach(el => el.classList.remove('highlight-verse'));
-        activeContainer.classList.add('highlight-verse');
-        activeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    });
 }
 
-// 시작
-init();
+window.onload = init;
 </script>
 
 </body>
