@@ -167,8 +167,6 @@ body {
 </head>
 
 <body>
-
-  <body>
     <div id="app-header">
         <div class="selection-line">
             <select id="book-select" onchange="updateChapters()"></select>
@@ -304,7 +302,7 @@ function init() {
 function updateChapters() {
     const book = bibleData[bookSelect.value];
     chapterSelect.innerHTML = "";
-    for (let i = 0; i <= book.chapters; i++) {
+    for (let i = 1; i <= book.chapters; i++) {
         let opt = document.createElement('option');
         opt.value = i;
         opt.innerText = i + "장";
