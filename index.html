@@ -343,153 +343,101 @@ function speakBible() {
     const chapter = chapterSelect.value;
     const frameDoc = frame.contentWindow.document;
 
-    // 1. [하이라이트 준비] 본문의 글자들을 단어 단위로 쪼개어 감쌉니다.
-    // 기존 텍스트를 건드리지 않고 추적하기 위해 단어마다 <span>태그를 입히는 과정입니다.
-    prepareHighlight(frameDoc);
-
-    const tempDiv = frameDoc.body.cloneNode(true);
-    const junk = tempDiv.querySelectorAll('sup, a, script, style, button');
-    junk.forEach(j => j.remove());
-
-    // 2. [자연스러운 호흡] 문장 부호 뒤에 미세한 쉼표 추가
-    let cleanText = tempDiv.innerText
-        .replace(/[\u039F\u03BF]/g, "") 
-        .replace(/\d+:\d+/g, "")        
-        .replace(/\. /g, ".  ") // 마침표 뒤에 공백 추가로 호흡 조절
-        .replace(/, /g, ",  ")  // 쉼표 뒤에 공백 추가
-        .replace(/(\d+)\s*장/g, (m, p1) => toSinoKorean(p1) + " 장. ") 
-        .replace(/[A-Z][+-]/g, "");
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'ko-KR';
-    utterance.rate = 0.85;
-
-    // 3. [고품질 목소리 선택] 시스템에서 가장 좋은 목소리 자동 매칭
-    const voices = window.speechSynthesis.getVoices();
-    const premiumVoice = voices.find(v => v.name.includes('Google') && v.lang === 'ko-KR') || voices.find(v => v.lang === 'ko-KR');
-    if (premiumVoice) utterance.voice = premiumVoice;
-
-    // 4. [하이라이트 & 자동 스크롤 핵심 로직]
-    utterance.onboundary = function(event) {
-        if (event.name === 'word') {
-            const charIndex = event.charIndex;
-            highlightWord(frameDoc, charIndex);
-        }
-    };
-
-    utterance.onend = function() {
-        if (!isPaused && autoNext) moveToNextAndPlay();
-        else stopBible();
-    };
-
-    window.speechSynthesis.speak(utterance);
-    statusDisplay.innerText = `🎙️ ${book.name} ${chapter}장 읽는 중...`;
-}
-
 // 본문 텍스트를 추적 가능하게 준비하는 함수
 function prepareHighlight(doc) {
     const body = doc.body;
-    
     if (!doc.getElementById('tts-style')) {
         const style = doc.createElement('style');
         style.id = 'tts-style';
         style.innerHTML = `
+            /* 절 전체를 감싸는 그릇에 하이라이트 적용 */
             .highlight-verse { 
                 background-color: #FFF59D !important; 
-                color: #000 !important;
-                font-weight: bold;
                 border-radius: 4px;
-                padding: 0 2px; /* 번호와 붙지 않게 살짝 여백 */
                 transition: background-color 0.2s;
             }
-            .verse-text { display: inline; }
+            .verse-container { display: inline; }
+            /* 번호는 노란색에서 제외하기 위한 설정 */
+            .verse-num { background-color: transparent !important; font-weight: normal; }
         `;
         doc.head.appendChild(style);
     }
+    if (body.querySelector('.verse-container')) return;
 
-    if (body.querySelector('.verse-text')) return;
-
+    // 절 번호를 기준으로 섹션을 나눕니다.
     const walker = doc.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
     let node;
     let globalIndex = 0;
-    const nodesToReplace = [];
+    
+    // 1. 먼저 모든 텍스트 노드에 인덱스 번호를 매깁니다.
+    const nodes = [];
+    while(node = walker.nextNode()) nodes.push(node);
 
-    while (node = walker.nextNode()) {
-        const parent = node.parentNode.tagName.toLowerCase();
+    nodes.forEach(node => {
+        const parent = node.parentNode;
+        // header나 h5 안에 있는 텍스트는 인덱스 계산에서 제외 (TTS가 안 읽으니까요)
+        if (['header', 'h5'].includes(parent.tagName.toLowerCase())) return;
+
         const text = node.nodeValue;
+        const match = text.match(/^(\s*\d+:\d*\s*)(.*)/);
 
-        // [핵심] 읽지 않는 태그나 '숫자:숫자' 형태의 절 번호는 하이라이트에서 제외
-        if (['header', 'h5', 'sup', 'a', 'b', 'button'].includes(parent)) {
-            globalIndex += text.length;
-            continue;
-        }
-
-        // 숫자로 시작하는 절 번호 부분과 본문 내용을 분리합니다.
-        const match = text.match(/^(\s*\d+[:]\d*\s*)(.*)/);
-        
         if (match) {
-            // match[1]은 '1:1 ' 같은 번호 (하이라이트 안 함)
-            // match[2]는 '태초에 하나님이...' 같은 본문 (하이라이트 함)
-            nodesToReplace.push({
-                node: node,
-                numPart: match[1],
-                textPart: match[2],
-                start: globalIndex + match[1].length
-            });
-            globalIndex += text.length;
-        } else if (text.trim().length > 0) {
-            // 번호 없이 순수 텍스트만 있는 경우
-            nodesToReplace.push({
-                node: node,
-                numPart: "",
-                textPart: text,
-                start: globalIndex
-            });
-            globalIndex += text.length;
+            // 새로운 절 시작: 큰 그릇(span)을 만듭니다.
+            const container = doc.createElement('span');
+            container.className = 'verse-container';
+            container.dataset.start = globalIndex;
+            
+            // 절 번호 부분 (노란색 안 칠함)
+            const numSpan = doc.createElement('span');
+            numSpan.className = 'verse-num';
+            numSpan.textContent = match[1];
+            
+            // 본문 내용 부분
+            const contentText = doc.createTextNode(match[2]);
+            
+            container.appendChild(numSpan);
+            container.appendChild(contentText);
+            
+            // 원래 노드 자리에 그릇을 통째로 넣습니다.
+            node.parentNode.replaceChild(container, node);
+            
+            // 본문 텍스트가 시작되는 지점부터 끝나는 지점까지 업데이트
+            globalIndex += match[2].length;
+            container.dataset.end = globalIndex;
         } else {
-            globalIndex += text.length;
+            // 이미 그릇(container) 안에 들어있는 b, a, sup 태그 안의 텍스트들 처리
+            let p = node.parentNode;
+            let container = null;
+            while(p && p !== body) {
+                if(p.classList.contains('verse-container')) { container = p; break; }
+                p = p.parentNode;
+            }
+            if(container) {
+                globalIndex += text.length;
+                container.dataset.end = globalIndex;
+            }
         }
-    }
-
-    nodesToReplace.forEach(item => {
-        const fragment = doc.createDocumentFragment();
-        
-        // 번호 부분은 그냥 텍스트로 넣기
-        if (item.numPart) {
-            fragment.appendChild(doc.createTextNode(item.numPart));
-        }
-
-        // 본문 부분만 span으로 감싸서 하이라이트 대상으로 만듦
-        const span = doc.createElement('span');
-        span.className = 'verse-text';
-        span.dataset.start = item.start;
-        span.dataset.end = item.start + item.textPart.length;
-        span.textContent = item.textPart;
-        fragment.appendChild(span);
-
-        item.node.parentNode.replaceChild(fragment, item.node);
     });
 }
 
 // 읽고 있는 단어에 형광펜 칠하고 스크롤하는 함수
 function highlightWord(doc, charIndex) {
-    const texts = doc.querySelectorAll('.verse-text');
-    let activePart = null;
+    const containers = doc.querySelectorAll('.verse-container');
+    let activeContainer = null;
 
-    for (let span of texts) {
-        const start = parseInt(span.dataset.start);
-        const end = parseInt(span.dataset.end);
-        
+    for (let c of containers) {
+        const start = parseInt(c.dataset.start);
+        const end = parseInt(c.dataset.end);
         if (charIndex >= start && charIndex <= end) {
-            activePart = span;
+            activeContainer = c;
             break;
         }
     }
 
-    if (activePart && !activePart.classList.contains('highlight-verse')) {
+    if (activeContainer && !activeContainer.classList.contains('highlight-verse')) {
         doc.querySelectorAll('.highlight-verse').forEach(el => el.classList.remove('highlight-verse'));
-        activePart.classList.add('highlight-verse');
-        activePart.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        activeContainer.classList.add('highlight-verse');
+        activeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
