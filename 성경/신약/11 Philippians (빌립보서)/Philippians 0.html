@@ -5,76 +5,116 @@
   <title>빌립보서</title>
   <meta charset="utf-8">
   <meta name="viewport"
-    content="width=device-width, initial-scale=1">
+        content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="style.css" type="text/css">
-  <style>
+  <style media="screen">
     body {
-      background-color: whitesmoke;
-      text-align: justify;
-      margin-left: 7px;
-      margin-right: 10px;
-      font-size: large;
+        background-color: whitesmoke;
+        text-align: justify;
+        margin-left: 7px;
+        margin-right: 10px;
+        font-size: large;
     }
 
     h3 {
-      border-bottom: 2px solid gray;
-      padding: 20px;
-      margin: auto;
-      text-align: center;
+        border-bottom: 2px solid gray;
+        padding: 20px;
+        margin: auto;
+        text-align: center;
     }
 
-    h4 {
-      text-align: center;
+    p {
+        line-height: 1.9;
+        text-align: justify;
     }
 
-    p, dt {
-      line-height: 1.9;
-      text-align: justify;
-    }
-
-    #grid dl {
-      border-right: 1px solid gray;
-      width: 40px;
-      margin: 0;
-      padding-left: 3px;
-      padding-right: 0px;
-      padding-top: 5px;
-      text-align: left;
-      line-height: 1.9;
+    #grid ul {
+        border-right: 1px solid gray;
+        width: 40px;
+        margin: 0;
+        padding-left: 3px;
+        padding-right: 0px;
+        padding-top: 5px;
+        text-align: left;
+        line-height: 2.0;
     }
 
     #grid {
-      display: grid;
-      grid-template-columns: 140px 1fr;
+        display: grid;
+        grid-template-columns: 140px 1fr;
     }
 
     #article {
-      margin-left: -70px;
-      padding-left: 1px;
-      line-height: 2.7;
+        margin-left: -70px;
+        padding-left: 1px;
+        line-height: 2.7;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      left: 10;
-      right: 90;
-      color: rgb(245, 51, 51)
+        position: fixed;
+        top: 0;
+        left: 10px;
+        right: 90px;
+        color: rgb(245, 51, 51)
     }
 
     a {
-      text-decoration: none;
+        text-decoration: none;
     }
 
-    div {
-      text-indent: 15px;
+    .nav {
+        display: flex;
+        justify-content: center;
+        gap: 6rem;
     }
   </style>
-</head>
 
-<body>
+  <style>
+      /* 헤더에 버튼 공간 확보 */
+      header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 10px;
+          height: 30px;
+          /* 높이 고정 */
+          background-color: white;
+          border-bottom: 1px solid #ddd;
+          z-index: 1000;
+      }
 
-  <header>빌립보서</header>
+      /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+      .font-btn {
+          background: white;
+          border: 1px solid #f53333;
+          color: #f53333;
+          border-radius: 5px;
+          padding: 5px 12px;
+          font-weight: normal;
+          cursor: pointer;
+      }
+
+      /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+      #bible-content {
+          padding-top: 60px;
+          line-height: 1.9;
+      }
+  </style>
+
+  </head>
+
+  <body>
+
+    <header>
+
+      <button class="font-btn"
+        onclick="changeFontSize(-2)">가-</button>
+
+      <button class="font-btn"
+        onclick="changeFontSize(2)">가+</button>
+    </header>
+
+    <div id="bible-content">
   
   <h3> 빌립보서</h3>
 
@@ -111,7 +151,7 @@
 
         이 서신에서 바울은 마케도니아의 빌립보에 있는 그의 회심자들에게 쓰고 있다.
         바울은 그의 두 번째 선교 여행 때 이 성읍을 방문했다 (<a
-          href="https://syh8293.github.io/web/성경/신약/11 Philippians (빌립보서)/Acts 16-12"
+          href="https://syh8293.github.io/web/부록%20본문/신약/5%20Act%20(사도행전)/Acts%2016-12-40.html"
           target="_blank">행 16:12-40</a> 참조). 『빌립보』는 알렉산더 대왕의 아버지인
         마케도니아 왕 빌립의 이름을 따서 붙여진 이름이었다. ‘빌립’이란 단어의
         의미는 “말들을 사랑하는 자” (lover of horses)이다. <br>
@@ -123,20 +163,89 @@
         3장에서는 고난의 원인과 ‘목적’을 다룬다. 4장에서는 고난 ‘가운데’
         평강과 확신에 관하여 다룬다.
       </p>
+
     </div>
+
   </div>
+
+    </div>
+
     <hr>
 
-      <h4>
-          <a
-              href="https://syh8293.github.io/web/성경/신약/10 Epheians (에베소서)/Epheians 6">&#9664;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a
-              href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a
-              href="https://syh8293.github.io/web/성경/신약/11 Philippians (빌립보서)/Philippians 1">&#9654;</a>
-      </h4>
+        <nav class="nav">
+
+            <a
+                href="https://syh8293.github.io/web/성경/신약/10 Epheians%20(에베소서)/Epheians%206.html">&#9664;</a>
+
+            <a
+                href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
+
+            <a
+                href="https://syh8293.github.io/web/성경/신약/11%20Philippians%20(빌립보서)/Philippians%201.html">&#9654;</a>
+                
+        </nav>
+
+  <script>
+      // 1. 글자 크기 변경 함수
+      function changeFontSize(delta) {
+          const content = document
+              .getElementById('bible-content');
+        // 현재 적용된 폰트 크기 가져오기
+        let currentSize = parseInt(window.getComputedStyle(content) .fontSize);
+        let newSize = currentSize + delta;
+
+        // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+        if (newSize >= 12 && newSize <= 40) {
+            content.style.fontSize = newSize + "px";
+        // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+        localStorage.setItem('user_font_size', newSize);
+        }
+      }
+
+      // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+      window.addEventListener('load', function () {
+          // [글자 크기 복구]
+          const savedSize = localStorage
+              .getItem('user_font_size');
+          if (savedSize) {document.getElementById('bible-content')
+                  .style.fontSize = savedSize + "px";
+          }
+
+          // [스크롤 위치 복구]
+          const savedData = localStorage
+              .getItem('bible_scroll_pos');
+          if (savedData) {const data = JSON.parse(savedData);
+          if (data.url === window.location.href) {
+                  setTimeout(() => window.scrollTo(0, data.pos), 100);
+              }
+          }
+      });
+
+      // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+      document.addEventListener('click',
+          function (e) {
+            const anchor = e.target.closest('a');
+            if (!anchor) return;
+
+            const isFootnote = anchor.getAttribute('target') === '_blank';
+            const isNavigation = anchor
+                .innerText.includes('◀') || anchor.innerText
+                .includes('▶');
+
+            if (isNavigation) {
+                // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                localStorage.removeItem('bible_scroll_pos'
+                    );
+             } 
+            else if (isFootnote) {
+                // 각주를 클릭할 때만 현재 위치 저장
+                localStorage.setItem('bible_scroll_pos',
+                    JSON.stringify({url: window.location.href, pos: window.scrollY
+                    }));
+              }
+          });
+  </script>
+
 </body>
 
 </html>
