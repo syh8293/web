@@ -2,224 +2,332 @@
 <html lang="ko" class="os_window">
 
 <head>
-  <title>빌립보서 4 장</title>
-  <meta charset="utf-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="style.css" type="text/css">
-  <style media="screen">
-    body {
-      background-color: whitesmoke;
-      text-align: justify;
-      margin-left: 10px;
-      margin-right: 10px;
-      font-size: large;
-    }
+    <title>빌립보서 4 장</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <style media="screen">
+        body {
+            background-color: whitesmoke;
+            text-align: justify;
+            margin-left: 15px;
+            margin-right: 10px;
+            font-size: large;
+        }
 
-    h3 {
-      text-align: center;
-    }
+        h3 {
+            text-align: center;
+        }
 
-    h5 {
-      text-align: unset;
-      margin-left: 80%;
-    }
+        h5 {
+            text-align:right;
+            margin-left: 60%;
+        }
 
-    p {
-      text-indent: -10px;
-      line-height: 1.8;
-    }
+        p {
+            text-indent: -10px;
+            line-height: 1.8;
+        }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 10;
-      right: 90;
-      color: rgb(245, 51, 51)
-    }
+        header {
+            position: fixed;
+            top: 0;
+            left: 10px;
+            right: 90px;
+            color: rgb(245, 51, 51)
+        }
 
-    a {
-      text-decoration-line: none;
-      color: #f00;
-    }
+        a {
+            text-decoration-line: none;
+            color: #f00;
+        }
 
-    #article {
-      padding-left: 20%;
-    }
+        #article {
+            padding-left: 20%;
+        }
 
-    sup {
-      color: red;
-    }
-  </style>
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 6rem;
+        }
+    </style>
+
+    <style>
+        /* 헤더에 버튼 공간 확보 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            height: 30px;
+            /* 높이 고정 */
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* 버튼 스타일: 깔끔하고 누르기 편하게 */
+        .font-btn {
+            background: white;
+            border: 1px solid #f53333;
+            color: #f53333;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 본문 영역: 헤더에 가려지지 않게 여백 추가 */
+        #bible-content {
+            padding-top: 60px;
+            line-height: 1.8;
+        }
+    </style>
+
 </head>
 
 <body>
-  <header>
-      빌립보서 4 장
-  </header>
+    <header>
 
-  <h3>빌립보서 4 장</h3>
+        <button class="font-btn"
+            onclick="changeFontSize(-2)">가-</button>
 
-  <h5>AD 62</h5>
+        <button class="font-btn"
+            onclick="changeFontSize(2)">가+</button>
+    </header>
 
-  <h4>온전한 화평을 지니는 법</h4>
+  <div id="bible-content">
 
-    <p>
-        4:1 그러므로 나의 참으로 사랑하고 사모하는<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-1"
-          target="_blank">ㄱ</a></sup> 형제들아, 나의 기쁨이요 면류관인, 나의 참으로 사랑하는 
-        자들아, <b>주</b> 안에서 이처럼 굳게 서라.
-    </p>
+    <h3>빌립보서 4 장</h3>
 
-    <p>
-        4:2 내가 유오디아에게 권하며 순두케에게도 권고하노니 <b>주</b> 안에서 같은 생각을<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-2"
-          target="_blank">ㄴ</a></sup> 가지라.
-    </p>
+    <h5>AD 62</h5>
+
+    <h4>온전한 화평을 지니는 법</h4>
+
+      <p>
+          4:1 그러므로 나의 참으로 사랑하고 사모하는<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-1"
+            target="_blank">ㄱ</a></sup> 형제들아, 나의 기쁨이요 면류관인, 나의 참으로 사랑하는 
+          자들아, <b>주</b> 안에서 이처럼 굳게 서라.
+      </p>
+
+      <p>
+          4:2 내가 유오디아에게 권하며 순두케에게도 권고하노니 <b>주</b> 안에서 같은 생각을<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-2"
+            target="_blank">ㄴ</a></sup> 가지라.
+      </p>
+      
+      <p>
+          4:3 내가 또한 참된 동지인 너희에게 청하노니 복음 안에서 나와 함께 애쓰고 또 클레메와 
+          나의 다른 동료들과도<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-3"
+            target="_blank">ㄷ</a></sup> 함께 수고한 이 여인들을 도우라. 그들의 이름이 생명의 책에<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-3"
+            target="_blank">ㄹ</a></sup> 있느니라.
+      </p>
+
+      <p>
+          4:4 <b>주</b> 안에서 항상 기뻐하라. 내가 다시 말하노니 기뻐하라.
+      </p>
     
-    <p>
-        4:3 내가 또한 참된 동지인 너희에게 청하노니 복음 안에서 나와 함께 애쓰고 또 클레메와 
-        나의 다른 동료들과도<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-3"
-          target="_blank">ㄷ</a></sup> 함께 수고한 이 여인들을 도우라. 그들의 이름이 생명의 책에<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-3"
-          target="_blank">ㄹ</a></sup> 있느니라.
-    </p>
-
-    <p>
-        4:4 <b>주</b> 안에서 항상 기뻐하라. 내가 다시 말하노니 기뻐하라.
-    </p>
-  
-    <p>
-        4:5 너희의 절제가<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-5"
-          target="_blank">ㅁ</a></sup> 모든 사람에게 알려지게 하라. <b>주</b>께서 가까우시니라.
-    </p>
-  
-    <p>
-        4:6 아무것도 염려하지<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-6"
-          target="_blank">ㅂ</a></sup> 말고 다만 모든 일에 기도와 간구로 너희의 구하는 것들을 
-        감사함으로 <b>하나님</b>께 알려지게 하라.
-    </p>
-
-    <p>
-        4:7 그리하면 모든 지각을 초월하시는 <b>하나님</b>의 평강이<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-7"
-          target="_blank">1</a></sup> <b>그리스도 예수</b> 안에서 너희의 마음과 생각을 지키시리라.
-    </p>
-
-    <p>
-        4:8 끝으로 형제들아, 만일 무슨 덕이 있거나 무슨 칭찬이 있으면, 무엇이든지 참된 것, 무엇이든지 
-        정직한 것, 무엇이든지 의로운 것, 무엇이든지 순결한 것, 무엇이든지 사랑스러운 것, 무엇이든지 
-        좋은 평판을 얻는 것, 이런 것들을 생각하라.<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-8"
-          target="_blank">ㅅ</a></sup>
-    </p>
-
-    <p>
-        4:9 너희는 또한 나에게서 배우고, 받고, 듣고, 본 이런 일을 행하라.<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-9"
-          target="_blank">ㅇ</a></sup> 그리하면 평강의 <b>하나님</b>께서 너희와 함께 계시리라.
-    </p>
-
-  <h4>물질적인 공급에 관한 하나님의 위대한 약속들</h4>
-
-    <p>
-        4:10 그러나 내가 <b>주</b> 안에서 크게 기뻐하노니 이는 이제 너희가 나를 생각하던 것이 마침내 
-        다시 살아남이라. 너희가 비록 생각은 하였으나 너희에게 기회가 부족하였도다.
-    </p>
+      <p>
+          4:5 너희의 절제가<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-5"
+            target="_blank">ㅁ</a></sup> 모든 사람에게 알려지게 하라. <b>주</b>께서 가까우시니라.
+      </p>
     
-    <p>
-        4:11 내가 궁핍하므로 말하는 것이 아니니 이는 내가 어떤 처지에서도 스스로 만족하는 법을 배웠기 때문이라.<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-11"
-          target="_blank">ㅈ</a></sup>
-    </p>
-  
-    <p>
-        4:12 나는 비천에 처할 줄도 알고, 또 풍부함에 처할 줄도 알며, 모든 처지와 모든 일에 있어서 나는 
-        배부름과 배고픔과 풍부함과 궁핍함을 다 배웠노라.
-    </p>
-    
-    <p>
-        4:13 내게 능력 주시는 <b>그리스도</b>를 통하여<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-13"
-          target="_blank">2</a></sup> 내가 모든 것을 할 수 있느니라.<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-13"
-          target="_blank">ㅊ</a></sup>
-    </p>
+      <p>
+          4:6 아무것도 염려하지<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-6"
+            target="_blank">ㅂ</a></sup> 말고 다만 모든 일에 기도와 간구로 너희의 구하는 것들을 
+          감사함으로 <b>하나님</b>께 알려지게 하라.
+      </p>
 
-    <p>
-        4:14 그러나 너희가 나의 환난에 동참하였으니 잘하였도다.
-    </p>
-    
-    <p>
-        4:15 빌립보인들아, 너희도 알거니와 복음의 초기에 내가 마케도니아에서 나올 때에<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-15"
-          target="_blank">ㅋ</a></sup> 나와 더불어 주고 받는 일에 참여한 교회가 너희밖에 없었느니라.
-    </p>
-    
-    <p>
-        4:16 이는 데살로니가에 있을 때에도 너희가 한두 번 나의 쓸 것을 보내 주었음이라.
-    </p>
-    
-    <p>
-        4:17 내가 선물을 구하고자 함이 아니라 너희의 회계에 풍성한 열매를 구하고자 함이니라.
-    </p>
-    
-    <p>
-        4:18 내게는 모든 것이 있고 또 풍부하니라. 나는 너희가 보낸 것을 에파프로디도로부터 받아서 
-        풍족하게 되었노라. 이는 향기로운 냄새요, 받으실 만한 희생제요, <b>하나님</b>을 참으로 
-        기쁘시게 하는 것이라.
-    </p>
-    
-    <p>
-        4:19 그러나 나의 <b>하나님</b>께서 <b>그리스도 예수</b>를 통하여 영광 가운데서 그의 
-        풍요함을 따라 너희의 모든 필요를<sup><a
-            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-19"
-            target="_blank">3</a></sup> 채워 주실 것이라.<sup><a
-            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-19"
-            target="_blank">ㅌ</a></sup>
-    </p>
+      <p>
+          4:7 그리하면 모든 지각을 초월하시는 <b>하나님</b>의 평강이<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-7"
+            target="_blank">1</a></sup> <b>그리스도 예수</b> 안에서 너희의 마음과 생각을 지키시리라.
+      </p>
 
-  <h4>축복의 기도</h4>
+      <p>
+          4:8 끝으로 형제들아, 만일 무슨 덕이 있거나 무슨 칭찬이 있으면, 무엇이든지 참된 것, 무엇이든지 
+          정직한 것, 무엇이든지 의로운 것, 무엇이든지 순결한 것, 무엇이든지 사랑스러운 것, 무엇이든지 
+          좋은 평판을 얻는 것, 이런 것들을 생각하라.<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-8"
+            target="_blank">ㅅ</a></sup>
+      </p>
 
-    <p>
-        4:20 이제 <b>하나님</b>, 곧 우리 아버지께 영원무궁토록 영광을 돌릴지어다. 아멘.
-    </p>
-    
-    <p>
-        4:21 <b>그리스도 예수</b> 안에 있는 각 성도에게 문안하라.<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-21"
-          target="_blank">ㅍ</a></sup> 나와 함께 있는 형제들도 너희에게 문안하느니라.
-    </p>
-    
-    <p>
-        4:22 모든 성도가 너희에게 문안하되 특별히 카이사의 집안 사람들이<sup><a
-          href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-22"
-          target="_blank">ㅎ</a></sup> 문안하느니라.
-    </p>
-    
-    <p>
-        4:23 우리 <b>주 예수 그리스도</b>의 은혜가 너희 모두와 함께 있을지어다. 아멘.
-    </p>
+      <p>
+          4:9 너희는 또한 나에게서 배우고, 받고, 듣고, 본 이런 일을 행하라.<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-9"
+            target="_blank">ㅇ</a></sup> 그리하면 평강의 <b>하나님</b>께서 너희와 함께 계시리라.
+      </p>
 
-    <p>
-        빌립보서는 로마에서 빌립보인들에게 기록되어 에파프로디도에 의해 보내졌다.
-    </p>
+    <h4>물질적인 공급에 관한 하나님의 위대한 약속들</h4>
+
+      <p>
+          4:10 그러나 내가 <b>주</b> 안에서 크게 기뻐하노니 이는 이제 너희가 나를 생각하던 것이 마침내 
+          다시 살아남이라. 너희가 비록 생각은 하였으나 너희에게 기회가 부족하였도다.
+      </p>
+      
+      <p>
+          4:11 내가 궁핍하므로 말하는 것이 아니니 이는 내가 어떤 처지에서도 스스로 만족하는 법을 배웠기 때문이라.<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-11"
+            target="_blank">ㅈ</a></sup>
+      </p>
+    
+      <p>
+          4:12 나는 비천에 처할 줄도 알고, 또 풍부함에 처할 줄도 알며, 모든 처지와 모든 일에 있어서 나는 
+          배부름과 배고픔과 풍부함과 궁핍함을 다 배웠노라.
+      </p>
+      
+      <p>
+          4:13 내게 능력 주시는 <b>그리스도</b>를 통하여<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-13"
+            target="_blank">2</a></sup> 내가 모든 것을 할 수 있느니라.<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-13"
+            target="_blank">ㅊ</a></sup>
+      </p>
+
+      <p>
+          4:14 그러나 너희가 나의 환난에 동참하였으니 잘하였도다.
+      </p>
+      
+      <p>
+          4:15 빌립보인들아, 너희도 알거니와 복음의 초기에 내가 마케도니아에서 나올 때에<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-15"
+            target="_blank">ㅋ</a></sup> 나와 더불어 주고 받는 일에 참여한 교회가 너희밖에 없었느니라.
+      </p>
+      
+      <p>
+          4:16 이는 데살로니가에 있을 때에도 너희가 한두 번 나의 쓸 것을 보내 주었음이라.
+      </p>
+      
+      <p>
+          4:17 내가 선물을 구하고자 함이 아니라 너희의 회계에 풍성한 열매를 구하고자 함이니라.
+      </p>
+      
+      <p>
+          4:18 내게는 모든 것이 있고 또 풍부하니라. 나는 너희가 보낸 것을 에파프로디도로부터 받아서 
+          풍족하게 되었노라. 이는 향기로운 냄새요, 받으실 만한 희생제요, <b>하나님</b>을 참으로 
+          기쁘시게 하는 것이라.
+      </p>
+      
+      <p>
+          4:19 그러나 나의 <b>하나님</b>께서 <b>그리스도 예수</b>를 통하여 영광 가운데서 그의 
+          풍요함을 따라 너희의 모든 필요를<sup><a
+              href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-19"
+              target="_blank">3</a></sup> 채워 주실 것이라.<sup><a
+              href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-19"
+              target="_blank">ㅌ</a></sup>
+      </p>
+
+    <h4>축복의 기도</h4>
+
+      <p>
+          4:20 이제 <b>하나님</b>, 곧 우리 아버지께 영원무궁토록 영광을 돌릴지어다. 아멘.
+      </p>
+      
+      <p>
+          4:21 <b>그리스도 예수</b> 안에 있는 각 성도에게 문안하라.<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-21"
+            target="_blank">ㅍ</a></sup> 나와 함께 있는 형제들도 너희에게 문안하느니라.
+      </p>
+      
+      <p>
+          4:22 모든 성도가 너희에게 문안하되 특별히 카이사의 집안 사람들이<sup><a
+            href="https://syh8293.github.io/web/주석/신약/11 Philippians (빌립보서)/Philippians 4-22"
+            target="_blank">ㅎ</a></sup> 문안하느니라.
+      </p>
+      
+      <p>
+          4:23 우리 <b>주 예수 그리스도</b>의 은혜가 너희 모두와 함께 있을지어다. 아멘.
+      </p>
+
+      <p>
+          빌립보서는 로마에서 빌립보인들에게 기록되어 에파프로디도에 의해 보내졌다.
+      </p>
+
+      </div>
 
       <hr>
 
-        <div id="article">
-          <a
-            href="https://syh8293.github.io/web/성경/신약/11 Philippians (빌립보서)/Philippians 3">&#9664;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a
-            href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
-                          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a
-            href="https://syh8293.github.io/web/성경/신약/12 Colossians (골로새서)/Colossians 0">&#9654;</a>
-        </div>
+          <nav class="nav">
+
+            <a
+                href="https://syh8293.github.io/web/성경/신약/11%20Philippians%20(빌립보서)/Philippians%202.html">&#9664;</a>
+
+            <a
+                href="https://syh8293.github.io/web/성경/구약/B">&#9751;</a>
+
+            <a
+                href="https://syh8293.github.io/web/성경/신약/12 Colossians %20(골로새서)/Colossians %200.html">&#9654;</a>
+                  
+          </nav>
+
+    <script>
+      // 1. 글자 크기 변경 함수
+      function changeFontSize(delta) {
+          const content = document
+              .getElementById('bible-content');
+        // 현재 적용된 폰트 크기 가져오기
+        let currentSize = parseInt(window.getComputedStyle(content) .fontSize);
+        let newSize = currentSize + delta;
+
+        // 너무 작아지거나 커지지 않게 제한 (12px ~ 40px)
+        if (newSize >= 12 && newSize <= 40) {
+            content.style.fontSize = newSize + "px";
+        // 브라우저에 글자 크기 저장 (다음 페이지에서도 유지됨)
+        localStorage.setItem('user_font_size', newSize);
+        }
+      }
+
+      // 2. 페이지 로드 시 설정 복구 (스크롤 위치 + 글자 크기)
+      window.addEventListener('load', function () {
+          // [글자 크기 복구]
+          const savedSize = localStorage
+              .getItem('user_font_size');
+          if (savedSize) {document.getElementById('bible-content')
+                  .style.fontSize = savedSize + "px";
+          }
+
+          // [스크롤 위치 복구]
+          const savedData = localStorage
+              .getItem('bible_scroll_pos');
+          if (savedData) {const data = JSON.parse(savedData);
+          if (data.url === window.location.href) {
+                  setTimeout(() => window.scrollTo(0, data.pos), 100);
+              }
+          }
+      });
+
+      // 3. 링크 클릭 시 스크롤 위치 저장 (각주 읽을 때 튕김 방지)
+      document.addEventListener('click',
+          function (e) {
+            const anchor = e.target.closest('a');
+            if (!anchor) return;
+
+            const isFootnote = anchor.getAttribute('target') === '_blank';
+            const isNavigation = anchor
+                .innerText.includes('◀') || anchor.innerText
+                .includes('▶');
+
+            if (isNavigation) {
+                // 다른 장으로 이동할 땐 스크롤 저장 기록 삭제 (맨 위로 가기 위해)
+                localStorage.removeItem('bible_scroll_pos'
+                    );
+             } 
+            else if (isFootnote) {
+                // 각주를 클릭할 때만 현재 위치 저장
+                localStorage.setItem('bible_scroll_pos',
+                    JSON.stringify({url: window.location.href, pos: window.scrollY
+                    }));
+              }
+          });
+  </script>
+
 </body>
 
 </html>
