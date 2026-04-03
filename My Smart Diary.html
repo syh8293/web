@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Smart Diary</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --sunday-color: #ef4444;
+            --saturday-color: #3b82f6;
+            --holiday-color: #ef4444;
+            --dot-color: #10b981;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0; padding: 0; background-color: #ffffff;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 40px 20px 20px;
+        }
+        .header h2 { margin: 0; font-size: 1.4rem; letter-spacing: -0.5px; }
+        .nav-btn {
+            border: none; background: #f1f5f9; border-radius: 50%;
+            width: 36px; height: 36px; cursor: pointer; font-size: 1.2rem;
+        }
+
+        /* 요일 스타일 */
+        .weekdays {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            text-align: center; font-size: 0.8rem; font-weight: 600;
+            margin-bottom: 10px; color: #94a3b8;
+        }
+        .weekdays div:first-child { color: var(--sunday-color); }
+        .weekdays div:last-child { color: var(--saturday-color); }
+
+        /* 달력 그리드 */
+        .days { display: grid; grid-template-columns: repeat(7, 1fr); }
+        .day {
+            aspect-ratio: 1 / 1; position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.05rem; font-weight: 500;
+        }
+
+        /* 날짜 색상 규칙 */
+        .day.sun { color: var(--sunday-color); }
+        .day.sat { color: var(--saturday-color); }
+        .day.holiday { color: var(--holiday-color); }
+        .other-month { color: #e2e8f0 !important; cursor: default; }
+
+        /* 선택된 날짜 */
+        .selected {
+            background-color: var(--primary-color);
+            color: white !important; border-radius: 12px;
+        }
+
+        /* 기록 점 */
+        .has-record::after {
+            content: ''; position: absolute; bottom: 8px;
+            width: 5px; height: 5px; background-color: var(--dot-color);
+            border-radius: 50%;
+        }
+
+        /* 공휴일 이름 표시 (선택 사항) */
+        .holiday-name {
+            position: absolute; top: 4px; font-size: 0.55rem;
+            color: var(--holiday-color); font-weight: bold;
+        }
+
+        /* 하단 섹션 */
+        .record-container {
+            border-top: 1px solid #f1f5f9; margin-top: 20px; padding: 25px 20px;
+        }
+        .record-header {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .add-btn {
+            background: var(--primary-color); color: white; border: none;
+            padding: 8px 16px; border-radius: 20px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="nav-btn" onclick="changeMonth(-1)">&lt;</button>
+        <h2 id="calendarTitle">2026년 4월</h2>
+        <button class="nav-btn" onclick="changeMonth(1)">&gt;</button>
+    </div>
+
+    <div class="weekdays">
+        <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+    </div>
+
+    <div id="calendarDays" class="days"></div>
+
+    <div class="record-container">
+        <div class="record-header">
+            <h3 id="selectedDateText">날짜를 선택하세요</h3>
+            <button class="add-btn">+ 기록 추가</button>
+        </div>
+        <div id="recordContent" style="text-align: center; color: #94a3b8; margin-top: 40px;">
+            이 날의 기록이 없습니다.
+        </div>
+    </div>
+
+<script>
+    // 1. 공휴일 데이터 (YYYY-MM-DD 형식)
+    const holidays = {
+        "2026-01-01": "신정", "2026-03-01": "삼일절", "2026-05-05": "어린이날",
+        "2026-06-06": "현충일", "2026-08-15": "광복절", "2026-10-03": "개천절",
+        "2026-10-09": "한글날", "2026-12-25": "성탄절"
+        // 음력 명절(설날/추석)은 매년 날짜가 다르므로 추가 입력이 필요합니다.
+    };
+
+    // 2. 가상의 기록 데이터
+    const recordDates = ["2026-04-01", "2026-04-03", "2026-04-15"];
+
+    let viewDate = new Date(); // 현재 보고 있는 달력의 기준 날짜
+    let selectedDate = new Date(); // 사용자가 클릭한 날짜
+
+    function renderCalendar() {
+        const year = viewDate.getFullYear();
+        const month = viewDate.getMonth();
+
+        document.getElementById('calendarTitle').innerText = `${year}년 ${month + 1}월`;
+
+        const firstDay = new Date(year, month, 1).getDay(); // 이번달 1일의 요일
+        const lastDate = new Date(year, month + 1, 0).getDate(); // 이번달 마지막 날짜
+        const prevLastDate = new Date(year, month, 0).getDate(); // 지난달 마지막 날짜
+
+        const calendarDays = document.getElementById('calendarDays');
+        calendarDays.innerHTML = '';
+
+        // 지난달 날짜 채우기
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const div = document.createElement('div');
+            div.className = 'day other-month';
+            div.innerText = prevLastDate - i;
+            calendarDays.appendChild(div);
+        }
+
+        // 이번달 날짜 채우기
+        for (let i = 1; i <= lastDate; i++) {
+            const div = document.createElement('div');
+            div.className = 'day';
+            div.innerText = i;
+
+            const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            const dayOfWeek = new Date(year, month, i).getDay();
+
+            // 요일별 클래스
+            if (dayOfWeek === 0) div.classList.add('sun');
+            if (dayOfWeek === 6) div.classList.add('sat');
+
+            // 공휴일 체크
+            if (holidays[fullDate]) {
+                div.classList.add('holiday');
+                const name = document.createElement('span');
+                name.className = 'holiday-name';
+                name.innerText = holidays[fullDate];
+                div.appendChild(name);
+            }
+
+            // 기록 점 표시
+            if (recordDates.includes(fullDate)) {
+                div.classList.add('has-record');
+            }
+
+            // 선택된 날짜 표시
+            if (selectedDate.getFullYear() === year && selectedDate.getMonth() === month && selectedDate.getDate() === i) {
+                div.classList.add('selected');
+                updateDetailText(year, month, i);
+            }
+
+            div.onclick = () => {
+                selectedDate = new Date(year, month, i);
+                renderCalendar();
+            };
+            calendarDays.appendChild(div);
+        }
+
+        // 다음달 날짜 채우기 (그리드 유지용)
+        const totalCells = firstDay + lastDate;
+        const nextDays = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let i = 1; i <= nextDays; i++) {
+            const div = document.createElement('div');
+            div.className = 'day other-month';
+            div.innerText = i;
+            calendarDays.appendChild(div);
+        }
+    }
+
+    function changeMonth(offset) {
+        viewDate.setMonth(viewDate.getMonth() + offset);
+        renderCalendar();
+    }
+
+    function updateDetailText(y, m, d) {
+        const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const dayName = dayNames[new Date(y, m, d).getDay()];
+        document.getElementById('selectedDateText').innerText = `${m + 1}월 ${d}일 ${dayName}`;
+    }
+
+    renderCalendar();
+</script>
+
+</body>
+</html>
