@@ -1,57 +1,281 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>미디어 다이어리</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Media Diary</title>
     <style>
-        /* 모바일 우선 스타일 */
-        body { font-family: sans-serif; margin: 0; padding: 10px; background: #f5f5f5; }
-        .calendar-container { background: #fff; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
-        .day { padding: 10px; border: 1px solid #eee; border-radius: 5px; cursor: pointer; }
-        .day:active { background: #e0f7fa; }
-        
-        /* 기록 모달/영역 */
-        .record-section { margin-top: 20px; display: none; background: #fff; padding: 15px; border-radius: 10px; }
-        .preview img, .preview video { max-width: 100%; margin-top: 10px; border-radius: 5px; }
-        textarea { width: 100%; height: 80px; margin-top: 10px; box-sizing: border-box; }
+        :root {
+            --primary-color: #1e293b;
+            /* 선택된 날짜 배경색 */
+            --sunday-color: #ef4444;
+            --saturday-color: #3b82f6;
+            --dot-color: #10b981;
+            /* 녹색 점 */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* 상단 헤더 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px 20px;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .nav-btn {
+            border: none;
+            background: #f1f5f9;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        /* 요일 표시 */
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: #94a3b8;
+        }
+
+        .weekdays div:first-child {
+            color: var(--sunday-color);
+        }
+
+        .weekdays div:last-child {
+            color: var(--saturday-color);
+        }
+
+        /* 달력 그리드 */
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* 일요일/토요일 색상 */
+        .day:nth-child(7n+1) {
+            color: var(--sunday-color);
+        }
+
+        .day:nth-child(7n) {
+            color: var(--saturday-color);
+        }
+
+        /* 지난달/다음달 날짜 흐리게 */
+        .other-month {
+            color: #e2e8f0 !important;
+        }
+
+        /* 선택된 날짜 스타일 */
+        .selected {
+            background-color: var(--primary-color);
+            color: white !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 기록이 있는 날 녹색 점 */
+        .has-record::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            width: 5px;
+            height: 5px;
+            background-color: var(--dot-color);
+            border-radius: 50%;
+        }
+
+        /* 하단 기록 섹션 */
+        .record-container {
+            border-top: 1px solid #f1f5f9;
+            margin-top: 20px;
+            padding: 30px 20px;
+            min-height: 200px;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .record-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 40px;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="calendar-container">
-    <h3 id="monthTitle">2026년 4월</h3>
-    <div class="days" id="calendarDays">
+    <div class="header">
+        <button class="nav-btn">&lt;</button>
+        <h2 id="currentMonthText">2026년 4월</h2>
+        <button class="nav-btn">&gt;</button>
+    </div>
+
+    <div class="weekdays">
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
+    </div>
+
+    <div class="days" id="calendarDays"></div>
+
+    <div class="record-container">
+        <div class="record-header">
+            <h3 id="selectedDateText">4월 3일 금요일
+            </h3>
+            <button class="add-btn">+ 기록
+                추가</button>
         </div>
-</div>
+        <div id="recordContent" class="empty-msg">
+            이 날의 기록이 없습니다<br><br>
+            <span style="font-size: 0.9rem;">첫 기록
+                작성하기</span>
+        </div>
+    </div>
 
-<div id="recordSection" class="record-section">
-    <h4 id="selectedDate">0000-00-00 기록</h4>
-    <input type="file" id="mediaInput" accept="image/*, video/*">
-    <div id="preview" class="preview"></div>
-    <textarea placeholder="오늘의 이야기를 남겨보세요..."></textarea>
-    <button onclick="saveRecord()">저장하기</button>
-</div>
+    <script>
+        const calendarDays = document
+            .getElementById('calendarDays');
+        const selectedDateText = document
+            .getElementById('selectedDateText');
 
-<script>
-    // 간단한 날짜 표시 로직
-    const calendar = document.getElementById('calendarDays');
-    for(let i=1; i<=30; i++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day';
-        dayDiv.innerText = i;
-        dayDiv.onclick = () => showRecord(i);
-        calendar.appendChild(dayDiv);
-    }
+        // 임시 데이터 (실제로는 저장 기능을 연결할 부분)
+        // 4월 1일과 4월 5일에 기록이 있다고 가정
+        const recordDates = ["2026-04-01",
+            "2026-04-05"
+        ];
+        let currentSelectedDay = 3;
 
-    function showRecord(day) {
-        document.getElementById('selectedDate').innerText = `4월 ${day}일 기록`;
-        document.getElementById('recordSection').style.display = 'block';
-    }
+        function renderCalendar() {
+            calendarDays.innerHTML = '';
 
-    // 파일 업로드 시 미리보기 기능 등 추가 구현 가능
-</script>
+            // 이미지처럼 앞뒤 날짜를 채우는 단순 예시 (4월 기준)
+            const prevMonthDays = [29, 30, 31];
+            const currentMonthDays = 30;
+            const nextMonthDays = [1, 2];
+
+            // 지난달 날짜
+            prevMonthDays.forEach(d => {
+                const div = document
+                    .createElement('div');
+                div.className =
+                    'day other-month';
+                div.innerText = d;
+                calendarDays.appendChild(
+                    div);
+            });
+
+            // 이번달 날짜
+            for (let i = 1; i <=
+                currentMonthDays; i++) {
+                const div = document
+                    .createElement('div');
+                div.className = 'day';
+                div.innerText = i;
+
+                const dateKey =
+                    `2026-04-${i.toString().padStart(2, '0')}`;
+
+                // 기록 점 표시
+                if (recordDates.includes(
+                    dateKey)) {
+                    div.classList.add(
+                        'has-record');
+                }
+
+                // 선택 표시
+                if (i === currentSelectedDay) {
+                    div.classList.add('selected');
+                }
+
+                div.onclick = () => selectDay(i);
+                calendarDays.appendChild(div);
+            }
+
+            // 다음달 날짜
+            nextMonthDays.forEach(d => {
+                const div = document
+                    .createElement('div');
+                div.className =
+                    'day other-month';
+                div.innerText = d;
+                calendarDays.appendChild(
+                    div);
+            });
+        }
+
+        function selectDay(day) {
+            currentSelectedDay = day;
+            // 요일 계산 (간단 예시: 2026년 4월 1일은 수요일)
+            const date = new Date(2026, 3, day);
+            const dayNames = ['일요일', '월요일', '화요일',
+                '수요일', '목요일', '금요일', '토요일'
+            ];
+
+            selectedDateText.innerText =
+                `4월 ${day}일 ${dayNames[date.getDay()]}`;
+            renderCalendar();
+        }
+
+        renderCalendar();
+    </script>
 
 </body>
+
 </html>
