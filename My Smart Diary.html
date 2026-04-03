@@ -1,224 +1,430 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>My Smart Diary</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Smart Cloud Diary</title>
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js">
+    </script>
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js">
+    </script>
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js">
+    </script>
+
     <style>
         :root {
             --primary-color: #1e293b;
             --sunday-color: #ef4444;
             --saturday-color: #3b82f6;
-            --holiday-color: #ef4444;
             --dot-color: #10b981;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0; padding: 0; background-color: #ffffff;
+            font-family: -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #333;
         }
 
-        /* 헤더 스타일 */
         .header {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 40px 20px 20px;
         }
-        .header h2 { margin: 0; font-size: 1.4rem; letter-spacing: -0.5px; }
+
         .nav-btn {
-            border: none; background: #f1f5f9; border-radius: 50%;
-            width: 36px; height: 36px; cursor: pointer; font-size: 1.2rem;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
         }
 
-        /* 요일 스타일 */
         .weekdays {
-            display: grid; grid-template-columns: repeat(7, 1fr);
-            text-align: center; font-size: 0.8rem; font-weight: 600;
-            margin-bottom: 10px; color: #94a3b8;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
         }
-        .weekdays div:first-child { color: var(--sunday-color); }
-        .weekdays div:last-child { color: var(--saturday-color); }
 
-        /* 달력 그리드 */
-        .days { display: grid; grid-template-columns: repeat(7, 1fr); }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
         .day {
-            aspect-ratio: 1 / 1; position: relative;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 1.05rem; font-weight: 500;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            font-size: 1.05rem;
         }
 
-        /* 날짜 색상 규칙 */
-        .day.sun { color: var(--sunday-color); }
-        .day.sat { color: var(--saturday-color); }
-        .day.holiday { color: var(--holiday-color); }
-        .other-month { color: #e2e8f0 !important; cursor: default; }
+        .day.sun,
+        .day.holiday {
+            color: var(--sunday-color);
+        }
 
-        /* 선택된 날짜 */
+        .day.sat {
+            color: var(--saturday-color);
+        }
+
+        .other-month {
+            color: #e2e8f0 !important;
+        }
+
         .selected {
-            background-color: var(--primary-color);
-            color: white !important; border-radius: 12px;
+            background: var(--primary-color);
+            color: #fff !important;
+            border-radius: 12px;
         }
 
-        /* 기록 점 */
         .has-record::after {
-            content: ''; position: absolute; bottom: 8px;
-            width: 5px; height: 5px; background-color: var(--dot-color);
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            width: 5px;
+            height: 5px;
+            background: var(--dot-color);
             border-radius: 50%;
         }
 
-        /* 공휴일 이름 표시 (선택 사항) */
         .holiday-name {
-            position: absolute; top: 4px; font-size: 0.55rem;
-            color: var(--holiday-color); font-weight: bold;
+            position: absolute;
+            top: 4px;
+            font-size: 0.55rem;
+            font-weight: bold;
         }
 
-        /* 하단 섹션 */
         .record-container {
-            border-top: 1px solid #f1f5f9; margin-top: 20px; padding: 25px 20px;
+            border-top: 1px solid #f1f5f9;
+            margin-top: 20px;
+            padding: 25px 20px;
         }
+
         .record-header {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
+
         .add-btn {
-            background: var(--primary-color); color: white; border: none;
-            padding: 8px 16px; border-radius: 20px; font-weight: bold;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        #inputArea {
+            display: none;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+
+        .preview-box img,
+        .preview-box video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .loading {
+            display: none;
+            color: var(--dot-color);
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
+
 <body>
 
     <div class="header">
-        <button class="nav-btn" onclick="changeMonth(-1)">&lt;</button>
-        <h2 id="calendarTitle">2026년 4월</h2>
-        <button class="nav-btn" onclick="changeMonth(1)">&gt;</button>
+        <button class="nav-btn"
+            onclick="changeMonth(-1)">&lt;</button>
+        <h2 id="calendarTitle"></h2>
+        <button class="nav-btn"
+            onclick="changeMonth(1)">&gt;</button>
     </div>
 
     <div class="weekdays">
-        <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
     </div>
-
     <div id="calendarDays" class="days"></div>
 
     <div class="record-container">
         <div class="record-header">
-            <h3 id="selectedDateText">날짜를 선택하세요</h3>
-            <button class="add-btn">+ 기록 추가</button>
+            <h3 id="selectedDateText">날짜 선택</h3>
+            <button class="add-btn"
+                onclick="showInput()">+ 기록 추가</button>
         </div>
-        <div id="recordContent" style="text-align: center; color: #94a3b8; margin-top: 40px;">
-            이 날의 기록이 없습니다.
+
+        <div id="displayArea"></div>
+
+        <div id="inputArea">
+            <input type="file" id="fileInput"
+                accept="image/*, video/*"
+                style="display:none"
+                onchange="handleFile(this)">
+            <button
+                onclick="document.getElementById('fileInput').click()"
+                style="width:100%; padding:10px; border:1px dashed #ccc; border-radius:10px; background:#fff;">📸
+                사진/영상 선택</button>
+            <div id="preview" class="preview-box">
+            </div>
+            <textarea id="textInput"
+                placeholder="오늘의 이야기를 적어보세요..."></textarea>
+            <div id="loading" class="loading">
+                클라우드에 저장 중...</div>
+            <button onclick="saveToCloud()"
+                style="width:100%; background:var(--primary-color); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:bold;">저장
+                완료</button>
         </div>
     </div>
 
-<script>
-    // 1. 공휴일 데이터 (YYYY-MM-DD 형식)
-    const holidays = {
-        "2026-01-01": "신정", 
-        "2026-02-012": "선숙생일",
-        "2026-03-01": "삼일절", 
-        "2026-03-10": "다솔생일",
-        "2026-05-01": "노동절",
-        "2026-05-05": "어린이날",
-        "2026-05-08": "어버이날",
-        "2026-05-10": "내생일",
-        "2026-06-06": "현충일", 
-        "2026-08-15": "광복절", 
-        "2026-10-03": "개천절",
-        "2026-10-09": "한글날", 
-        "2026-12-22": "솔이생일",
-        "2026-12-25": "성탄절"
-        // 음력 명절(설날/추석)은 매년 날짜가 다르므로 추가 입력이 필요합니다.
-    };
+    <script>
+        // 1. Firebase 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrcdaHuEll00EY7VnsPow1BNymtagSakQ",
+            authDomain: "my-smart-diary-61b3d.firebaseapp.com",
+            projectId: "my-smart-diary-61b3d",
+            storageBucket: "my-smart-diary-61b3d.firebasestorage.app",
+            messagingSenderId: "1039087038054",
+            appId: "1:1039087038054:web:50f24f2792ee4fe4fc07a7"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
 
-    // 2. 가상의 기록 데이터
-    const recordDates = ["2026-04-01", "2026-04-03", "2026-04-15"];
+        const holidays = {
+            "01-01": "신정",
+            "03-01": "삼일절",
+            "05-05": "어린이날",
+            "06-06": "현충일",
+            "08-15": "광복절",
+            "10-03": "개천절",
+            "10-09": "한글날",
+            "12-25": "성탄절"
+        };
+        let viewDate = new Date();
+        let selectedDate = new Date();
+        let allRecords = {}; // 서버에서 가져온 전체 기록 저장용
+        let selectedFile = null;
 
-    let viewDate = new Date(); // 현재 보고 있는 달력의 기준 날짜
-    let selectedDate = new Date(); // 사용자가 클릭한 날짜
-
-    function renderCalendar() {
-        const year = viewDate.getFullYear();
-        const month = viewDate.getMonth();
-
-        document.getElementById('calendarTitle').innerText = `${year}년 ${month + 1}월`;
-
-        const firstDay = new Date(year, month, 1).getDay(); // 이번달 1일의 요일
-        const lastDate = new Date(year, month + 1, 0).getDate(); // 이번달 마지막 날짜
-        const prevLastDate = new Date(year, month, 0).getDate(); // 지난달 마지막 날짜
-
-        const calendarDays = document.getElementById('calendarDays');
-        calendarDays.innerHTML = '';
-
-        // 지난달 날짜 채우기
-        for (let i = firstDay - 1; i >= 0; i--) {
-            const div = document.createElement('div');
-            div.className = 'day other-month';
-            div.innerText = prevLastDate - i;
-            calendarDays.appendChild(div);
+        // 초기 데이터 로드
+        async function loadAllRecords() {
+            const snapshot = await db
+                .collection("diary").get();
+            allRecords = {};
+            snapshot.forEach(doc => {
+                allRecords[doc.id] =
+                    doc.data();
+            });
+            renderCalendar();
+            displayCurrentRecord();
         }
 
-        // 이번달 날짜 채우기
-        for (let i = 1; i <= lastDate; i++) {
-            const div = document.createElement('div');
-            div.className = 'day';
-            div.innerText = i;
+        function renderCalendar() {
+            const year = viewDate.getFullYear();
+            const month = viewDate.getMonth();
+            document.getElementById(
+                    'calendarTitle').innerText =
+                `${year}년 ${month + 1}월`;
 
-            const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-            const dayOfWeek = new Date(year, month, i).getDay();
+            const firstDay = new Date(year, month,
+                1).getDay();
+            const lastDate = new Date(year,
+                month + 1, 0).getDate();
+            const prevLastDate = new Date(year,
+                month, 0).getDate();
 
-            // 요일별 클래스
-            if (dayOfWeek === 0) div.classList.add('sun');
-            if (dayOfWeek === 6) div.classList.add('sat');
+            const calendarDays = document
+                .getElementById('calendarDays');
+            calendarDays.innerHTML = '';
 
-            // 공휴일 체크
-            if (holidays[fullDate]) {
-                div.classList.add('holiday');
-                const name = document.createElement('span');
-                name.className = 'holiday-name';
-                name.innerText = holidays[fullDate];
-                div.appendChild(name);
+            for (let i = firstDay - 1; i >=
+                0; i--) {
+                const div = document
+                    .createElement('div');
+                div.className = 'day other-month';
+                div.innerText = prevLastDate - i;
+                calendarDays.appendChild(div);
             }
 
-            // 기록 점 표시
-            if (recordDates.includes(fullDate)) {
-                div.classList.add('has-record');
-            }
+            for (let i = 1; i <= lastDate; i++) {
+                const div = document
+                    .createElement('div');
+                div.className = 'day';
+                div.innerText = i;
+                const fullDate =
+                    `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                const mmdd = fullDate.substring(
+                5);
+                const dayOfWeek = new Date(year,
+                    month, i).getDay();
 
-            // 선택된 날짜 표시
-            if (selectedDate.getFullYear() === year && selectedDate.getMonth() === month && selectedDate.getDate() === i) {
-                div.classList.add('selected');
-                updateDetailText(year, month, i);
-            }
+                if (dayOfWeek === 0) div.classList
+                    .add('sun');
+                if (dayOfWeek === 6) div.classList
+                    .add('sat');
+                if (holidays[mmdd]) {
+                    div.classList.add('holiday');
+                    div.innerHTML +=
+                        `<span class="holiday-name">${holidays[mmdd]}</span>`;
+                }
+                if (allRecords[fullDate]) div
+                    .classList.add('has-record');
+                if (selectedDate.toISOString()
+                    .slice(0, 10) === fullDate)
+                    div.classList.add('selected');
 
-            div.onclick = () => {
-                selectedDate = new Date(year, month, i);
-                renderCalendar();
-            };
-            calendarDays.appendChild(div);
+                div.onclick = () => {
+                    selectedDate = new Date(
+                        year, month, i);
+                    renderCalendar();
+                    displayCurrentRecord();
+                };
+                calendarDays.appendChild(div);
+            }
         }
 
-        // 다음달 날짜 채우기 (그리드 유지용)
-        const totalCells = firstDay + lastDate;
-        const nextDays = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-        for (let i = 1; i <= nextDays; i++) {
-            const div = document.createElement('div');
-            div.className = 'day other-month';
-            div.innerText = i;
-            calendarDays.appendChild(div);
+        function displayCurrentRecord() {
+            const dateKey = selectedDate
+                .toISOString().slice(0, 10);
+            const displayArea = document
+                .getElementById('displayArea');
+            const dayNames = ['일요일', '월요일', '화요일',
+                '수요일', '목요일', '금요일', '토요일'
+            ];
+            document.getElementById(
+                    'selectedDateText')
+                .innerText =
+                `${selectedDate.getMonth()+1}월 ${selectedDate.getDate()}일 ${dayNames[selectedDate.getDay()]}`;
+
+            document.getElementById('inputArea')
+                .style.display = 'none';
+
+            if (allRecords[dateKey]) {
+                const data = allRecords[dateKey];
+                let mediaHtml = data.mediaUrl ? (
+                    data.mediaType.includes(
+                        'video') ?
+                    `<video src="${data.mediaUrl}" controls></video>` :
+                    `<img src="${data.mediaUrl}">`
+                    ) : '';
+                displayArea.innerHTML =
+                    `<div class="preview-box">${mediaHtml}</div><p style="white-space:pre-wrap; line-height:1.6;">${data.text}</p>`;
+            } else {
+                displayArea.innerHTML =
+                    `<div style="text-align:center; color:#94a3b8; margin-top:40px;">이 날의 기록이 없습니다.</div>`;
+            }
         }
-    }
 
-    function changeMonth(offset) {
-        viewDate.setMonth(viewDate.getMonth() + offset);
-        renderCalendar();
-    }
+        function showInput() {
+            document.getElementById('displayArea')
+                .innerHTML = '';
+            document.getElementById('inputArea')
+                .style.display = 'block';
+        }
 
-    function updateDetailText(y, m, d) {
-        const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-        const dayName = dayNames[new Date(y, m, d).getDay()];
-        document.getElementById('selectedDateText').innerText = `${m + 1}월 ${d}일 ${dayName}`;
-    }
+        function handleFile(input) {
+            selectedFile = input.files[0];
+            if (selectedFile) {
+                const url = URL.createObjectURL(
+                    selectedFile);
+                const preview = document
+                    .getElementById('preview');
+                preview.innerHTML = selectedFile
+                    .type.startsWith('image') ?
+                    `<img src="${url}">` :
+                    `<video src="${url}" controls></video>`;
+            }
+        }
 
-    renderCalendar();
-</script>
+        async function saveToCloud() {
+            const dateKey = selectedDate
+                .toISOString().slice(0, 10);
+            const text = document
+                .getElementById('textInput')
+                .value;
+            const loading = document
+                .getElementById('loading');
+
+            loading.style.display = 'block';
+            let mediaUrl = "";
+            let mediaType = "";
+
+            if (selectedFile) {
+                const storageRef = storage
+                    .ref(
+                        `diary/${dateKey}_${selectedFile.name}`
+                        );
+                const snapshot =
+                    await storageRef.put(
+                        selectedFile);
+                mediaUrl = await snapshot.ref
+                    .getDownloadURL();
+                mediaType = selectedFile.type;
+            }
+
+            await db.collection("diary").doc(
+                dateKey).set({
+                text: text,
+                mediaUrl: mediaUrl,
+                mediaType: mediaType,
+                timestamp: firebase
+                    .firestore
+                    .FieldValue
+                    .serverTimestamp()
+            });
+
+            alert("클라우드 저장 완료!");
+            location.reload();
+        }
+
+        function changeMonth(offset) {
+            viewDate.setMonth(viewDate
+            .getMonth() + offset);
+            renderCalendar();
+        }
+
+        loadAllRecords();
+    </script>
 
 </body>
+
 </html>
