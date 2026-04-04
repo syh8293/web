@@ -162,6 +162,35 @@
             font-weight: bold;
             text-align: center;
         }
+
+        /* 이미지의 카드 스타일 재현 */
+        .record-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+            margin-top: 10px;
+        }
+        .record-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .image-grid {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            overflow-x: auto; /* 사진이 많으면 옆으로 밀어서 보기 */
+        }
+        .image-grid img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
     </style>
 </head>
 
@@ -204,8 +233,7 @@
                 onclick="document.getElementById('fileInput').click()"
                 style="width:100%; padding:10px; border:1px dashed #ccc; border-radius:10px; background:#fff;">📸
                 사진/영상 선택</button>
-            <div id="preview" class="preview-box">
-            </div>
+            <div id="preview" class="preview-box"></div>
             <textarea id="textInput"
                 placeholder="오늘의 이야기를 적어보세요..."></textarea>
             <div id="loading" class="loading">
@@ -322,37 +350,37 @@
             }
         }
 
-        function displayCurrentRecord() {
-            const dateKey = selectedDate
-                .toISOString().slice(0, 10);
-            const displayArea = document
-                .getElementById('displayArea');
-            const dayNames = ['일요일', '월요일', '화요일',
-                '수요일', '목요일', '금요일', '토요일'
-            ];
-            document.getElementById(
-                    'selectedDateText')
-                .innerText =
-                `${selectedDate.getMonth()+1}월 ${selectedDate.getDate()}일 ${dayNames[selectedDate.getDay()]}`;
-
-            document.getElementById('inputArea')
-                .style.display = 'none';
-
-            if (allRecords[dateKey]) {
-                const data = allRecords[dateKey];
-                let mediaHtml = data.mediaUrl ? (
-                    data.mediaType.includes(
-                        'video') ?
-                    `<video src="${data.mediaUrl}" controls></video>` :
-                    `<img src="${data.mediaUrl}">`
-                    ) : '';
-                displayArea.innerHTML =
-                    `<div class="preview-box">${mediaHtml}</div><p style="white-space:pre-wrap; line-height:1.6;">${data.text}</p>`;
-            } else {
-                displayArea.innerHTML =
-                    `<div style="text-align:center; color:#94a3b8; margin-top:40px;">이 날의 기록이 없습니다.</div>`;
-            }
-        }
+        // 데이터를 화면에 보여주는 함수 수정
+    function displayCurrentRecord() {
+    const dateKey = selectedDate.toISOString().slice(0,10);
+    const displayArea = document.getElementById('displayArea');
+    const dayNames = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+    document.getElementById('selectedDateText').innerText = `${selectedDate.getMonth()+1}월 ${selectedDate.getDate()}일 ${dayNames[selectedDate.getDay()]}`;
+    
+    document.getElementById('inputArea').style.display = 'none';
+    
+    if (allRecords[dateKey]) {
+        const data = allRecords[dateKey];
+        // 제목과 본문 분리 (간단히 첫 줄을 제목으로 취급하거나 필드를 추가할 수 있음)
+        displayArea.innerHTML = `
+            <div class="record-card">
+                <div class="record-title">
+                    <span>${data.title || '현장 기록'}</span>
+                    <span style="font-size:1rem; color:#cbd5e1;">✏️ 🗑️</span>
+                </div>
+                <div style="color:#64748b; font-size:0.9rem; margin-bottom:15px;">
+                    ${dateKey.replace(/-/g, '.')} (${dayNames[selectedDate.getDay()].charAt(0)})
+                </div>
+                <p style="white-space:pre-wrap; line-height:1.6; color:#334155;">${data.text}</p>
+                <div class="image-grid">
+                    ${data.mediaUrl ? `<img src="${data.mediaUrl}">` : ''}
+                    </div>
+            </div>
+        `;
+    } else {
+        displayArea.innerHTML = `<div style="text-align:center; color:#94a3b8; margin-top:60px;">이 날의 기록이 없습니다.</div>`;
+    }
+}
 
         function showInput() {
             document.getElementById('displayArea')
