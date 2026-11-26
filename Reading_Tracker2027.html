@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2027 책 만쪽 읽기 기록</title>
+  <style>
+    :root {
+      --primary: #2f6fed;
+      --success: #10b981;
+      --edit: #f39c12;
+      --delete: #e74c3c;
+      --bg: #f7f7f5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: #222;
+      max-width: 480px;
+      margin: 0 auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      padding: 16px 20px 8px;
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 { font-size: 1.25rem; margin: 0; }
+    .year-badge {
+      background: #e8f0fe;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    /* 입력 영역 고정 */
+    #input-container {
+      padding: 0 20px 12px;
+      background: var(--bg);
+      border-bottom: 1px solid #ddd;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 3px;
+      font-weight: bold;
+      color: #555;
+    }
+    input[type="date"],
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+
+    /* 표지 업로드 영역 */
+    .cover-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .cover-preview {
+      width: 44px;
+      height: 60px;
+      border-radius: 6px;
+      background: #eee;
+      border: 1px dashed #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #888;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .cover-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cover-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .file-btn-wrap {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      color: #333;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-group { display: flex; gap: 8px; }
+    .main-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.92rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* 스크롤 영역 */
+    #scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 20px 24px;
+    }
+
+    /* 달성률 그래프 */
+    .percent-text {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .percent-text.over-goal { color: var(--success); }
+    .progress-wrapper {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    #progress-bar {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.4s, background 0.4s;
+    }
+    #progress-bar.over-goal { background: var(--success); }
+
+    /* 리스트 공통 */
+    .section-title {
+      font-size: 0.9rem;
+      margin: 6px 0 8px 4px;
+      font-weight: bold;
+    }
+    .history-item {
+      background: white;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-left: 4px solid var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .item-thumb {
+      width: 36px;
+      height: 50px;
+      border-radius: 4px;
+      background: #f0f0f0;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #bbb;
+    }
+    .item-body { flex: 1; min-width: 0; }
+    .history-date {
+      font-weight: bold;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .history-title {
+      font-size: 0.88rem;
+      margin: 2px 0;
+      color: #222;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-pages { font-size: 0.75rem; color: #666; }
+
+    /* 책별 누적 목록 */
+    .completed-item {
+      font-size: 0.85rem;
+      padding: 6px 0;
+      border-bottom: 1px dashed #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .completed-item:last-child { border-bottom: none; }
+    .completed-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .completed-thumb {
+      width: 26px;
+      height: 36px;
+      border-radius: 3px;
+      object-fit: cover;
+      background: #f0f0f0;
+      flex-shrink: 0;
+    }
+    .completed-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .edit-mode-active { border: 2px solid var(--edit) !important; background: #fffdf9 !important; }
+    .btn-edit { background: var(--edit); }
+    .btn-delete { background: var(--delete); flex: 0.4; }
+    .btn-cancel { background: #888; flex: 0.4; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>책 만쪽 읽기</h1>
+    <span class="year-badge">2027 시즌</span>
+  </header>
+
+  <div id="input-container">
+    <div class="card" id="inputCard" style="margin-bottom:0;">
+      <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px;">
+        <div>
+          <label>날짜</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label>책 제목</label>
+          <input type="text" id="title" placeholder="책 제목 입력" />
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div>
+          <label>시작 페이지</label>
+          <input type="number" id="startPage" min="1" />
+        </div>
+        <div>
+          <label>종료 페이지</label>
+          <input type="number" id="endPage" min="1" />
+        </div>
+      </div>
+
+      <!-- 책 표지 사진 영역 -->
+      <div class="cover-row">
+        <div class="cover-preview" id="coverPreview">표지</div>
+        <div class="cover-controls">
+          <label style="margin:0;">책 표지 사진 (선택)</label>
+          <div class="file-btn-wrap">
+            <button type="button" class="btn-small" onclick="document.getElementById('coverInput').click()">📷 사진 선택</button>
+            <button type="button" class="btn-small" id="clearCoverBtn" style="display:none;" onclick="clearCover()">삭제</button>
+          </div>
+          <input type="file" id="coverInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)" />
+        </div>
+      </div>
+
+      <div id="normal-btns">
+        <button class="main-btn" style="width:100%;" onclick="saveEntry()">기록하기</button>
+      </div>
+      <div id="edit-btns" style="display: none;" class="btn-group">
+        <button class="main-btn btn-edit" onclick="saveEntry()">수정완료</button>
+        <button class="main-btn btn-delete" onclick="deleteEntry()">삭제</button>
+        <button class="main-btn btn-cancel" onclick="cancelEdit()">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="scroll-area">
+    <!-- 달성률 카드 -->
+    <div class="card">
+      <div id="percent-val" class="percent-text">0.0%</div>
+      <div class="progress-wrapper"><div id="progress-bar"></div></div>
+      <div id="total-text" style="text-align:center; font-size:0.82rem; margin-top:8px; color:#555;">
+        누적 0p / 목표 10,000p
+      </div>
+    </div>
+
+    <!-- 읽은 책 누적 목록 -->
+    <div class="section-title">📚 읽은 책별 누적 페이지</div>
+    <div class="card" id="completed-box" style="min-height: 40px;">
+      <div id="completed-list"></div>
+    </div>
+
+    <!-- 최근 독서 기록 -->
+    <div class="section-title">📅 독서 기록 내역 <span style="font-weight:normal; font-size:0.75rem; color:#888;">(터치 시 수정/삭제)</span></div>
+    <div id="history-list"></div>
+  </div>
+
+  <script>
+    const TARGET = 10000;
+    const STORAGE_KEY = 'readingEntries_2027';
+    let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let editIndex = -1;
+    let currentCoverData = ''; // Base64 리사이징 이미지
+
+    // 오늘 날짜 자동 세팅 (로컬 시간 기준)
+    function getTodayString() {
+      const now = new Date();
+      const offset = now.getTimezoneOffset() * 60000;
+      return new Date(now - offset).toISOString().substring(0, 10);
+    }
+    document.getElementById('date').value = getTodayString();
+
+    // 마지막 기록이 있다면 제목, 종료페이지, 표지를 자동으로 불러와 편의성 제공
+    if (entries.length > 0) {
+      const last = entries[entries.length - 1];
+      document.getElementById('title').value = last.title || '';
+      document.getElementById('startPage').value = (Number(last.endPage) || 0) + 1;
+      document.getElementById('endPage').value = last.endPage || '';
+      if (last.cover) {
+        setCoverPreview(last.cover);
+      }
+    }
+
+    // 이미지 업로드 및 자동 압축(리사이징)
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 160; // 저장 공간 절약을 위해 썸네일 크기로 최적화
+          const scale = MAX_WIDTH / img.width;
+          canvas.width = MAX_WIDTH;
+          canvas.height = img.height * scale;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+          setCoverPreview(compressedDataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setCoverPreview(dataUrl) {
+      currentCoverData = dataUrl || '';
+      const preview = document.getElementById('coverPreview');
+      const clearBtn = document.getElementById('clearCoverBtn');
+      if (currentCoverData) {
+        preview.innerHTML = `<img src="${currentCoverData}" alt="표지" />`;
+        clearBtn.style.display = 'inline-block';
+      } else {
+        preview.innerHTML = '표지';
+        clearBtn.style.display = 'none';
+      }
+    }
+
+    function clearCover() {
+      document.getElementById('coverInput').value = '';
+      setCoverPreview('');
+    }
+
+    function saveEntry() {
+      const date = document.getElementById('date').value;
+      const title = document.getElementById('title').value.trim() || '제목 없음';
+      const startVal = document.getElementById('startPage').value;
+      const endVal = document.getElementById('endPage').value;
+      const start = Number(startVal);
+      const end = Number(endVal);
+
+      if (!date || startVal === '' || endVal === '' || isNaN(start) || isNaN(end) || start < 1 || end < start) {
+        alert('날짜와 시작/종료 페이지를 정확히 입력해 주세요.');
+        return;
+      }
+
+      const newEntry = {
+        date,
+        title,
+        startPage: start,
+        endPage: end,
+        pages: end - start + 1,
+        cover: currentCoverData
+      };
+
+      if (editIndex === -1) {
+        entries.push(newEntry);
+      } else {
+        entries[editIndex] = newEntry;
+      }
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+      } catch (e) {
+        alert('저장 공간이 부족합니다. 일부 사진이 큰 기록을 정리해 주세요.');
+        return;
+      }
+
+      // 제목, 종료페이지, 표지 사진은 그대로 유지하고 시작페이지만 종료+1로 세팅
+      document.getElementById('startPage').value = end + 1;
+
+      cancelEdit();
+      render();
+    }
+
+    function deleteEntry() {
+      if (editIndex < 0) return;
+      if (confirm('이 기록을 삭제하시겠습니까?')) {
+        entries.splice(editIndex, 1);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+        cancelEdit();
+        render();
+      }
+    }
+
+    function startEdit(index) {
+      editIndex = index;
+      const t = entries[index];
+      document.getElementById('date').value = t.date;
+      document.getElementById('title').value = t.title;
+      document.getElementById('startPage').value = t.startPage;
+      document.getElementById('endPage').value = t.endPage;
+      setCoverPreview(t.cover || '');
+
+      document.getElementById('inputCard').classList.add('edit-mode-active');
+      document.getElementById('normal-btns').style.display = 'none';
+      document.getElementById('edit-btns').style.display = 'flex';
+      document.getElementById('scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function cancelEdit() {
+      editIndex = -1;
+      document.getElementById('inputCard').classList.remove('edit-mode-active');
+      document.getElementById('normal-btns').style.display = 'block';
+      document.getElementById('edit-btns').style.display = 'none';
+      document.getElementById('date').value = getTodayString();
+    }
+
+    function render() {
+      const historyDiv = document.getElementById('history-list');
+      historyDiv.innerHTML = '';
+      let totalSum = 0;
+      let bookStats = {}; // { title: { pages: 0, cover: '' } }
+
+      [...entries].reverse().forEach((item, revIdx) => {
+        const pages = Number(item.pages) || 0;
+        totalSum += pages;
+        const actualIdx = entries.length - 1 - revIdx;
+
+        // 최근 기록 아이템 생성
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.onclick = () => startEdit(actualIdx);
+
+        const thumbHtml = item.cover
+          ? `<img class="item-thumb" src="${item.cover}" alt="표지" />`
+          : `<div class="item-thumb">📖</div>`;
+
+        div.innerHTML = `
+          ${thumbHtml}
+          <div class="item-body">
+            <div class="history-date">
+              <span>${item.date}</span>
+              <span style="color:var(--primary)">+${pages.toLocaleString()}p</span>
+            </div>
+            <div class="history-title">${item.title}</div>
+            <div class="history-pages">${item.startPage}p ~ ${item.endPage}p</div>
+          </div>
+        `;
+        historyDiv.appendChild(div);
+
+        // 책별 누적 페이지 및 대표 표지 수집
+        if (!bookStats[item.title]) {
+          bookStats[item.title] = { pages: 0, cover: item.cover || '' };
+        }
+        bookStats[item.title].pages += pages;
+        if (!bookStats[item.title].cover && item.cover) {
+          bookStats[item.title].cover = item.cover;
+        }
+      });
+
+      // 책별 누적 목록 업데이트
+      const completedDiv = document.getElementById('completed-list');
+      completedDiv.innerHTML = '';
+      const bookTitles = Object.keys(bookStats);
+      if (bookTitles.length === 0) {
+        completedDiv.innerHTML = '<div style="color:#aaa; font-size:0.8rem; text-align:center;">아직 기록된 책이 없습니다.</div>';
+      } else {
+        bookTitles.forEach(title => {
+          const stat = bookStats[title];
+          const item = document.createElement('div');
+          item.className = 'completed-item';
+          const miniCover = stat.cover
+            ? `<img class="completed-thumb" src="${stat.cover}" alt="표지" />`
+            : `<span style="font-size:1rem;">📖</span>`;
+          item.innerHTML = `
+            <div class="completed-left">
+              ${miniCover}
+              <span class="completed-title">${title}</span>
+            </div>
+            <b>${stat.pages.toLocaleString()}p</b>
+          `;
+          completedDiv.appendChild(item);
+        });
+      }
+
+      // 달성률 업데이트 (10,000p 초과 시에도 계속 퍼센트 상승)
+      const rawPercent = (totalSum / TARGET) * 100;
+      const percentValEl = document.getElementById('percent-val');
+      const progressBarEl = document.getElementById('progress-bar');
+
+      percentValEl.innerText = rawPercent.toFixed(1) + '%';
+      progressBarEl.style.width = Math.min(rawPercent, 100) + '%';
+
+      if (totalSum >= TARGET) {
+        percentValEl.classList.add('over-goal');
+        progressBarEl.classList.add('over-goal');
+        const extra = totalSum - TARGET;
+        document.getElementById('total-text').innerText =
+          `🎉 만쪽 달성! 누적 ${totalSum.toLocaleString()}p (+${extra.toLocaleString()}p 초과)`;
+      } else {
+        percentValEl.classList.remove('over-goal');
+        progressBarEl.classList.remove('over-goal');
+        document.getElementById('total-text').innerText =
+          `누적 ${totalSum.toLocaleString()}p / 목표 ${TARGET.toLocaleString()}p`;
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
