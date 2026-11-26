@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>책 만쪽 읽기 기록</title>
+  <title>책 백만쪽 읽기 기록</title>
   <style>
     :root { --primary: #2f6fed; --edit: #f39c12; --delete: #e74c3c; --bg: #f7f7f5; }
     body {
@@ -36,7 +36,7 @@
     /* 달성률 그래프 */
     .percent-text { font-size: 1.8rem; font-weight: 800; color: var(--primary); text-align: center; margin-bottom: 5px; }
     .progress-wrapper { height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden; }
-    #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.5s; }
+    #progress-bar { height: 100%; background: var(--primary); width: 0%; min-width: 2px; transition: width 0.5s; }
 
     /* 리스트 공통 */
     .section-title { font-size: 0.9rem; margin: 5px 0 8px 5px; font-weight: bold; }
@@ -59,7 +59,7 @@
 </head>
 <body>
 
-  <header><h1>책 만쪽 읽기</h1></header>
+  <header><h1>책 백만쪽 읽기</h1></header>
 
   <div id="input-container">
     <div class="card" id="inputCard">
@@ -81,23 +81,26 @@
   </div>
 
   <div id="scroll-area">
+    <!-- 그래프 카드 -->
     <div class="card">
-      <div id="percent-val" class="percent-text">0%</div>
+      <div id="percent-val" class="percent-text">0.000%</div>
       <div class="progress-wrapper"><div id="progress-bar"></div></div>
-      <div id="total-text" style="text-align:center; font-size:0.8rem; margin-top:8px; color:#666;">누적 0p / 10,000p</div>
+      <div id="total-text" style="text-align:center; font-size:0.8rem; margin-top:8px; color:#666;">누적 0p / 1,000,000p</div>
     </div>
 
-    <div class="section-title">🏆 완독한 책 목록</div>
+    <!-- 완독한 책 카드 -->
+    <div class="section-title">🏆 읽은 책 목록</div>
     <div class="card" id="completed-box" style="min-height: 40px;">
       <div id="completed-list"></div>
     </div>
 
+    <!-- 최근 내역 -->
     <div class="section-title">📅 최근 독서 기록</div>
     <div id="history-list"></div>
   </div>
 
   <script>
-    const TARGET = 10000;
+    const TARGET = 1000000;
     let entries = JSON.parse(localStorage.getItem('readingEntries') || '[]');
     let editIndex = -1;
 
@@ -156,17 +159,15 @@
     }
 
     function render() {
-      // 1. 달성률 및 기록 리스트
       const historyDiv = document.getElementById('history-list');
       historyDiv.innerHTML = '';
       let totalSum = 0;
-      let bookStats = {}; // 완독 계산용
+      let bookStats = {};
 
       [...entries].reverse().forEach((item, revIdx) => {
         totalSum += item.pages;
         const actualIdx = entries.length - 1 - revIdx;
 
-        // 최근 기록 리스트 생성
         const div = document.createElement('div');
         div.className = 'history-item';
         div.onclick = () => startEdit(actualIdx);
@@ -176,17 +177,15 @@
         `;
         historyDiv.appendChild(div);
 
-        // 책별 누적 페이지 합산
         if (!bookStats[item.title]) bookStats[item.title] = 0;
         bookStats[item.title] += item.pages;
       });
 
-      // 2. 완독한 책 목록 업데이트
       const completedDiv = document.getElementById('completed-list');
       completedDiv.innerHTML = '';
       const bookTitles = Object.keys(bookStats);
       if (bookTitles.length === 0) {
-        completedDiv.innerHTML = '<div style="color:#aaa; font-size:0.8rem; text-align:center;">아직 완독한 기록이 없습니다.</div>';
+        completedDiv.innerHTML = '<div style="color:#aaa; font-size:0.8rem; text-align:center;">아직 읽은 책 기록이 없습니다.</div>';
       } else {
         bookTitles.forEach(title => {
           const item = document.createElement('div');
@@ -196,10 +195,10 @@
         });
       }
 
-      // 3. 그래프 업데이트
-      const percent = Math.min((totalSum / TARGET) * 100, 100).toFixed(1);
-      document.getElementById('percent-val').innerText = percent + '%';
-      document.getElementById('progress-bar').style.width = percent + '%';
+      const rawPercent = Math.min((totalSum / TARGET) * 100, 100);
+      const displayPercent = rawPercent >= 100 ? '100%' : rawPercent.toFixed(3) + '%';
+      document.getElementById('percent-val').innerText = displayPercent;
+      document.getElementById('progress-bar').style.width = rawPercent + '%';
       document.getElementById('total-text').innerText = `누적 ${totalSum.toLocaleString()}p / ${TARGET.toLocaleString()}p`;
     }
 
