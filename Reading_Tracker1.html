@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>책 백만쪽 읽기 기록</title>
+  <style>
+    :root { --primary: #2f6fed; --edit: #f39c12; --delete: #e74c3c; --bg: #f7f7f5; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: #222; max-width: 480px; margin: 0 auto;
+      height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+    }
+    header { padding: 15px 20px 5px; background: var(--bg); }
+    h1 { font-size: 1.2rem; margin: 0; }
+    
+    /* 입력 영역 고정 */
+    #input-container { padding: 0 20px 10px; background: var(--bg); border-bottom: 1px solid #ddd; }
+    .card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
+    
+    label { display: block; font-size: 0.75rem; margin-bottom: 3px; font-weight: bold; color: #444; }
+    input {
+      width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px;
+      border: 1px solid #ccc; font-size: 0.9rem; box-sizing: border-box;
+    }
+    
+    .btn-group { display: flex; gap: 8px; }
+    button {
+      flex: 1; padding: 10px; border: none; border-radius: 8px;
+      background: var(--primary); color: white; font-size: 0.9rem; cursor: pointer; font-weight: bold;
+    }
+    
+    /* 스크롤 영역 */
+    #scroll-area { flex: 1; overflow-y: auto; padding: 10px 20px; }
+
+    /* 달성률 그래프 */
+    .percent-text { font-size: 1.8rem; font-weight: 800; color: var(--primary); text-align: center; margin-bottom: 5px; }
+    .progress-wrapper { height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden; }
+    #progress-bar { height: 100%; background: var(--primary); width: 0%; min-width: 2px; transition: width 0.5s; }
+
+    /* 리스트 공통 */
+    .section-title { font-size: 0.9rem; margin: 5px 0 8px 5px; font-weight: bold; }
+    .history-item { 
+      background: white; border-radius: 10px; padding: 10px; margin-bottom: 8px;
+      border-left: 4px solid var(--primary); cursor: pointer;
+    }
+    .history-date { font-weight: bold; font-size: 0.8rem; display: flex; justify-content: space-between; }
+    .history-title { font-size: 0.85rem; margin: 3px 0; color: #333; }
+
+    /* 완독 리스트 */
+    .completed-item { font-size: 0.85rem; padding: 5px 0; border-bottom: 1px dashed #eee; display: flex; justify-content: space-between; }
+    .completed-item:last-child { border-bottom: none; }
+
+    .edit-mode-active { border: 2px solid var(--edit) !important; background: #fffdf9 !important; }
+    .btn-edit { background: var(--edit); }
+    .btn-delete { background: var(--delete); flex: 0.4; }
+    .btn-cancel { background: #888; flex: 0.4; }
+  </style>
+</head>
+<body>
+
+  <header><h1>책 백만쪽 읽기</h1></header>
+
+  <div id="input-container">
+    <div class="card" id="inputCard">
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 8px;">
+        <div><label>날짜</label><input type="date" id="date" /></div>
+        <div><label>책 제목</label><input type="text" id="title" placeholder="책 제목" /></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div><label>시작 페이지</label><input type="number" id="startPage" /></div>
+        <div><label>종료 페이지</label><input type="number" id="endPage" /></div>
+      </div>
+      <div id="normal-btns"><button onclick="saveEntry()">기록하기</button></div>
+      <div id="edit-btns" style="display: none;" class="btn-group">
+        <button class="btn-edit" onclick="saveEntry()">수정완료</button>
+        <button class="btn-delete" onclick="deleteEntry()">삭제</button>
+        <button class="btn-cancel" onclick="cancelEdit()">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="scroll-area">
+    <!-- 그래프 카드 -->
+    <div class="card">
+      <div id="percent-val" class="percent-text">0.000%</div>
+      <div class="progress-wrapper"><div id="progress-bar"></div></div>
+      <div id="total-text" style="text-align:center; font-size:0.8rem; margin-top:8px; color:#666;">누적 0p / 1,000,000p</div>
+    </div>
+
+    <!-- 완독한 책 카드 -->
+    <div class="section-title">🏆 읽은 책 목록</div>
+    <div class="card" id="completed-box" style="min-height: 40px;">
+      <div id="completed-list"></div>
+    </div>
+
+    <!-- 최근 내역 -->
+    <div class="section-title">📅 최근 독서 기록</div>
+    <div id="history-list"></div>
+  </div>
+
+  <script>
+    const TARGET = 1000000;
+    let entries = JSON.parse(localStorage.getItem('readingEntries') || '[]');
+    let editIndex = -1;
+
+    document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+
+    function saveEntry() {
+      const date = document.getElementById('date').value;
+      const title = document.getElementById('title').value || "제목 없음";
+      const start = Number(document.getElementById('startPage').value);
+      const end = Number(document.getElementById('endPage').value);
+
+      if (!date || isNaN(start) || isNaN(end)) { alert("정보를 모두 입력해 주세요."); return; }
+
+      const newEntry = { date, title, startPage: start, endPage: end, pages: (end - start + 1) };
+
+      if (editIndex === -1) { entries.push(newEntry); } 
+      else { entries[editIndex] = newEntry; }
+
+      localStorage.setItem('readingEntries', JSON.stringify(entries));
+      
+      // 제목/종료페이지 유지, 시작페이지는 종료+1
+      document.getElementById('startPage').value = end + 1;
+      
+      cancelEdit(); 
+      render();
+    }
+
+    function deleteEntry() {
+      if (confirm("기록을 삭제하시겠습니까?")) {
+        entries.splice(editIndex, 1);
+        localStorage.setItem('readingEntries', JSON.stringify(entries));
+        cancelEdit();
+        render();
+      }
+    }
+
+    function startEdit(index) {
+      editIndex = index;
+      const t = entries[index];
+      document.getElementById('date').value = t.date;
+      document.getElementById('title').value = t.title;
+      document.getElementById('startPage').value = t.startPage;
+      document.getElementById('endPage').value = t.endPage;
+
+      document.getElementById('inputCard').classList.add('edit-mode-active');
+      document.getElementById('normal-btns').style.display = 'none';
+      document.getElementById('edit-btns').style.display = 'flex';
+      document.getElementById('scroll-area').scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function cancelEdit() {
+      editIndex = -1;
+      document.getElementById('inputCard').classList.remove('edit-mode-active');
+      document.getElementById('normal-btns').style.display = 'block';
+      document.getElementById('edit-btns').style.display = 'none';
+    }
+
+    function render() {
+      const historyDiv = document.getElementById('history-list');
+      historyDiv.innerHTML = '';
+      let totalSum = 0;
+      let bookStats = {};
+
+      [...entries].reverse().forEach((item, revIdx) => {
+        totalSum += item.pages;
+        const actualIdx = entries.length - 1 - revIdx;
+
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.onclick = () => startEdit(actualIdx);
+        div.innerHTML = `
+          <div class="history-date"><span>${item.date}</span><span style="color:var(--primary)">+${item.pages}p</span></div>
+          <div class="history-title">${item.title}</div>
+        `;
+        historyDiv.appendChild(div);
+
+        if (!bookStats[item.title]) bookStats[item.title] = 0;
+        bookStats[item.title] += item.pages;
+      });
+
+      const completedDiv = document.getElementById('completed-list');
+      completedDiv.innerHTML = '';
+      const bookTitles = Object.keys(bookStats);
+      if (bookTitles.length === 0) {
+        completedDiv.innerHTML = '<div style="color:#aaa; font-size:0.8rem; text-align:center;">아직 읽은 책 기록이 없습니다.</div>';
+      } else {
+        bookTitles.forEach(title => {
+          const item = document.createElement('div');
+          item.className = 'completed-item';
+          item.innerHTML = `<span>📖 ${title}</span> <b>${bookStats[title].toLocaleString()}p</b>`;
+          completedDiv.appendChild(item);
+        });
+      }
+
+      const rawPercent = Math.min((totalSum / TARGET) * 100, 100);
+      const displayPercent = rawPercent >= 100 ? '100%' : rawPercent.toFixed(3) + '%';
+      document.getElementById('percent-val').innerText = displayPercent;
+      document.getElementById('progress-bar').style.width = rawPercent + '%';
+      document.getElementById('total-text').innerText = `누적 ${totalSum.toLocaleString()}p / ${TARGET.toLocaleString()}p`;
+    }
+
+    render();
+  </script>
+</body>
+</html>
